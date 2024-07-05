@@ -27,7 +27,7 @@ print(2 + 2)
 ```
 
 ```{admonition} Silahkan 
-An "extra credit" exercise is presented here.
+Silahkan cek referensi untuk merubah admintaon https://jupyterbook.org/en/stable/advanced/html.html
 ```
 
 When your book is built, the contents of any `{code-cell}` blocks will be
