@@ -30,7 +30,7 @@ When your book is built, the contents of any `{code-cell}` blocks will be
 executed with your default Jupyter kernel, and their outputs will be displayed
 in-line with the rest of your content.
 
-```{seealso}
+```{seealso  "Silahkan lihat"}
 Jupyter Book uses [Jupytext](https://jupytext.readthedocs.io/en/latest/) to convert text-based files to notebooks, and can support [many other text-based notebook files](https://jupyterbook.org/file-types/jupytext.html).
 ```
 
