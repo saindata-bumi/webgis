@@ -5,7 +5,7 @@ Ini adalah portal kursus, tutorial, dan tools online gratis Sains data tentang B
 Kursus, tutorial, dan tools online gratis untuk memberikan landasan dalam sains data untuk ilmu Bumi.Selanjutnya pada portal ini juga akan mempelajari penggunaan Python untuk analisis data.
 
 <p style="text-align:center;"> 
-<img src="https://saindata-bumi.github.io/webgis/img/wordcloud.png alt="">
+<img src="https://saindata-bumi.github.io/webgis/img/wordcloud.png">
 </p>
 
 |              Kursus              |                           Tutorial                           |    Tools     |
