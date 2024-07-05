@@ -6,7 +6,7 @@ Kursus, tutorial, dan tools online gratis untuk memberikan landasan dalam sains 
 
 |              Kursus              |        Tutorial         |    Tools     |
 | :------------------------------: | :---------------------: | :----------: |
-|   Pengantar Pembelajaran Mesin   |  Akses data Copernicus  | Mathplotlib  |
+|   Pengantar Pembelajaran Mesin   |  [Akses data Copernicus](https://saindata-bumi.github.io/webgis/notebooks.html)  | Mathplotlib  |
 | Implementasi Pembelajaran Messin | Akses data Googel Earth | Scikit_learn |
 
 > Silahkan pelajari [disini](https://www.earthdatascience.org/tools/). untuk lebih detailnya
