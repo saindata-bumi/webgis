@@ -1,23 +1,15 @@
-<style>
-div {
-  border: 1px solid black;
-  padding: 10px;
-  width: 200px;
-  height: 200px;
-  text-align: justify;
-}
-</style>
 
 
 # Pengantar
-<div>
+
+<p align="justify">
 Ini adalah portal kursus, tutorial, dan tools online gratis Sains data tentang Bumi
 Kursus, tutorial, dan tools online gratis untuk memberikan landasan dalam sains data untuk ilmu Bumi.Selanjutnya pada portal ini juga akan mempelajari penggunaan Python untuk analisis data.
-
+</p>
 <p style="text-align:center;"> 
 <img src="https://saindata-bumi.github.io/webgis/img/wordcloud.png">
 </p>
-</div>
+
 |              Kursus              |                           Tutorial                           |    Tools     |
 | :------------------------------: | :----------------------------------------------------------: | :----------: |
 |   Pengantar Pembelajaran Mesin   | [Akses data Copernicus](https://saindata-bumi.github.io/webgis/notebooks.html) | Mathplotlib  |
