@@ -1,11 +1,9 @@
-# Welcome to your Jupyter Book
+# Peliharalah Bumi dan Rawatlah Bumi 
 
-This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information.
+TKursus, tutorial, dan tools online gratis untuk belajar Sains data tentang Bumi
+Belajar untuk menggunakan ilmu bumi dan data bumi dalam R dan Python to use earth science and other data in R & Python
 
-Check out the content pages bundled with this sample book to see more.
+
 
 ```{tableofcontents}
 ```
