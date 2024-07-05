@@ -9,7 +9,7 @@ Kursus, tutorial, dan tools online gratis untuk memberikan landasan dalam sains 
 |   Pengantar Pembelajaran Mesin   |  Akses data Copernicus  | Mathplotlib  |
 | Implementasi Pembelajaran Messin | Akses data Googel Earth | Scikit_learn |
 
-
+> Silahkan pelajari [disini](https://www.earthdatascience.org/tools/). untuk lebih detailnya
 
 Alat platform yang digunakan adalah
 
