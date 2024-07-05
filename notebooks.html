@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Understanding Machine Learning Workflows &#8212; My sample book</title>
+    <title>Memahami Alur Kerja Pembelajaran Mesin &#8212; My sample book</title>
   
   
   
@@ -175,13 +175,13 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Welcome to your Jupyter Book
+                    Pengantar
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Understanding Machine Learning Workflows</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Memahami Alur Kerja Pembelajaran Mesin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
 </ul>
 
@@ -368,7 +368,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Understanding Machine Learning Workflows</h1>
+    <h1>Memahami Alur Kerja Pembelajaran Mesin</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -378,10 +378,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#watch-the-video-tutorial">Watch the video tutorial</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-your-machine-learning-problem"><a id="understand"></a>1. Understanding your Machine Learning problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengantar">Pengantar</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#garis-besar-pembahasan">Garis besar pembahasan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memahami-masalah-pembelajaran-mesin-anda"><a id="understand"></a>1. Memahami masalah pembelajaran mesin anda</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#artificial-intelligence-vs-machine-learning-vs-deep-learning">Artificial Intelligence vs. Machine Learning vs. Deep Learning</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning-categories">Machine Learning Categories</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-learning">Supervised Learning</a></li>
@@ -412,44 +411,29 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <center><img src='../../img/ai4eo_logos.jpg' alt='Logos AI4EO MOOC' width='80%'></img></center><hr><p><a href='https://www.futurelearn.com/courses/artificial-intelligence-for-earth-monitoring/1/steps/1280510' target='_blank'>&lt;&lt; Back to FutureLearn</a><br></p>
-<section class="tex2jax_ignore mathjax_ignore" id="understanding-machine-learning-workflows">
-<h1>Understanding Machine Learning Workflows<a class="headerlink" href="#understanding-machine-learning-workflows" title="Link to this heading">#</a></h1>
-<p><em>by Julia Wagemann, MEEO S.r.l.</em></p>
-<hr><section id="watch-the-video-tutorial">
-<h2>Watch the video tutorial<a class="headerlink" href="#watch-the-video-tutorial" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
-<span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&lt;div align=&quot;center&quot;&gt;&lt;iframe src=&quot;https://player.vimeo.com/video/636104119?h=47a1dff635&quot; width=&quot;640&quot; height=&quot;360&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; fullscreen; picture-in-picture&quot; allowfullscreen align=&quot;middle&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;&#39;</span><span class="p">)</span>     
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div align="center"><iframe src="https://player.vimeo.com/video/636104119?h=47a1dff635" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen align="middle"></iframe></div></div></div>
-</div>
-<hr></section>
-<section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+  <hr><section class="tex2jax_ignore mathjax_ignore" id="memahami-alur-kerja-pembelajaran-mesin">
+<h1>Memahami Alur Kerja Pembelajaran Mesin<a class="headerlink" href="#memahami-alur-kerja-pembelajaran-mesin" title="Link to this heading">#</a></h1>
+<p><em>by Mulaab Muyo</em></p>
+<hr><hr><section id="pengantar">
+<h2>Pengantar<a class="headerlink" href="#pengantar" title="Link to this heading">#</a></h2>
 <p>This notebook provides you an overview of the individual steps of a Machine Learning workflow. It provides you, before we start with the domain-specific applications, a general introduction into the principles of Machine Learning, the commonly used nomenclature and a Machine Learning workflow.</p>
-<p>A Machine Learning workflow can be divided in five main steps:</p>
-<p><img src='../../img/ml_workflow.png' alt='Logos AI4EO MOOC' width='60%'></img></p>
-<p>Subsequently, we will explain you in detail each of the five workflow steps.
-If applicable, we link to domain-specific examples that will be offered in the domain-specific weeks of this course.</p>
+<p>Bagian ini memberikan  gambaran umum tentang langkah-langkah  alur kerja Machine Learning. Sebelum memulai pada implementasi sain data bumi, kita perlu mengenal secara  umum tentang prinsip-prinsip Pembelajaran Mesin, istilah umum yang sering digunakan dan alur kerja Pembelajaran Mesin</p>
+<p>Alur kerja Machine Learning dapat dibagi menjadi lima langkah utama:</p>
+<p><img src='img/ml_workflow.png' alt='Logos AI4EO MOOC' width='60%'></img></p>
+<p>elanjutnya, kami akan menjelaskan kepada Anda secara rinci masing-masing dari lima langkah alur kerja. Jika diperlukan, kami mengkaitkan dengan contoh  khusus sesuai dengan langkah tersebut</p>
 <hr></section>
-<section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<section id="garis-besar-pembahasan">
+<h2>Garis besar pembahasan<a class="headerlink" href="#garis-besar-pembahasan" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#understand"><span class="xref myst">1 - Understanding your Machine Learning problem</span></a></p></li>
-<li><p><a class="reference internal" href="#data_preparation"><span class="xref myst">2 - Data preparation</span></a></p></li>
-<li><p><a class="reference internal" href="#model_training"><span class="xref myst">3 - Building, training and testing the model</span></a></p></li>
-<li><p><a class="reference internal" href="#model_evaluation"><span class="xref myst">4 - Model evaluation</span></a></p></li>
-<li><p><a class="reference internal" href="#inference"><span class="xref myst">5 - Inference</span></a></p></li>
+<li><p>[1 - <a class="reference internal" href="#understand"><span class="xref myst">Memahami masalah pembelajaran mesin anda</span></a></p></li>
+<li><p>[2 - <a class="reference internal" href="#data_preparation"><span class="xref myst">Persiapan data </span></a></p></li>
+<li><p>[3 - <a class="reference internal" href="#model_training"><span class="xref myst">Membangun model , training dan testing the model</span></a></p></li>
+<li><p>[4 - <a class="reference internal" href="#model_evaluation"><span class="xref myst">Evaluasi Model</span></a></p></li>
+<li><p>[5 - <a class="reference internal" href="#inference"><span class="xref myst">Inference</span></a></p></li>
 </ul>
 <hr><br></section>
-<section id="understanding-your-machine-learning-problem">
-<h2><a id='understand'></a>1. Understanding your Machine Learning problem<a class="headerlink" href="#understanding-your-machine-learning-problem" title="Link to this heading">#</a></h2>
-<p><img src='../../img/ml_workflow_1.png' alt='Logos AI4EO MOOC' width='50%'></img></p>
+<section id="memahami-masalah-pembelajaran-mesin-anda">
+<h2><a id='understand'></a>1. Memahami masalah pembelajaran mesin anda<a class="headerlink" href="#memahami-masalah-pembelajaran-mesin-anda" title="Link to this heading">#</a></h2>
 <p>The first step in every Machine Learning project is to make yourself clear with the problem you would like to solve and based on the problem you select a Machine Learning (ML) model. A good understanding of your problem is key for the success of your project. The ML model you select is only an algorithm and the accuracy of the prediction or classification depends on your understanding of the ML problem and the data you provide to the ML model.</p>
 <section id="artificial-intelligence-vs-machine-learning-vs-deep-learning">
 <h3>Artificial Intelligence vs. Machine Learning vs. Deep Learning<a class="headerlink" href="#artificial-intelligence-vs-machine-learning-vs-deep-learning" title="Link to this heading">#</a></h3>
@@ -521,6 +505,13 @@ If applicable, we link to domain-specific examples that will be offered in the d
 <li><p><code class="docutils literal notranslate"><span class="pre">K-Means</span> <span class="pre">Clustering</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Spectral</span> <span class="pre">Clustering</span></code></p></li>
 </ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Referensi</span>
+</pre></div>
+</div>
+</div>
+</div>
 <br><p><strong>ML example using an unsupervised learning alogorithm</strong><br></p>
 <blockquote>
 <div><p><strong>Week 3</strong></p>
@@ -736,10 +727,9 @@ If applicable, we link to domain-specific examples that will be offered in the d
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#watch-the-video-tutorial">Watch the video tutorial</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-your-machine-learning-problem"><a id="understand"></a>1. Understanding your Machine Learning problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengantar">Pengantar</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#garis-besar-pembahasan">Garis besar pembahasan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memahami-masalah-pembelajaran-mesin-anda"><a id="understand"></a>1. Memahami masalah pembelajaran mesin anda</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#artificial-intelligence-vs-machine-learning-vs-deep-learning">Artificial Intelligence vs. Machine Learning vs. Deep Learning</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning-categories">Machine Learning Categories</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-learning">Supervised Learning</a></li>
