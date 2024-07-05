@@ -15,7 +15,7 @@ Kursus, tutorial, dan tools online gratis untuk memberikan landasan dalam sains 
 
 |                         Mulaab Mulyo                         |                       Muhammad Syarif                        |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| ![](https://mulaab.github.io/authors/admin/avatar_hubbf8cd69e817f868f48e6cd8dbaf10a0_30117_250x250_fill_q90_lanczos_center.jpg) | ![](https://si.trunojoyo.ac.id/wp-content/uploads/2024/05/syarief-288x300.png) |
+| ![](| ![](img\mulaab.png) |) | ![](| ![](img\syarif.png)|
 
 
 
