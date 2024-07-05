@@ -13,9 +13,9 @@ Kursus, tutorial, dan tools online gratis untuk memberikan landasan dalam sains 
 
 **Peneliti**
 
-|                         Mulaab Mulyo                         |                       Muhammad Syarif                        |
-| :----------------------------------------------------------: | :----------------------------------------------------------: |
-| ![](| ![](img\mulaab.png) |) | ![](| ![](img\syarif.png)|
+|    Mulaab Mulyo     |   Muhammad Syarif   |
+| :-----------------: | :-----------------: |
+| ![](img\mulaab.png) | ![](img\syarif.png) |
 
 
 
