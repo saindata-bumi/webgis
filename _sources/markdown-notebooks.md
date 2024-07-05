@@ -26,7 +26,7 @@ With MyST Markdown, you can define code cells with a directive like so:
 print(2 + 2)
 ```
 
-```{admonition} Extra credit
+```{admonition} Silahkan 
 An "extra credit" exercise is presented here.
 ```
 
