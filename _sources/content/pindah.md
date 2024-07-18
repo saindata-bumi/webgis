@@ -5,4 +5,4 @@ Kadang kala kita membutuhkan salah satu folder pada suatu repositori github yang
 2. Tentukan folder yang akan di pindahkan, misal folder di https://github.com/sentinel-hub/eo-learn/tree/master/examples
 3. ketik perintah gh-folder-download --url https://github.com/sentinel-hub/eo-learn/tree/master/examples --force
 4. Selesai (perhatikan apakah folder sudah berpindah didirekotri kita
-5. 
+   
