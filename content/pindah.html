@@ -183,6 +183,7 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Menyalin folder dari Github</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
 </ul>
 
@@ -356,7 +357,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -372,6 +375,16 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Menyalin folder dari Github</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mengextract-file-zip-rar">Mengextract file zip, rar</a></li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -383,12 +396,21 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="menyalin-folder-dari-github">
 <h1>Menyalin folder dari Github<a class="headerlink" href="#menyalin-folder-dari-github" title="Link to this heading">#</a></h1>
-<p>Kadang kala kita membutuhkan salah satu folder pada suatu repositori github yang harus kita pindahkan kedalam ruang kerja kita. Setelah browsing di <a class="reference external" href="https://pypi.org/project">https://pypi.org/project</a> saya menemukan package yang memudahkan untuk melakukan itu di <a class="reference external" href="https://pypi.org/project/gh-folder-download/">https://pypi.org/project/gh-folder-download/</a>. Berikut langkah langkah yang harus dilakukan</p>
+<p>Kadang kala kita membutuhkan salah satu folder pada suatu repositori github yang harus kita pindahkan kedalam ruang kerja kita. Setelah browsing di [<a class="reference external" href="https://pypi.org/project">https://pypi.org/project</a>] saya menemukan package yang memudahkan untuk melakukan itu di <a class="reference external" href="https://pypi.org/project/gh-folder-download/">https://pypi.org/project/gh-folder-download/</a>. Berikut langkah langkah yang harus dilakukan</p>
 <ol class="arabic simple">
 <li><p>Install paket tersebut dengan perintah pip install gh-folder-download</p></li>
-<li><p>Tentukan folder yang akan di pindahkan, misal folder di ‘<a class="github reference external" href="https://github.com/sentinel-hub/eo-learn/tree/master/examples">sentinel-hub/eo-learn</a>’</p></li>
-<li><p>ketik perintah gh-folder-download –url ‘<a class="github reference external" href="https://github.com/sentinel-hub/eo-learn/tree/master/examples">sentinel-hub/eo-learn</a> –force’</p></li>
-<li><p>Selesai (perhatikan apakah folder sudah berpindah didirekotri kita</p></li>
+<li><p>Tentukan folder yang akan di pindahkan, misal folder di [<a class="github reference external" href="https://github.com/sentinel-hub/eo-learn/tree/master/examples">sentinel-hub/eo-learn</a>]</p></li>
+<li><p>ketik perintah gh-folder-download –url [<a class="github reference external" href="https://github.com/sentinel-hub/eo-learn/tree/master/examples">sentinel-hub/eo-learn</a> –force]</p></li>
+<li><p>Selesai (perhatikan apakah folder sudah berpindah didirekotri kita)</p></li>
+</ol>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="mengextract-file-zip-rar">
+<h1>Mengextract file zip, rar<a class="headerlink" href="#mengextract-file-zip-rar" title="Link to this heading">#</a></h1>
+<ol class="arabic simple">
+<li><p>pip install patool</p></li>
+<li><p>tampatkan file pada diretory aktif misalkan contoh.zip</p></li>
+<li><p>Ketik pada terminal patool extract contoh.zip</p></li>
+<li><p>Selesai</p></li>
 </ol>
 </section>
 
@@ -446,6 +468,23 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Menyalin folder dari Github</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mengextract-file-zip-rar">Mengextract file zip, rar</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>
