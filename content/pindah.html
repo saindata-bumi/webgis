@@ -184,6 +184,7 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Menyalin folder dari Github</a></li>
 
+
 <li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
 </ul>
 
@@ -385,6 +386,20 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menyalin-folder-dari-google-drive">Menyalin folder dari google drive</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dillinger">Dillinger</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-last-markdown-editor-ever"><em>The Last Markdown Editor, Ever</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features">Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tech">Tech</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plugins">Plugins</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development">Development</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-for-source">Building for source</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker">Docker</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
+</ul>
+</li>
 </ul>
 
             </nav>
@@ -417,22 +432,175 @@ document.write(`
 </ol>
 <section id="menyalin-folder-dari-google-drive">
 <h2>Menyalin folder dari google drive<a class="headerlink" href="#menyalin-folder-dari-google-drive" title="Link to this heading">#</a></h2>
-<div class="highlight-plantuml notranslate"><div class="highlight"><pre><span></span>start
-if (condition A) then (yes)
-  :Text 1;
-elseif (condition B) then (yes)
-  :Text 2;
-  stop
-elseif (condition C) then (yes)
-  :Text 3;
-elseif (condition D) then (yes)
-  :Text 4;
-else (nothing)
-  :Text else;
-endif
-stop
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="dillinger">
+<h1>Dillinger<a class="headerlink" href="#dillinger" title="Link to this heading">#</a></h1>
+<section id="the-last-markdown-editor-ever">
+<h2><em>The Last Markdown Editor, Ever</em><a class="headerlink" href="#the-last-markdown-editor-ever" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://nodesource.com/products/nsolid"><img alt="N|Solid" src="https://cldup.com/dTxpPi9lDf.thumb.png" /></a></p>
+<p><a class="reference external" href="https://travis-ci.org/joemccann/dillinger"><img alt="Build Status" src="https://travis-ci.org/joemccann/dillinger.svg?branch=master" /></a></p>
+<p>Dillinger is a cloud-enabled, mobile-ready, offline-storage compatible,
+AngularJS-powered HTML5 Markdown editor.</p>
+<ul class="simple">
+<li><p>Type some Markdown on the left</p></li>
+<li><p>See HTML in the right</p></li>
+<li><p>✨Magic ✨</p></li>
+</ul>
+</section>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Import a HTML file and watch it magically convert to Markdown</p></li>
+<li><p>Drag and drop images (requires your Dropbox account be linked)</p></li>
+<li><p>Import and save files from GitHub, Dropbox, Google Drive and One Drive</p></li>
+<li><p>Drag and drop markdown and HTML files into Dillinger</p></li>
+<li><p>Export documents as Markdown, HTML and PDF</p></li>
+</ul>
+<p>Markdown is a lightweight markup language based on the formatting conventions
+that people naturally use in email.
+As <a class="reference external" href="http://daringfireball.net">John Gruber</a> writes on the <a class="reference external" href="http://daringfireball.net/projects/markdown/">Markdown site</a></p>
+<blockquote>
+<div><p>The overriding design goal for Markdown’s
+formatting syntax is to make it as readable
+as possible. The idea is that a
+Markdown-formatted document should be
+publishable as-is, as plain text, without
+looking like it’s been marked up with tags
+or formatting instructions.</p>
+</div></blockquote>
+<p>This text you see here is *actually- written in Markdown! To get a feel
+for Markdown’s syntax, type some text into the left window and
+watch the results in the right.</p>
+</section>
+<section id="tech">
+<h2>Tech<a class="headerlink" href="#tech" title="Link to this heading">#</a></h2>
+<p>Dillinger uses a number of open source projects to work properly:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://angularjs.org">AngularJS</a> - HTML enhanced for web apps!</p></li>
+<li><p><a class="reference external" href="http://ace.ajax.org">Ace Editor</a> - awesome web-based text editor</p></li>
+<li><p><a class="reference external" href="https://github.com/markdown-it/markdown-it">markdown-it</a> - Markdown parser done right. Fast and easy to extend.</p></li>
+<li><p><a class="reference external" href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> - great UI boilerplate for modern web apps</p></li>
+<li><p><a class="reference external" href="http://nodejs.org">node.js</a> - evented I/O for the backend</p></li>
+<li><p><a class="reference external" href="http://expressjs.com">Express</a> - fast node.js network app framework <a class="reference external" href="http://twitter.com/tjholowaychuk">&#64;tjholowaychuk</a></p></li>
+<li><p><a class="reference external" href="http://gulpjs.com">Gulp</a> - the streaming build system</p></li>
+<li><p><a class="reference external" href="https://breakdance.github.io/breakdance/">Breakdance</a> - HTML
+to Markdown converter</p></li>
+<li><p><a class="reference external" href="http://jquery.com">jQuery</a> - duh</p></li>
+</ul>
+<p>And of course Dillinger itself is open source with a <a class="reference external" href="https://github.com/joemccann/dillinger">public repository</a>
+on GitHub.</p>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<p>Dillinger requires <a class="reference external" href="https://nodejs.org/">Node.js</a> v10+ to run.</p>
+<p>Install the dependencies and devDependencies and start the server.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>dillinger
+npm<span class="w"> </span>i
+node<span class="w"> </span>app
 </pre></div>
 </div>
+<p>For production environments…</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>npm<span class="w"> </span>install<span class="w"> </span>--production
+<span class="nv">NODE_ENV</span><span class="o">=</span>production<span class="w"> </span>node<span class="w"> </span>app
+</pre></div>
+</div>
+</section>
+<section id="plugins">
+<h2>Plugins<a class="headerlink" href="#plugins" title="Link to this heading">#</a></h2>
+<p>Dillinger is currently extended with the following plugins.
+Instructions on how to use them in your own application are linked below.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Plugin</p></th>
+<th class="head"><p>README</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Dropbox</p></td>
+<td><p><a class="reference external" href="https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md">plugins/dropbox/README.md</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>GitHub</p></td>
+<td><p><a class="reference external" href="https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md">plugins/github/README.md</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Google Drive</p></td>
+<td><p><a class="reference external" href="https://github.com/joemccann/dillinger/tree/master/plugins/googledrive/README.md">plugins/googledrive/README.md</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>OneDrive</p></td>
+<td><p><a class="reference external" href="https://github.com/joemccann/dillinger/tree/master/plugins/onedrive/README.md">plugins/onedrive/README.md</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Medium</p></td>
+<td><p><a class="reference external" href="https://github.com/joemccann/dillinger/tree/master/plugins/medium/README.md">plugins/medium/README.md</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Google Analytics</p></td>
+<td><p><a class="reference external" href="https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md">plugins/googleanalytics/README.md</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="development">
+<h2>Development<a class="headerlink" href="#development" title="Link to this heading">#</a></h2>
+<p>Want to contribute? Great!</p>
+<p>Dillinger uses Gulp + Webpack for fast developing.
+Make a change in your file and instantaneously see your updates!</p>
+<p>Open your favorite Terminal and run these commands.</p>
+<p>First Tab:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>node<span class="w"> </span>app
+</pre></div>
+</div>
+<p>Second Tab:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>gulp<span class="w"> </span>watch
+</pre></div>
+</div>
+<p>(optional) Third:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>karma<span class="w"> </span><span class="nb">test</span>
+</pre></div>
+</div>
+<section id="building-for-source">
+<h3>Building for source<a class="headerlink" href="#building-for-source" title="Link to this heading">#</a></h3>
+<p>For production release:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>gulp<span class="w"> </span>build<span class="w"> </span>--prod
+</pre></div>
+</div>
+<p>Generating pre-built zip archives for distribution:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>gulp<span class="w"> </span>build<span class="w"> </span>dist<span class="w"> </span>--prod
+</pre></div>
+</div>
+</section>
+</section>
+<section id="docker">
+<h2>Docker<a class="headerlink" href="#docker" title="Link to this heading">#</a></h2>
+<p>Dillinger is very easy to install and deploy in a Docker container.</p>
+<p>By default, the Docker will expose port 8080, so change this within the
+Dockerfile if necessary. When ready, simply use the Dockerfile to
+build the image.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>dillinger
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>&lt;youruser&gt;/dillinger:<span class="si">${</span><span class="nv">package</span><span class="p">.json.version</span><span class="si">}</span><span class="w"> </span>.
+</pre></div>
+</div>
+<p>This will create the dillinger image and pull in the necessary dependencies.
+Be sure to swap out <code class="docutils literal notranslate"><span class="pre">${package.json.version}</span></code> with the actual
+version of Dillinger.</p>
+<p>Once done, run the Docker image and map the port to whatever you wish on
+your host. In this example, we simply map port 8000 of the host to
+port 8080 of the Docker (or whatever port was exposed in the Dockerfile):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8080<span class="w"> </span>--restart<span class="o">=</span>always<span class="w"> </span>--cap-add<span class="o">=</span>SYS_ADMIN<span class="w"> </span>--name<span class="o">=</span>dillinger<span class="w"> </span>&lt;youruser&gt;/dillinger:<span class="si">${</span><span class="nv">package</span><span class="p">.json.version</span><span class="si">}</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Note: <code class="docutils literal notranslate"><span class="pre">--capt-add=SYS-ADMIN</span></code> is required for PDF rendering.</p>
+</div></blockquote>
+<p>Verify the deployment by navigating to your server address in
+your preferred browser.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="m">127</span>.0.0.1:8000
+</pre></div>
+</div>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading">#</a></h2>
+<p>MIT</p>
+<p><strong>Free Software, Hell Yeah!</strong></p>
 </section>
 </section>
 
@@ -503,6 +671,20 @@ stop
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Menyalin folder dari Github</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mengextract-file-zip-rar">Mengextract file zip, rar</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menyalin-folder-dari-google-drive">Menyalin folder dari google drive</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dillinger">Dillinger</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-last-markdown-editor-ever"><em>The Last Markdown Editor, Ever</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features">Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tech">Tech</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plugins">Plugins</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development">Development</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-for-source">Building for source</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker">Docker</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
 </ul>
 </li>
 </ul>
