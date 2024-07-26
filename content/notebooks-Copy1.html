@@ -414,9 +414,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <hr><section class="tex2jax_ignore mathjax_ignore" id="alur-kerja-pembelajaran-mesin">
+  <hr><section id="alur-kerja-pembelajaran-mesin">
 <h1>Alur Kerja Pembelajaran Mesin<a class="headerlink" href="#alur-kerja-pembelajaran-mesin" title="Link to this heading">#</a></h1>
-<p><em>referensi : <a class="github reference external" href="https://github.com/wekeo/ai4EM_MOOC/tree/main/2_ai4eo/2C_Understanding_ML_workflows">wekeo/ai4EM_MOOC</a></em></p>
+<p><em>referensi : https://github.com/wekeo/ai4EM_MOOC/tree/main/2_ai4eo/2C_Understanding_ML_workflows</em></p>
 <hr><hr><section id="pengantar">
 <h2>Pengantar<a class="headerlink" href="#pengantar" title="Link to this heading">#</a></h2>
 <p align="justify"> Bagian ini memberikan  gambaran umum tentang langkah-langkah  alur kerja Machine Learning. Sebelum memulai pada implementasi sain data bumi, kita perlu mengenal secara  umum tentang prinsip-prinsip Pembelajaran Mesin, istilah umum yang sering digunakan dan alur kerja Pembelajaran Mesin
@@ -569,7 +569,7 @@ document.write(`
 </section>
 <section id="data-preparation">
 <h2><a id='data_preparation'></a>2. Data preparation<a class="headerlink" href="#data-preparation" title="Link to this heading">#</a></h2>
-<p><img src='../../img/ml_workflow_2.png' alt='Logos AI4EO MOOC' width='50%'></img></p>
+<p><a class="reference internal" href="../img/ml_workflow_2.png"><img alt="Logos AI4EO MOOC" src="../img/ml_workflow_2.png" style="width: 50%;" /></a></img></p>
 <p>Data preparation, including cleaning and pre-processing, is often the most time-consuming aspect. In fact, many of the examples provided in this course work with already pre-processed data. Data is the foundational aspect of machine learning that can impact performance, fairness, robutness and scalability of your ML system. In the end, your result depends on the accuracy of your input data. Data in its raw form cannot be used for most Machine Learning algorithms and depending on your ML problem, the algorithm and Python package you are using, you have to pre-process the data.</p>
 <p>Common pre-processing steps specifically for <strong>Earth Observation</strong> data are:</p>
 <ul class="simple">
@@ -588,7 +588,7 @@ document.write(`
 <br></section>
 <section id="building-training-and-testing-the-model">
 <h2><a id='model_training'></a>3. Building, training and testing the model<a class="headerlink" href="#building-training-and-testing-the-model" title="Link to this heading">#</a></h2>
-<p><img src='../../img/ml_workflow_3.png' alt='Logos AI4EO MOOC' width='50%'></img></p>
+<p><a class="reference internal" href="../img/ml_workflow_3.png"><img alt="Logos AI4EO MOOC" src="../img/ml_workflow_3.png" style="width: 50%;" /></a></img></p>
 <p>After data pre-processing, you can start with building your Machine Learning model. The first step is to split your data in <code class="docutils literal notranslate"><span class="pre">training</span></code>, <code class="docutils literal notranslate"><span class="pre">validation</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> data followed by building the model with defining a set of <code class="docutils literal notranslate"><span class="pre">hyperparameters</span></code>. Afterwards, you run (train) the model.</p>
 <section id="splitting-the-data">
 <h3>Splitting the data<a class="headerlink" href="#splitting-the-data" title="Link to this heading">#</a></h3>
@@ -628,7 +628,7 @@ document.write(`
 </section>
 <section id="model-evaluation">
 <h2><a id='model_evaluation'></a>4. Model evaluation<a class="headerlink" href="#model-evaluation" title="Link to this heading">#</a></h2>
-<p><img src='../../img/ml_workflow_4.png' alt='Logos AI4EO MOOC' width='50%'></img></p>
+<p><a class="reference internal" href="../img/ml_workflow_4.png"><img alt="Logos AI4EO MOOC" src="../img/ml_workflow_4.png" style="width: 50%;" /></a></img></p>
 <p>After your model is trained, you want to know the performance and accuracy of your model. For this reason, the evaluation of the trained model is an important step. Subsequently, we will present you a selection of common evaluation metrics for Machine Learning.</p>
 <p><strong>Note:</strong> We do not provide a full list of possible evaluation metrics, but rather a list of metrics that are used in this course. See the <a href='https://scikit-learn.org/stable/modules/model_evaluation.html' target='_blank'>documentation of scikit-learn’s metrics and scoring APIs</a> to get a good overview of common evaluation metrics for different Machine Learning categories.</p>
 <p><strong>General metrics:</strong></p>
@@ -650,7 +650,7 @@ document.write(`
 <br></section>
 <section id="inference-applying-a-trained-ml-model-to-make-predictions">
 <h2><a id='inference'></a> 5. Inference - Applying a trained ML model to make predictions<a class="headerlink" href="#inference-applying-a-trained-ml-model-to-make-predictions" title="Link to this heading">#</a></h2>
-<p><img src='../../img/ml_workflow_5.png' alt='Logos AI4EO MOOC' width='50%'></img></p>
+<p><a class="reference internal" href="../img/ml_workflow_5.png"><img alt="Logos AI4EO MOOC" src="../img/ml_workflow_5.png" style="width: 50%;" /></a></img></p>
 <p><strong>Inference</strong> is the process of applying a trained Machine Learning model to new data in order to make predictions. Logically, inference is the very last step of a Machine Learning workflow, because inference cannot happen without the previous steps.</p>
 <p><strong>Domain-specific inference examples shown in this course</strong>:</p>
 <ul class="simple">
@@ -658,7 +658,7 @@ document.write(`
 <li><p><a class="reference internal" href="#../../6_climate/6F_ml4floods/6F_ml4floods_inference.ipynb"><span class="xref myst">6F - ML4Floods - Inference of a flood extent segmentation model using Sentinel-2 data</span></a></p></li>
 </ul>
 <br><p><a href='https://www.futurelearn.com/courses/artificial-intelligence-for-earth-monitoring/1/steps/1280510' target='_blank'>&lt;&lt; Back to FutureLearn</a><br></p>
-<hr><p><img src='../../img/copernicus_logo.png' alt='Copernicus logo' align='left' width='20%'></img></p>
+<hr><p><a class="reference internal" href="../img/copernicus_logo.png"><img alt="Copernicus logo" class="align-left" src="../img/copernicus_logo.png" style="width: 20%;" /></a></img></p>
 <p>Course developed for <a href='https://www.eumetsat.int/' target='_blank'> EUMETSAT</a>, <a href='https://www.ecmwf.int/' target='_blank'> ECMWF</a> and <a href='https://www.mercator-ocean.fr/en/' target='_blank'> Mercator Ocean International</a> in support of the <a href='https://www.copernicus.eu/en' target='_blank'> EU’s Copernicus Programme</a> and the <a href='https://wekeo.eu/' target='_blank'> WEkEO platform</a>.</p>
 </section>
 </section>
