@@ -19,7 +19,8 @@ Kursus, tutorial, dan tools online gratis untuk memberikan landasan dalam sains 
 
 |    Mulaab Mulyo     |   Muhammad Syarif   |
 | :-----------------: | :-----------------: |
-| <img src="./img/mulaab.png"> |   <img src="./img/syarif.png">|
+|<img src="https://saindata-bumi.github.io/webgis/img/mulaab.png">|<<img src="https://saindata-bumi.github.io/webgis/img/syarif.png">
+|
 
 
 
