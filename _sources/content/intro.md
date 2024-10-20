@@ -3,8 +3,8 @@
 # Pengantar
 
 <p align="justify">
-Ini adalah portal kursus, tutorial, dan tools online gratis Sains data tentang Bumi
-Kursus, tutorial, dan tools online gratis untuk memberikan landasan dalam sains data untuk ilmu Bumi.Selanjutnya pada portal ini juga akan mempelajari penggunaan Python untuk analisis data.
+Ini adalah portal kursus, tutorial, dan tools online gratis Sains data tentang Bumi.
+Portal ini  untuk memberikan landasan dalam sains data untuk ilmu Bumi.Selanjutnya pada portal ini juga akan mempelajari penggunaan Python untuk analisis data.
 </p>
 <p style="text-align:center;"> 
 <img src="https://saindata-bumi.github.io/webgis/img/wordcloud.png"  style="width:300px;height:300px;">
