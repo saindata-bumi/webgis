@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Alur Kerja Pembelajaran Mesin &#8212; My sample book</title>
+    <title>Alur Kerja Pembelajaran Mesin &#8212; Sain Data Bumi</title>
   
   
   
@@ -155,8 +155,8 @@
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Sain Data Bumi - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Sain Data Bumi - Home"/>`);</script>
   
   
 </a></div>
@@ -184,8 +184,6 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pindah.html">Menyalin folder dari Github</a></li>
 
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Alur Kerja Pembelajaran Mesin</a></li>
-<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
 </ul>
 
     </div>
@@ -386,18 +384,19 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memahami-masalah-pembelajaran-mesin-anda"><a id="understand"></a>1. Memahami masalah pembelajaran mesin anda</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbedaan-mendasar-kecerdasan-buatan-pembelajaran-mesing-dan-deep-learning">Perbedaan mendasar Kecerdasan Buatan, Pembelajaran Mesing dan Deep Learning</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kategori-pembelajaran-mesin">Kategori Pembelajaran Mesin</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-learning">Supervised Learning</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-learning">Unsupervised Learning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelajaran-terawasi-supervised-learning">Pembelajaran Terawasi(Supervised Learning)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelajaran-tak-terawasi-unsupervised-learning">Pembelajaran Tak terawasi (Unsupervised Learning)</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reinforcement-learning">Reinforcement Learning</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-neural-networks">Deep Learning / Neural Networks</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-jaringan-syarat-neural-networks">Deep Learning / Jaringan Syarat (Neural Networks)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation"><a id="data_preparation"></a>2. Data preparation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-training-and-testing-the-model"><a id="model_training"></a>3. Building, training and testing the model</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-the-data">Splitting the data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-model">Building the model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-data-data-preprocessing">Persiapan data (Data Preprocessing)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perancangan-pelatihan-and-pengujian-model"><a id=""></a>3. Perancangan, Pelatihan and Pengujian Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membagi-data">Membagi Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membangun-model">Membangun model</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-training-the-model">Fitting (training) the model</a></li>
 </ul>
 </li>
@@ -441,11 +440,10 @@ document.write(`
 <p>Tahap awal dalam  setiap proyek Machine Learning adalah memahami masalah yang ingin kita pecahkan. Dengan mamahami masalah secara jelas maka kita dapat menentukan model apa yang akan digunakan untuk memecahkannya. Pemahaman yang baik tentang masalah  adalah kunci keberhasilan proyek yang kita kerjakan. Model ML yang diimpleentasikan adalah sebuah algoritma yang keakuratan terhadapa prediksi atau klasifikasinya  bergantung pada pemahaman tentang masalah tersebut</p>
 <section id="perbedaan-mendasar-kecerdasan-buatan-pembelajaran-mesing-dan-deep-learning">
 <h3>Perbedaan mendasar Kecerdasan Buatan, Pembelajaran Mesing dan Deep Learning<a class="headerlink" href="#perbedaan-mendasar-kecerdasan-buatan-pembelajaran-mesing-dan-deep-learning" title="Link to this heading">#</a></h3>
-<p>Sebelum kita mendalami lebih dalam  Pembelajaran Mesin, ada baiknya jika kita lebih memahami perbedaan antara <code class="docutils literal notranslate"><span class="pre">Kecerdasan</span> <span class="pre">Buatan</span></code>, <code class="docutils literal notranslate"><span class="pre">Pembelajaran</span> <span class="pre">Mesin</span></code>, dan `Deep Learning’</p>
+<p>Sebelum kita mendalami lebih dalam  Pembelajaran Mesin, ada baiknya jika kita lebih memahami perbedaan antara <code class="docutils literal notranslate"><span class="pre">Kecerdasan</span> <span class="pre">Buatan</span></code>, <code class="docutils literal notranslate"><span class="pre">Pembelajaran</span> <span class="pre">Mesin</span></code>, dan <code class="docutils literal notranslate"><span class="pre">Deep</span> <span class="pre">Learning</span></code></p>
 <br>
-<br>
+* **Kecerdasan Buatan**: adalah ilmu yang mempelajari cara membangun program dan mesin cerdas yang dapat memecahkan masalah secara kreatif.
 <ul class="simple">
-<li><p><strong>Kecerdasan Buatan</strong>: adalah ilmu yang mempelajari cara membangun program dan mesin cerdas yang dapat memecahkan masalah secara kreatif.</p></li>
 <li><p><strong>Pembelajaran Mesin</strong>: adalah bagian dari Kecerdasan Buatan yang menjadikan sistem mampua untuk belajar dan memperbaiki dari pengalamannya, tanpa diprogram secara eksplisit. ML menggunakan berbagai algoritma yang membantu memecahkan masalah.</p></li>
 <li><p><strong>Deep Learning</strong>: adalah bagia dari Pembelajaran Mesin dengan Neural Networks sebagai dasar pondasinya algoritma. Perbedaan antara jaringan saraf tunggal dan algoritma Deep Learning adalah jumlah lapisan atau kedalaman simpul. Suatu algoritma harus memiliki setidaknya tiga lapisan node untuk diklasifikasikan sebagai algoritma Deep Learning</p></li>
 </ul>
@@ -454,11 +452,11 @@ document.write(`
 <section id="kategori-pembelajaran-mesin">
 <h3>Kategori Pembelajaran Mesin<a class="headerlink" href="#kategori-pembelajaran-mesin" title="Link to this heading">#</a></h3>
 <p>Pembelajaran Mesin secara kasar dapat dibagi menjadi empat pendekatan dasar: Pembelajaran yang terawasi (Supervised Learning), Pembelajaran Tak Terawasi (Unsupervised Learning), Pembelajaran Penguatan (Reinforcement Learning), dan Pembelajaran Mendalam (Deep Learning) / Jaringan Syaraf Tiruan`. Kategori-kategorinya cukup tumpang tindih dan tidak jelas, dan metode tertentu terkadang sulit ditempatkan dalam satu kategori.</p>
-<section id="supervised-learning">
-<h4>Supervised Learning<a class="headerlink" href="#supervised-learning" title="Link to this heading">#</a></h4>
-<p>In supervised learning, your algorithm learns from ‘labelled’ data. Based on the ‘labelled’ data, the algorithm assigns test data into specific categories. The goal in supervised learning is to predict outcomes for new data and you know upfront the type of results to expect. Supervised learning algorithms can be classified in two categories:</p>
+<section id="pembelajaran-terawasi-supervised-learning">
+<h4>Pembelajaran Terawasi(Supervised Learning)<a class="headerlink" href="#pembelajaran-terawasi-supervised-learning" title="Link to this heading">#</a></h4>
+<p>Dalam pembelajaran yang diawasi, algoritma atau model anda  belajar dari data yang ‘diberi label’. Berdasarkan data yang ‘diberi label’, algoritma/model akan menentukan label dari data uji yang digunakan. Tujuan dari pembelajaran yang terawasi adalah untuk memprediksi hasil dari data baru dengan belajar dari data yang sudah berlabel. Algoritme pembelajaran yang terawasi dapat diklasifikasikan dalam dua kategori:</p>
 <ul class="simple">
-<li><p><strong>Classification</strong>: you have a classification problem if your target variable is categorical, e.g. the result can be classified into either class A or class B. Common classification algorithms are:</p>
+<li><p><strong>Klasisifkasi(Classification)</strong>: Anda memiliki masalah klasifikasi jika variabel outputnya adalah kategorikal. Misalka outputnya diklasifikasikan  menjadi kelas A atau kelas B.Contoh algoritma atau metode klasifikasi adalah</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">K-Nearest</span> <span class="pre">Neighbor</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Naive</span> <span class="pre">Bayes</span></code></p></li>
@@ -467,7 +465,7 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">Logistic</span> <span class="pre">Regression</span></code></p></li>
 </ul>
 </li>
-<li><p><strong>Regression</strong>: Regression is another type of a supervised learning method that uses an algorithm to understand the relationship between dependent and independent variables. Regression models are often used to predict numerical values based on different data points. Popular regression algorithms are:</p>
+<li><p><strong>Regresi (Regression)</strong>: Regresi adalah adalah jenis lain dari metode pembelajaran terbimbing yang menggunakan algoritma untuk memahami hubungan antara variabel terikat dan bebas. Model regresi sering digunakan untuk memprediksi nilai numerik berdasarkan  data yang berbeda. Algoritma regresi yang populer adalah</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">Linear</span> <span class="pre">regression</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Logistic</span> <span class="pre">regression</span></code></p></li>
@@ -475,31 +473,15 @@ document.write(`
 </ul>
 </li>
 </ul>
-<br><p><strong>Domain-specific ML examples using supervised learning algorithms for classification</strong><br></p>
-<blockquote>
-<div><p><strong>Week 3</strong></p>
+</section>
+<section id="pembelajaran-tak-terawasi-unsupervised-learning">
+<h4>Pembelajaran Tak terawasi (Unsupervised Learning)<a class="headerlink" href="#pembelajaran-tak-terawasi-unsupervised-learning" title="Link to this heading">#</a></h4>
+<p>Dalam pembelajaran tanpa pengawasan, algoritme Anda belajar dari data yang tidak berlabel dan tidak diklasifikasikan, dan algoritma beroperasi pada data tersebut tanpa pelatihan sebelumnya. Algoritma ini berusaha menemukan pola tersembunyi dari data tanpa memerlukan campur tangan kita. Tujuan pembelajaran tak terawasi adalah untuk mendapatkan diskripsi dari data baru dalam jumlah besar. Pembelajaran tak terawasi dapat dibagi menjadi 2 bagian</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#../../3_land/3D2_land_cover_classification_with_Sentinel-2_data/3D2_supervised_classification_using_Sentinel-2.ipynb"><span class="xref myst">3D2 - Supervised land cover classification with Sentinel-2 data - Decision Tree / Random Forest / Support Vector Machine (SVM)</span></a></p></li>
+<li><p><strong>Pengelompokan (Clustering)</strong>: adalah teknik data mining untuk mengelompokkan data yang tidak berlabel berdasarkan persamaan atau perbedaannya.</p></li>
+<li><p><strong>Keterkaitan (Association)</strong>: adalah jenis lain dari metode pembelajaran tanpa pengawasan yang menggunakan aturan berbeda untuk menemukan hubungan antar variabel dalam kumpulan data tertentu.</p></li>
 </ul>
-<p><strong>Week 4</strong></p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#../../4_ocean/4F_ML_to_differentiate_between_sediment_and_chlorophyll/4Fa_Using_ML_for_water_type_identification.ipynb"><span class="xref myst">4Fa - Using ML for water type identification - Naive Bayes Classification</span></a></p></li>
-</ul>
-<p><strong>Week 6</strong></p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#../../6_climate/6C_cumulo_cloud_classification/6C_cumulo_cloud_classification.ipynb"><span class="xref myst">6C - Global Cloud Classification with CUMULO - Gradient Boosting of Decision Trees</span></a></p></li>
-</ul>
-</div></blockquote>
-<br></section>
-<section id="unsupervised-learning">
-<h4>Unsupervised Learning<a class="headerlink" href="#unsupervised-learning" title="Link to this heading">#</a></h4>
-<p>In unsupervised learning, your algorithm learns from unlabeled, un-categorized data and the algorithm operates on the data without prior training. These algorithms discover hidden patterns in data without the need for human intervention. The goals in unsupervised learning is to get insights from large volumes of new data. Unsupervised learning can be categorized into three categories:</p>
-<ul class="simple">
-<li><p><strong>Clustering</strong>: is a data mining technique for grouping unlabeled data based on their similarities or differences.</p></li>
-<li><p><strong>Association</strong>: is another type of an unsupervised learning method that uses different rules to find relationships between variables in a given dataset.</p></li>
-<li><p><strong>Dimensionality Reduction</strong>: is a learning technique used when the number of features (or dimensions) in a given dataset is too high. Dimensionality reduction algorithms reduce the number of data inputs to a manageable size while also preserving the data integrity. This technique is often used in the pre-processing stage to bring the data input to a manageable size.</p></li>
-</ul>
-<p>Common unsupervised learning algorithms are:</p>
+<p>Algoritma pembelajaran tak terawasi secara umum adalah:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Gaussian</span> <span class="pre">mixtures</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">K-Means</span> <span class="pre">Clustering</span></code></p></li>
@@ -508,118 +490,68 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">K-Means</span> <span class="pre">Clustering</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Spectral</span> <span class="pre">Clustering</span></code></p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Referensi</span>
-</pre></div>
-</div>
-</div>
-</div>
-<br><p><strong>ML example using an unsupervised learning alogorithm</strong><br></p>
-<blockquote>
-<div><p><strong>Week 3</strong></p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#../../3_land/3D2_land_cover_classification_with_Sentinel-2_data/3D2_unsupervised_classification_using_Sentinel-2.ipynb"><span class="xref myst">3D2 - Unsupervised land cover classification with Sentinel-2 data - K-means clustering</span></a></p></li>
-</ul>
-</div></blockquote>
-<br></section>
+</section>
 <section id="reinforcement-learning">
 <h4>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Link to this heading">#</a></h4>
-<p>Reinforcement Learning is commonly used in situations where an AI agent, e.g. a self-driving car, must operate in an environment where feedback about good or bad choices is available with some delay.</p>
-<p><strong>ML example of reinforcement learning with Earth Observation data</strong></p>
-<blockquote>
-<div><p>Week 2</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#../../2_ai4eo/2B_Reinforcement_Learning/2B_reinforcement_learning_image-cropping_training.ipynb"><span class="xref myst">2B - Aesthetics Aware Reinforcement Learning for Image Cropping</span></a></p></li>
-</ul>
-</div></blockquote>
+<p>Reinforcement Learning biasanya digunakan dalam situasi di mana agen AI, mis. mobil yang bisa mengemudi sendiri, harus beroperasi di lingkungan di mana umpan balik tentang pilihan baik atau buruk tersedia dengan beberapa penundaan.</p>
 <br></section>
-<section id="deep-learning-neural-networks">
-<h4>Deep Learning / Neural Networks<a class="headerlink" href="#deep-learning-neural-networks" title="Link to this heading">#</a></h4>
+<section id="deep-learning-jaringan-syarat-neural-networks">
+<h4>Deep Learning / Jaringan Syarat (Neural Networks)<a class="headerlink" href="#deep-learning-jaringan-syarat-neural-networks" title="Link to this heading">#</a></h4>
 <p>Deep Learning / Neural Networks is a subset of Machine Learning and the main difference to other Machine Learning algorithms is in how much data the algorithm uses to learn. Neural Networks replicate the structure and function of the human brain. Neural networks consist of artificial neurons, also known as nodes, which are stacked next to each other in three layers: <code class="docutils literal notranslate"><span class="pre">input</span> <span class="pre">layer</span></code>, <code class="docutils literal notranslate"><span class="pre">hidden</span> <span class="pre">layer(s)</span></code> and <code class="docutils literal notranslate"><span class="pre">output</span> <span class="pre">layer</span></code>.</p>
-<p>Neural networks can leverage labeled datasets (supervised learning) but can also work with unstructured, raw data (unsupervised learning). The <em>deep</em> in Deep Learning refers to the depth of layers in a neural network. A neural network that consists of more than three layers (including input and output layers) can be considered a deep learning algorithm.</p>
-<p>Common algorithms in Deep Learning are:</p>
+<p>Neural networks can leverage labeled datasets (supervised learning) but can also work with unstructured, raw data (unsupervised learning). The <em>deep</em> in Deep Learning refers to the depth of layers in a neural network. A neural network that consists of more than three layers (including input and output layers) can be considered a deep learning algorithm.
+P
+embelajaran Mendalam (Deep Learning) /Jaringan Syaraf Tiruan adalah bagian dari Pembelajaran Mesin. Perbedaan utama dengan algoritme Pembelajaran Mesin terletak pada jumlah data yang digunakan  dan algoritme untuk mempelajari data tersebut. Jaringan Neural meniru struktur dan fungsi otak manusia. Jaringan saraf terdiri dari neuron buatan, juga dikenal sebagai node, yang ditumpuk  dalam tiga lapisan: <code class="docutils literal notranslate"><span class="pre">lapisan</span> <span class="pre">masukan</span> <span class="pre">(input</span> <span class="pre">layer)</span></code>, <code class="docutils literal notranslate"><span class="pre">lapisan</span> <span class="pre">tersembunyi</span> <span class="pre">(hidden</span> <span class="pre">layer)</span></code>, dan <code class="docutils literal notranslate"><span class="pre">lapisan</span> <span class="pre">keluaran</span> <span class="pre">(output</span> <span class="pre">layer)</span></code>. Jaringan saraf dapat memanfaatkan kumpulan data berlabel (pembelajaran yang diawasi) tetapi juga dapat bekerja dengan data mentah yang tidak terstruktur (pembelajaran tak terawasi). Pembelajaran Mendalam mengacu pada kedalaman lapisan dalam jaringan saraf. Jaringan saraf yang terdiri dari lebih dari tiga lapisan (termasuk lapisan masukan dan keluaran) dapat dianggap sebagai algoritma pembelajaran mendalam.</p>
+</section>
+<section id="id1">
+<h4><a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<p>Algoritma dalam  Deep Learning yaitu:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Convolutional</span> <span class="pre">Neural</span> <span class="pre">Networks</span> <span class="pre">(CNNs)</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Recurrent</span> <span class="pre">Neural</span> <span class="pre">Networks</span> <span class="pre">(RNNs)</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Multilayer</span> <span class="pre">Perceptrons</span> <span class="pre">(MLPs)</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Self</span> <span class="pre">Organizing</span> <span class="pre">Maps</span> <span class="pre">(SOMs)</span></code></p></li>
 </ul>
-<br><p><strong>ML examples applying Deep Learning algorithms</strong><br></p>
-<blockquote>
-<div><p><strong>Week 3</strong></p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#../../3_land/3B_tile-based_classification_with_EuroSAT_data/3B_tile-based_classification_with_EuroSAT_data_training.ipynb"><span class="xref myst">3B - Tile-based classification with EuroSAT data - Sequential Convolutional Neural Network</span></a></p></li>
-<li><p><a class="reference internal" href="#../../3_land/3D1_soil_moisture_estimation/3D_soil_moisture_estimation.ipynb"><span class="xref myst">3D1 - Soil moisture estimation - Sequential Convolutional Neural Network</span></a></p></li>
-</ul>
-<p><strong>Week 4</strong></p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#../../4_ocean/4B_ship_classification_with_Sentinel-1_data/4B_ship_classification_with_sentinel-1_data.ipynb"><span class="xref myst">4B - Ship classification with Sentinel-1 data - VGG16 Convolutional Neural Network</span></a></p></li>
-<li><p><a class="reference internal" href="#../../4_ocean/4F_ML_to_differentiate_between_sediment_and_chlorophyll/4Fb_Using_ML_to_retrieve_water_quality_indicators_in_coastal_waters.ipynb"><span class="xref myst">4Fb - Using ML to retrieve water quality indicators in coastal areas - Auto-associative Neural Network</span></a></p></li>
-</ul>
-<p><strong>Week 5</strong></p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#../../5_atmosphere/5B_ozone_concentration_estimation/5B_Ozone_concentration_estimation.ipynb"><span class="xref myst">5B - Ozone concentration estimation - Sequential Convolutional Neural Network</span></a></p></li>
-<li><p><a class="reference internal" href="#../../5_atmosphere/5C_methane_retrievals_using_s5p/5C_Retrieving_methane_from_Sentinel_5P.ipynb"><span class="xref myst">5C - Physics-based Machine Learning for Copernicus Sentinel-5P Methane Retrieval - Sequential Convolutional Neural Network</span></a></p></li>
-</ul>
-<p><strong>Week 6</strong></p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#../../6_climate/6F_ml4floods/6F_ml4floods_training.ipynb"><span class="xref myst">6F - ML4Floods - Convolutional Neural Network</span></a></p></li>
-</ul>
-</div></blockquote>
-<br></section>
+<br><br></section>
 </section>
 </section>
-<section id="data-preparation">
-<h2><a id='data_preparation'></a>2. Data preparation<a class="headerlink" href="#data-preparation" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="../img/ml_workflow_2.png"><img alt="Logos AI4EO MOOC" src="../img/ml_workflow_2.png" style="width: 50%;" /></a></img></p>
-<p>Data preparation, including cleaning and pre-processing, is often the most time-consuming aspect. In fact, many of the examples provided in this course work with already pre-processed data. Data is the foundational aspect of machine learning that can impact performance, fairness, robutness and scalability of your ML system. In the end, your result depends on the accuracy of your input data. Data in its raw form cannot be used for most Machine Learning algorithms and depending on your ML problem, the algorithm and Python package you are using, you have to pre-process the data.</p>
-<p>Common pre-processing steps specifically for <strong>Earth Observation</strong> data are:</p>
+<section id="persiapan-data-data-preprocessing">
+<h2>Persiapan data (Data Preprocessing)<a class="headerlink" href="#persiapan-data-data-preprocessing" title="Link to this heading">#</a></h2>
+<p>Persiapan data, termasuk pembersihan dan pra-pemrosesan, seringkali merupakan aspek yang paling banyak memakan waktu. Data adalah faktor mendasar dalam pembelajaran mesin yang dapat memengaruhi performa model, kestabilan data, kehandalan dan skalabilitas sistem ML Anda. Sehingga hasil model Anda bergantung pada keakuratan data masukan. Data mentah tidak dapat digunakan  secara langsung secara umum pada algoritma Pembelajaran Mesin. Oleh karena itu dilakukan pemrosesan awal data</p>
+<p>Tahapan praproses data khususnya untuk <strong>pengamatan bumi</strong> adalah:</p>
 <ul class="simple">
-<li><p><strong>Data labelling</strong>: this is often a very time-intensive manual process required for supervised learning algorithms. You select manually data points or images and assign them a label (or class). The Machine-Learning algorithm uses the labelled information in order to predict these labels (classes / categories) for unseen data.</p></li>
-<li><p><strong>One-hot encoding of labels</strong>: is a common way of pre-processing categorical features for Machine Learning. The labels are represented as class numbers, e.g. ranging from 0 to 2. In the one-hot encoding process, the class numbers are converted to a (binary) bitwise representation in order to avoid the algorithm assuming any sort of intrinsic hierarchy or number order.</p></li>
-<li><p><strong>Geo-referencing and subsetting</strong>: depending on which input data you have, this step might be necessary for satellite images to bring them onto a common grid.</p></li>
-<li><p><strong>Resampling</strong>: this step is necessary if your input data have different spatial or temporal resolutions. In resampling, you bring all the input data to the same spatial / temporal resolution.</p></li>
-<li><p><strong>Rearranging and reshaping</strong>: this is a step that is specifically required in Machine Learning with Earth Observation data, as they are multi-dimensional in their nature. In this operation, you reshape the original data structure into a suitable structure for the ML algorithm.</p></li>
-<li><p><strong>Normalisation</strong> is a common pre-processing step in Machine Learning to bring variables that are measured in different units to a common scale. Common normalisation functions are e.g. <code class="docutils literal notranslate"><span class="pre">minmax</span></code> or <code class="docutils literal notranslate"><span class="pre">mean_std</span></code>. <code class="docutils literal notranslate"><span class="pre">minmax</span></code> normalises the data based on the minimum and maximum values of the data and <code class="docutils literal notranslate"><span class="pre">mean_std</span></code> uses the <em>mean</em> and <em>standard deviation</em> to normalise the data.</p></li>
-<li><p><strong>Dimensionality reduction</strong>: if your input data is large, you could apply e.g. a clustering algorithm in order to reduce the number of input data. In this way you also reduce redundancy and colinearity.</p></li>
+<li><p><strong>Pelabelan Data (Data labelling)</strong>: ini seringkali merupakan proses manual yang sangat memakan waktu dan diperlukan sekali dalam algoritma pembelajaran yang diawasi. Anda memilih titik data atau gambar secara manual dan memberinya label (atau kelas). Algoritme Pembelajaran Mesin menggunakan informasi berlabel untuk memprediksi label data yang tidak diketahui.</p></li>
+<li><p><strong>One-hot encoding dari  label</strong>: adalah cara umum untuk melakukan pra-pemrosesan fitur kategorikal untuk Pembelajaran Mesin. Label direpresentasikan sebagai nomor kelas, mis. 0 hingga 2. Dalam proses pengkodean one-hot, nomor kelas dikonversi ke representasi biner untuk menghindari algoritma mengasumsikan segala jenis hierarki intrinsik atau urutan nomor..</p></li>
+<li><p><strong>Geo-referencing dan subsetting</strong>: tergantung pada input data yang Anda miliki, langkah ini mungkin diperlukan agar citra satelit dapat memasukkannya ke dalam grid umum.</p></li>
+<li><p><strong>Resampling</strong>: langkah ini diperlukan jika data masukan Anda memiliki resolusi spasial atau temporal yang berbeda. Dalam pengambilan sampel ulang, Anda membawa semua data masukan ke resolusi spasial/temporal yang sama.</p></li>
+<li><p><strong>Rearranging dan  reshaping</strong>: ini adalah langkah yang secara khusus diperlukan dalam Pembelajaran Mesin dengan data Observasi Bumi, karena data tersebut bersifat multidimensi. Dalam operasi ini, Anda membentuk ulang struktur data asli menjadi struktur yang sesuai untuk algoritma pembelajaran Mesin.</p></li>
+<li><p><strong>Normalisasi</strong> adalah langkah pra-pemrosesan umum dalam Pembelajaran Mesin untuk membawa variabel yang diukur dalam satuan berbeda ke skala yang sama. Fungsi normalisasi yang umum adalah mis. <code class="docutils literal notranslate"><span class="pre">minmax</span></code> atau <code class="docutils literal notranslate"><span class="pre">rata-rata_std</span></code>. <code class="docutils literal notranslate"><span class="pre">minmax</span></code> menormalkan data berdasarkan nilai minimum dan maksimum data dan <code class="docutils literal notranslate"><span class="pre">mean_std</span></code> menggunakan <em>mean</em> dan <em>standar deviasi</em> untuk menormalkan data.</p></li>
+<li><p><strong>Reduksi Dimensi</strong>: jika data input Anda besar, Anda dapat menerapkan mis. algoritma pengelompokan untuk mengurangi jumlah data input. Dengan cara ini Anda juga mengurangi redundansi dan kolinearitas
+.</p></li>
 </ul>
-<p><strong>Read more on the impact and downstream effects of data issues in ML workflows</strong></p>
-<blockquote>
-<div><p><a href='https://ai.googleblog.com/2021/06/data-cascades-in-machine-learning.html' target='_blank'>Data Cascades in Machine Learning</a></p>
-</div></blockquote>
 <br></section>
-<section id="building-training-and-testing-the-model">
-<h2><a id='model_training'></a>3. Building, training and testing the model<a class="headerlink" href="#building-training-and-testing-the-model" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="../img/ml_workflow_3.png"><img alt="Logos AI4EO MOOC" src="../img/ml_workflow_3.png" style="width: 50%;" /></a></img></p>
-<p>After data pre-processing, you can start with building your Machine Learning model. The first step is to split your data in <code class="docutils literal notranslate"><span class="pre">training</span></code>, <code class="docutils literal notranslate"><span class="pre">validation</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> data followed by building the model with defining a set of <code class="docutils literal notranslate"><span class="pre">hyperparameters</span></code>. Afterwards, you run (train) the model.</p>
-<section id="splitting-the-data">
-<h3>Splitting the data<a class="headerlink" href="#splitting-the-data" title="Link to this heading">#</a></h3>
-<p>The first step is to define the input (X) and output (y) variables :</p>
+<section id="perancangan-pelatihan-and-pengujian-model">
+<h2><a id=''></a>3. Perancangan, Pelatihan and Pengujian Model<a class="headerlink" href="#perancangan-pelatihan-and-pengujian-model" title="Link to this heading">#</a></h2>
+<p>ASetelah pra-pemrosesan data, Anda dapat mulai dengan membuat model Machine Learning. Langkah pertama adalah membagi data Anda menjadi data pelatihan, validasi, dan pengujian diikuti dengan membangun model dengan menentukan sekumpulan hyperparameter. Setelah itu, Anda melatih model tersebut</p>
+<section id="membagi-data">
+<h3>Membagi Data<a class="headerlink" href="#membagi-data" title="Link to this heading">#</a></h3>
+<p>Langkah pertama adalah mendefinisikan variabel input (X) dan output (y):</p>
 <ul class="simple">
-<li><p><strong>Input variable (X)</strong>: the input variable is often refered to as <code class="docutils literal notranslate"><span class="pre">X</span></code> and is the variable / parameter you give to the ML model as input.</p></li>
-<li><p><strong>Output variable (y)</strong>: the output variable is often refered to as <code class="docutils literal notranslate"><span class="pre">y</span></code> and is the variable / parameter you would like to predict with your Machine Learning model.</p></li>
+<li><p><strong>Variabel Input (X)</strong>: variabel input sering disebut sebagai <code class="docutils literal notranslate"><span class="pre">X</span></code> dan merupakan variabel/parameter yang Anda berikan ke model ML sebagai masukan.</p></li>
+<li><p><strong>Variabel Output(y)</strong>: variabel output sering disebut dengan variabel <code class="docutils literal notranslate"><span class="pre">y</span></code> adalah is variabel atau parameter yang akan diprediksi dengan model Machine Learning.
+<br></p></li>
 </ul>
-<br>
-<p>The next step is then to split the input and output variables into two or three subsets:</p>
-<ul class="simple">
-<li><p><strong>Training data</strong>: the training data is used to train the model and is always a greater proportion (e.g. 70% or 80%) compared to the validation and test data subsets.</p></li>
-<li><p><strong>Test data</strong>: test data is a subset of <em>unseen</em> data of a smaller proportion (e.g. 20%) used to assess the performance of a trained model.</p></li>
-</ul>
-<p>Alternatively, you can split your training data set and use a proportion for cross-validation.</p>
-<ul class="simple">
-<li><p><strong>Validation data</strong>: validation data is primarily used to estimate the skill of a machine learning model during the training process, which helps to fine-tune hyperparameters.</p></li>
-</ul>
-<p>scikit-learn’s function <a href='https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html' target='_blank'>train_test_split</a> is a common function used to split the data into subsets for training, validation and testing.</p>
+<p>Langkah selanjutnya adalah membagi variabel input dan output menjadi dua atau tiga subset: * <strong>Data pelatihan</strong>: data pelatihan digunakan untuk melatih model dan proporsinya selalu lebih besar (misalnya 70% atau 80%) dibandingkan dengan data validasi dan pengujian. * <strong>Data pengujian</strong>: data pengujian adalah bagian dari data *dengan proporsi lebih kecil (misalnya 20%) yang digunakan untuk menilai performa model yang sudah dilatih</p>
+<p>Alternatifnya, Anda dapat membagi kumpulan data pelatihan dan menggunakan proporsi cross validation. * <strong>Data validasi</strong>: data validasi terutama digunakan untuk menghitung kemampuan model pembelajaran mesin selama proses pelatihan, yang dapat digunakan untuk  membantu menyempurnakan hyperparameter.</p>
+<p>Fungsi scikit-learn’s <a href='https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html' target='_blank'>train_test_split</a> adalah fungsi umum yang digunakan untuk membagi data pelatihan , validasi dan pengujian.</p>
 <br>
 </section>
-<section id="building-the-model">
-<h3>Building the model<a class="headerlink" href="#building-the-model" title="Link to this heading">#</a></h3>
-<p>The next step is to build the Machine Learning model. This process involves to define the model architecture and a set of <code class="docutils literal notranslate"><span class="pre">hyperparameters</span></code>. Hyperparameters are used to fine-tune the accuracy of your Machine Learning model.</p>
-<p>Hyperparameters are classified in <code class="docutils literal notranslate"><span class="pre">model</span> <span class="pre">hyperparameters</span></code> and <code class="docutils literal notranslate"><span class="pre">algorithm</span> <span class="pre">hyperparameters</span></code>:</p>
+<section id="membangun-model">
+<h3>Membangun model<a class="headerlink" href="#membangun-model" title="Link to this heading">#</a></h3>
+<p>Langkah selanjutnya adalah membangun model Machine Learning. Proses ini melibatkan penentuan arsitektur model dan sekumpulan <code class="docutils literal notranslate"><span class="pre">hiperparameter</span></code>. Hyperparameter digunakan untuk menyempurnakan keakuratan model Machine Learning Anda.</p>
+<p>Hyperparameter dibagi menjadi <code class="docutils literal notranslate"><span class="pre">model</span> <span class="pre">hyperparameters</span></code> dan <code class="docutils literal notranslate"><span class="pre">algorithm</span> <span class="pre">hyperparameters</span></code>:</p>
 <ul class="simple">
-<li><p><strong>model hyperpararmeters</strong>: they influence the performance of the model, as they are defined during the model setup, but cannot be change while fitting the model to the training data</p></li>
-<li><p><strong>algorithm hyperparameters</strong>: they have no influence on the performance of the model but affect the speed and quality of the learning process. Examples are <code class="docutils literal notranslate"><span class="pre">learning</span> <span class="pre">rate</span></code> or <code class="docutils literal notranslate"><span class="pre">batch</span> <span class="pre">size</span></code>.</p></li>
+<li><p><strong>model hyperpararmeters</strong>: yang mempengaruhi  performansi  model, hyperparameter tidak dapat diubah ketika penyesuaian model pada data pelatihan</p></li>
+<li><p><strong>algorithm hyperparameters</strong>: mereka tidak berpengaruh terhadap kinerja model tetapi mempengaruhi kecepatan dan kualitas proses pembelajaran. Contohnya adalah <code class="docutils literal notranslate"><span class="pre">kecepatan</span> <span class="pre">pembelajaran</span></code> atau <code class="docutils literal notranslate"><span class="pre">batch</span> <span class="pre">size</span></code></p></li>
 </ul>
 <br>
 </section>
@@ -735,18 +667,19 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memahami-masalah-pembelajaran-mesin-anda"><a id="understand"></a>1. Memahami masalah pembelajaran mesin anda</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbedaan-mendasar-kecerdasan-buatan-pembelajaran-mesing-dan-deep-learning">Perbedaan mendasar Kecerdasan Buatan, Pembelajaran Mesing dan Deep Learning</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kategori-pembelajaran-mesin">Kategori Pembelajaran Mesin</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-learning">Supervised Learning</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-learning">Unsupervised Learning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelajaran-terawasi-supervised-learning">Pembelajaran Terawasi(Supervised Learning)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelajaran-tak-terawasi-unsupervised-learning">Pembelajaran Tak terawasi (Unsupervised Learning)</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reinforcement-learning">Reinforcement Learning</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-neural-networks">Deep Learning / Neural Networks</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-jaringan-syarat-neural-networks">Deep Learning / Jaringan Syarat (Neural Networks)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation"><a id="data_preparation"></a>2. Data preparation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-training-and-testing-the-model"><a id="model_training"></a>3. Building, training and testing the model</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-the-data">Splitting the data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-model">Building the model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-data-data-preprocessing">Persiapan data (Data Preprocessing)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perancangan-pelatihan-and-pengujian-model"><a id=""></a>3. Perancangan, Pelatihan and Pengujian Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membagi-data">Membagi Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membangun-model">Membangun model</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-training-the-model">Fitting (training) the model</a></li>
 </ul>
 </li>
@@ -766,7 +699,7 @@ document.write(`
   <div class="footer-item">
     
 <p class="component-author">
-By The Jupyter Book Community
+By Mulaab Mulyo
 </p>
 
   </div>
