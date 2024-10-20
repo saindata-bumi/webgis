@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Menyalin folder dari Github &#8212; Sain Data Bumi</title>
+    <title>Peramalan Deret Berkala &#8212; Sain Data Bumi</title>
   
   
   
@@ -59,11 +59,11 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/pindah';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/peramalan';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Peramalan Deret Berkala" href="peramalan.html" />
-    <link rel="prev" title="Pengantar" href="intro.html" />
+    <link rel="next" title="Alur Kerja Pembelajaran Mesin" href="notebooks.html" />
+    <link rel="prev" title="Menyalin folder dari Github" href="pindah.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -182,9 +182,9 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Menyalin folder dari Github</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pindah.html">Menyalin folder dari Github</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="peramalan.html">Peramalan  Deret Berkala</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Peramalan  Deret Berkala</a></li>
 
 
 
@@ -261,7 +261,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcontent/pindah.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcontent/peramalan.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -291,7 +291,7 @@
       
       
       
-      <li><a href="../_sources/content/pindah.md" target="_blank"
+      <li><a href="../_sources/content/peramalan.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -301,7 +301,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -375,7 +375,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Menyalin folder dari Github</h1>
+    <h1>Peramalan  Deret Berkala</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -385,9 +385,17 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Menyalin folder dari Github</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mengextract-file-zip-rar">Mengextract file zip, rar</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menyalin-folder-dari-google-drive">Menyalin folder dari google drive</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Peramalan  Deret Berkala</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelajaran-mesin-untuk-peramalan">Pembelajaran mesin untuk peramalan¶</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-single-step">Peramalan single step</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-multi-step">Peramalan Multi-step</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursive-multi-step-forecasting">Recursive multi-step forecasting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-direct-multi-step">Peramalan <em>Direct multi-step</em></a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-multi-output">Peramalan Multi Output</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-peramalan-global">Model peramalan global</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-multi-seri-yang-independen">Peramalan Multi-Seri yang Independen</a></li>
 </ul>
 </li>
 </ul>
@@ -402,36 +410,69 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="menyalin-folder-dari-github">
-<h1>Menyalin folder dari Github<a class="headerlink" href="#menyalin-folder-dari-github" title="Link to this heading">#</a></h1>
-<p>Kadang kala kita membutuhkan salah satu folder pada suatu repositori github yang harus kita pindahkan kedalam ruang kerja kita. Setelah browsing di [https://pypi.org/project] saya menemukan package yang memudahkan untuk melakukan itu di https://pypi.org/project/gh-folder-download/. Berikut langkah langkah yang harus dilakukan</p>
-<ol class="arabic simple">
-<li><p>Install paket tersebut dengan perintah pip install gh-folder-download</p></li>
-<li><p>Tentukan folder yang akan di pindahkan, misal folder di [https://github.com/sentinel-hub/eo-learn/tree/master/examples]</p></li>
-<li><p>ketik perintah gh-folder-download –url [https://github.com/sentinel-hub/eo-learn/tree/master/examples –force]</p></li>
-<li><p>Selesai (perhatikan apakah folder sudah berpindah didirekotri kita)</p></li>
-</ol>
+  <section id="peramalan-deret-berkala">
+<h1>Peramalan  Deret Berkala<a class="headerlink" href="#peramalan-deret-berkala" title="Link to this heading">#</a></h1>
+<p>Deret waktu adalah serangkaian data yang disusun secara berurutan dan diberi jangka waktu atauinterval yang sama atau tidak beraturan. Proses peramalan terdiri dari memprediksi nilai masa yang akan datang, baik dengan memodelkan deret tersebut berdasarkan perilaku masa lalunya (autoregresif) atau dengan memasukkan variabel eksternal(exogen) lainnya.</p>
+<p style="text-align:center;">
+<img src="(https://skforecast.org/0.13.0/img/forecasting_multi-step_en.gif"  style="width:300px;height:300px;">
+</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/forecasting_multi-step_en.gif" /></p>
+<p style="text-align:center;">Data Deret Berkala</p>
+<p>Sumber (https://skforecast.org/0.13.0/introduction-forecasting/introduction-forecasting)</p>
 </section>
-<section id="mengextract-file-zip-rar">
-<h1>Mengextract file zip, rar<a class="headerlink" href="#mengextract-file-zip-rar" title="Link to this heading">#</a></h1>
-<ol class="arabic simple">
-<li><p>pip install patool</p></li>
-<li><p>tampatkan file pada diretory aktif misalkan contoh.zip</p></li>
-<li><p>Ketik pada terminal patool extract contoh.zip</p></li>
-<li><p>Selesai</p></li>
-</ol>
-<section id="menyalin-folder-dari-google-drive">
-<h2>Menyalin folder dari google drive<a class="headerlink" href="#menyalin-folder-dari-google-drive" title="Link to this heading">#</a></h2>
-<p>Seringkali kita melakukan penyimpanan di google drive dalam sebuah folder. Misalkan kita telah men-share folder kita dengan link  https://drive.google.com/drive/folders/1iOSDorku0NS3z03bSEbM0uxhJPtcnXVQ?usp=sharing. Kode “ 1iOSDorku0NS3z03bSEbM0uxhJPtcnXVQ” adalah ID folder yang kita share.  Untuk menyalin sebuah folder dari google drive ke direktori kita silahkan ikuti langkah berikut.</p>
-<ol class="arabic simple">
-<li><p>Install model “pip install gdrive”</p></li>
-<li><p>Ketik perintah “gdown https://drive.google.com/drive/folders/1iOSDorku0NS3z03bSEbM0uxhJPtcnXVQ -O pindahan –folder</p></li>
-</ol>
-<p>Ket: pindahan adalah nama folder yang akan dibentuk direktori aktif kita tempat menyalin insi dari folder yang disali</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
+<section id="pembelajaran-mesin-untuk-peramalan">
+<h1>Pembelajaran mesin untuk peramalan¶<a class="headerlink" href="#pembelajaran-mesin-untuk-peramalan" title="Link to this heading">#</a></h1>
+<p>Untuk menerapkan model pembelajaran mesin pada  peramalan, deret waktu perlu diubah menjadi matriks di mana setiap nilai dikaitkan dengan jendela waktu tertentu (dikenal sebagai jeda) yang mendahuluinya. Dalam konteks deret waktu, lag terkait dengan langkah waktu t didefinisikan sebagai nilai deret pada time step sebelumnya. Misalnya, lag 1 menyatakan nilai pada langkah waktu $t-1$, sedangkan lag m menyatakan nilai pada time step $t-m$.</p>
+<p>Transformasi ini penting bagi model pembelajaran mesin untuk mengungkap ketergantungan dan pola antara nilai masa lalu dan masa depan dalam deret waktu. Dengan menggunakan lag sebagai fitur input, model pembelajaran mesin dapat belajar dari masa lalu dan membuat prediksi nilai yang akan datang. Jumlah lag yang digunakan sebagai fitur input dalam matriks merupakan <strong>hyperparameter</strong> penting yang perlu setting  dengan hati-hati untuk mendapatkan kinerja model peramalan terbaik.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/transform_timeseries.gif" /></p>
+<p style="text-align:center;">Gambar Transformasi deret waktu menjadi matriks 5 lag dan vektor dengan nilai deret yang mengikuti setiap baris matriks</p>
+<p>Jenis transformasi ini juga memungkinkan untuk memasukkan variabel tambahan.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/matrix_transformation_with_exog_variable.png" /></p>
+<p style="text-align:center;">Gambar. Transformasi deret waktu termasuk variabel eksogen</p><p>Setelah data disusun ulang ke dalam bentuk matrik (tabel), model regresi dapat dilatih untuk memprediksi nilai (step) berikutnya dari rangkaian tersebut. Selama pelatihan model, setiap baris dianggap sebagai sample data terpisah, di mana nilai pada lag 1, 2, … p dianggap sebagai prediktor untuk kuantitas target deret  waktu pada langkah waktu p+1.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/diagram-trainig-forecaster.png" /></p>
+<p>Gambaar. Diagram of training a machine learning model with time series data.</p>
+</section>
+<section id="peramalan-single-step">
+<h1>Peramalan single step<a class="headerlink" href="#peramalan-single-step" title="Link to this heading">#</a></h1>
+<p>Peramalan single step digunakan ketika tujuannya  untuk meramalkan hanya satu nilai berikutnya dari deret data  tersebut.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/diagram-single-step-forecasting.png" /></p>
+</section>
+<section id="peramalan-multi-step">
+<h1>Peramalan Multi-step<a class="headerlink" href="#peramalan-multi-step" title="Link to this heading">#</a></h1>
+<p>Saat bekerja dengan deret waktu, jarang untuk memprediksi hanya satu nilai berikutnya dalam deret $(t+1)$. Sebaliknya, tujuan yang paling umum adalah untuk memprediksi seluruh interval masa depan $(t+1, \dots t+n)$ atau titik waktu yang jauh $(t+n)$. Beberapa strategi memungkinkan pembuatan jenis prediksi ini.</p>
+<section id="recursive-multi-step-forecasting">
+<h2>Recursive multi-step forecasting<a class="headerlink" href="#recursive-multi-step-forecasting" title="Link to this heading">#</a></h2>
+<p>Karena nilai $t(n-1)$ diperlukan untuk memprediksi $t(n)$, dan $t(n-1)$ tidak diketahui, proses rekursif diterapkan di mana, setiap prediksi baru, didasarkan pada prediksi sebelumnya. Proses ini dikenal sebagai peramalan rekursif atau peramalan multi-langkah rekursif dan dapat dengan mudah dibuat dengan kelas ForecasterAutoreg dan ForecasterAutoregCustom.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/diagram-recursive-mutistep-forecasting.png" /></p>
+<p>Gambar. Diagram  recursive multi-step forecasting</p>
+</section>
+<section id="peramalan-direct-multi-step">
+<h2>Peramalan <em>Direct multi-step</em><a class="headerlink" href="#peramalan-direct-multi-step" title="Link to this heading">#</a></h2>
+<p>Peramalan Direct multi-step yaitu melakukan pelatihan model yang berbeda untuk setiap step dari horizon prakiraan. Misalnya, untuk memprediksi 5 nilai yang akan datang  dari deret waktu, 5 model yang berbeda dilatih, satu untuk setiap langkah. Hasilnya, prediksi tersebut bersifat independen satu sama lain. Seluruh proses ini diotomatisasi dalam kelas ForecasterAutoregDirect.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/diagram-direct-multi-step-forecasting.png" /></p>
+<p>Gambar Diagram  direct multi-step forecasting.</p>
+</section>
+</section>
+<section id="peramalan-multi-output">
+<h1>Peramalan Multi Output<a class="headerlink" href="#peramalan-multi-output" title="Link to this heading">#</a></h1>
+<p>Beberapa model pembelajaran mesin, seperti Long Short Time Memory(LSTM), dapat memprediksi beberapa nilai time series secara bersamaan.</p>
+</section>
+<section id="model-peramalan-global">
+<h1>Model peramalan global<a class="headerlink" href="#model-peramalan-global" title="Link to this heading">#</a></h1>
+<p>Peramalan deret waktu univariat memodelkan deret waktu tunggal sebagai kombinasi linier atau nonlinier dari lag-lagnya, dengan menggunakan nilai-nilai masa lalu deret tersebut untuk memprediksi nilai yang akan datang. Peramalan global memodelkan model prediktif yang mempertimbangkan semua deret waktu secara bersamaan. Model ini  menangkap pola inti yang mengatur deret tersebut, dengan demikian mengurangi potensi gangguan yang mungkin ditimbulkan oleh setiap deret. Pendekatan ini efisien secara komputasi, dan dapat menghasilkan generalisasi yang lebih kuat di seluruh deret waktu. Ada dua strategi berbeda untuk peramalan global.</p>
+<section id="peramalan-multi-seri-yang-independen">
+<h2>Peramalan Multi-Seri yang Independen<a class="headerlink" href="#peramalan-multi-seri-yang-independen" title="Link to this heading">#</a></h2>
+<p>Satu model tunggal dilatih untuk  deret waktu tertentu, tetapi setiap deret waktu tetap independen dari yang lain, yang berarti bahwa nilai masa lalu dari satu deret tidak digunakan sebagai prediktor deret lainnya. Namun, memodelkannya bersama-sama berguna karena deret tersebut dapat mengikuti pola intrinsik yang sama mengenai nilai masa lalu dan masa depan mereka. Misalnya, penjualan produk A dan B di toko yang sama mungkin tidak terkait, tetapi mereka mengikuti dinamika yang sama, yaitu dinamika toko.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/forecaster_multi_series_train_matrix_diagram.png" /></p>
+<p>Gambar. Transformasi dua deret waktu dan variabel eksogen menjadi matriks yang diperlukan untuk melatih model pembelajaran mesin dalam konteks multi-seri.</p>
+<p>Untuk memprediksi n step berikutnya, strategi peramalan multi-step rekursif diterapkan</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/forecaster_multi_series_prediction_diagram.png" /></p>
+<p>###Peramalan Multi-Seri dependent (multivariate time series)</p>
+<p>Semua data deret berkala  dimodelkan bersama dalam satu model, dengan mempertimbangkan bahwa setiap deret berkala bergantung tidak hanya pada nilai masa lalunya tetapi juga pada nilai masa lalu dari seri lainnya. Peramal diharapkan tidak hanya mempelajari informasi dari setiap seri secara terpisah tetapi juga menghubungkannya. Contohnya adalah pengukuran yang dilakukan oleh semua sensor (aliran, suhu, tekanan…) yang dipasang pada mesin industri seperti kompresor.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/forecaster_multivariate_train_matrix_diagram.png" /></p>
+</section>
+<div class="toctree-wrapper compound">
 </div>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -465,20 +506,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="intro.html"
+       href="pindah.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Pengantar</p>
+        <p class="prev-next-title">Menyalin folder dari Github</p>
       </div>
     </a>
     <a class="right-next"
-       href="peramalan.html"
+       href="notebooks.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Peramalan  Deret Berkala</p>
+        <p class="prev-next-title">Alur Kerja Pembelajaran Mesin</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -498,9 +539,17 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Menyalin folder dari Github</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mengextract-file-zip-rar">Mengextract file zip, rar</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menyalin-folder-dari-google-drive">Menyalin folder dari google drive</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Peramalan  Deret Berkala</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelajaran-mesin-untuk-peramalan">Pembelajaran mesin untuk peramalan¶</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-single-step">Peramalan single step</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-multi-step">Peramalan Multi-step</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursive-multi-step-forecasting">Recursive multi-step forecasting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-direct-multi-step">Peramalan <em>Direct multi-step</em></a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-multi-output">Peramalan Multi Output</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-peramalan-global">Model peramalan global</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-multi-seri-yang-independen">Peramalan Multi-Seri yang Independen</a></li>
 </ul>
 </li>
 </ul>
