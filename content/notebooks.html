@@ -563,38 +563,28 @@ embelajaran Mendalam (Deep Learning) /Jaringan Syaraf Tiruan adalah bagian dari 
 </section>
 <section id="model-evaluation">
 <h2><a id='model_evaluation'></a>4. Model evaluation<a class="headerlink" href="#model-evaluation" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="../img/ml_workflow_4.png"><img alt="Logos AI4EO MOOC" src="../img/ml_workflow_4.png" style="width: 50%;" /></a></img></p>
-<p>After your model is trained, you want to know the performance and accuracy of your model. For this reason, the evaluation of the trained model is an important step. Subsequently, we will present you a selection of common evaluation metrics for Machine Learning.</p>
-<p><strong>Note:</strong> We do not provide a full list of possible evaluation metrics, but rather a list of metrics that are used in this course. See the <a href='https://scikit-learn.org/stable/modules/model_evaluation.html' target='_blank'>documentation of scikit-learn’s metrics and scoring APIs</a> to get a good overview of common evaluation metrics for different Machine Learning categories.</p>
-<p><strong>General metrics:</strong></p>
+<p>Setelah model  dilatih, kita ingin mengetahui performa dan akurasi model. Oleh karena ini, evaluasi model yang dilatih merupakan langkah penting. Selanjutnya, kita akan menyajikan pilihan metrik evaluasi umum untuk Machine Learning.</p>
+<p><strong>Catatan:</strong> Kami tidak memberikan daftar lengkap metrik evaluasi yang memungkinkan, tetapi daftar metrik yang digunakan dalam kursus dapat dilihat pada <a href='https://scikit-learn.org/stable/modules/model_evaluation.html' target='_blank'>dokumentasi metrik dan API penilaian scikit-learn</a> untuk mendapatkan gambaran umum  tentang metrik evaluasi umum untuk berbagai kategori Machine Learning.</p>
+<p><strong>Ukuran evaluasi model secara umum:</strong></p>
 <ul class="simple">
-<li><p><strong>Mean Absolute Error (MAE)</strong>: Mean Absolute Error is the average of the difference between the original and the predicted values. MAE shows how far the predictions were from the actual output, but it does not provide any information on the direction of the error. For example, if the model is under- or over-predicting.</p></li>
-<li><p><strong>Root Mean Squared Error (RMSE) and Normalized Root Mean Squared Error (nRMSE)</strong>: RMSE and nRMSE is a standard way to measure the error of a model. RMSE is often used to evaluate a trained model for usefulness / accuracy.</p></li>
-<li><p><strong>Pearson Correlation Coefficient</strong>: The Pearson Correlation Coefficient is a measure of the strength of a linear association between two variables (actual vs. predicted).</p></li>
+<li><p><strong>Mean Absolute Error (MAE)</strong>: Mean Absolute Error adalah rata-rata selisih antara nilai asli dan nilai prediksi. MAE menunjukkan seberapa jauh prediksi dibandingkan dengan nilai aktual, tetapi tidak memberikan informasi apa pun tentang gambaran kesalahan. Misalnya, jika model tersebut kurang atau bagus memprediksi.</p></li>
+<li><p><strong>Root Mean Squared Error (RMSE) dan Normalized Root Mean Squared Error (nRMSE)</strong>: RMSE dan nRMSE adalah cara standar untuk mengukur kesalahan suatu model. RMSE sering digunakan untuk mengevaluasi model yang telah dilatih untuk mengetahui kegunaan/akurasinya.</p></li>
+<li><p><strong>Koefisien Korelasi Pearson</strong>: Koefisien Korelasi Pearson adalah ukuran kekuatan hubungan linear antara dua variabel (aktual vs. prediksi).</p></li>
 </ul>
 <br>
-<p><strong>Metrics specifically for classification problems:</strong></p>
+<p><strong>Metrik khusus untuk masalah klasifikasi:</strong></p>
 <ul class="simple">
-<li><p><strong>Overall Accuracy Score</strong>: Accuracy is the ratio of number of correct predictions to the total number of input samples.</p></li>
-<li><p><strong>Confusion Matrix</strong>: a confusion matrix is a matrix which describes the complete performance of the model. Each row of the matrix represents the actual class and each column represents the predicted class - or vice versa. The matrix allows you to quantify the accuracy of your classification - how much information has been correctly classified and how much information has not been correctly classified. The matrix can be provided as table or as graphical output (e.g. as a heatmap).</p></li>
-<li><p><strong>Recall (Sensitivity)</strong>: Recall is the number of correct positive results divided by the number of all relevant samples. The higher the Recall the better.</p></li>
-<li><p><strong>Precision (Positive predictive value)</strong>: Precision is the number of correct positive results divided by the number of positive results predicted by the classifier. The higher the Precision the better.</p></li>
-<li><p><strong>F1 Score</strong>: the F1 score helps to measure the metrics <em>Recall</em> and <em>Precision</em> at the same time and is the harmonic mean of both metric. The F1 score can be between 0 and 1.0.</p></li>
-<li><p><strong>Specificity (True Negative Rate)</strong>: Specificity is the number of correct negative results divided by the number of all relevant samples.</p></li>
+<li><p><strong>Skor Akurasi Keseluruhan</strong>: Akurasi adalah rasio jumlah prediksi yang benar terhadap jumlah total sampel data uji.</p></li>
+<li><p><strong>Confusion Matrix</strong>: Confusion Matrix adalah matriks yang menggambarkan kinerja lengkap model. Setiap baris matriks mewakili kelas aktual dan setiap kolom mewakili kelas prediksi - atau sebaliknya. Matriks memungkinkan Anda untuk mengukur akurasi klasifikasi  - seberapa banyak informasi yang telah diklasifikasikan dengan benar dan seberapa banyak informasi yang belum diklasifikasikan dengan benar. Matriks dapat diberikan sebagai tabel atau sebagai keluaran grafis.</p></li>
+<li><p><strong>Recall (Sensitivitas)</strong>: Recall adalah jumlah hasil positif yang benar dibagi dengan jumlah semua sampel yang relevan. Semakin tinggi Recall semakin baik.</p></li>
+<li><p><strong>Presisi (Nilai prediktif positif)</strong>: Presisi adalah jumlah hasil positif yang benar dibagi dengan jumlah hasil positif yang diprediksi oleh pengklasifikasi. Semakin tinggi Presisi semakin baik.</p></li>
+<li><p><strong>Skor F1</strong>: skor F1 membantu mengukur metrik <em>Recall</em> dan <em>Presisi</em> secara bersamaan dan merupakan rata-rata harmonik dari kedua metrik. Skor F1 dapat berada di antara 0 dan 1,0.</p></li>
+<li><p><strong>Spesifisitas (Nilai Negatif Sejati)</strong>: Spesifisitas adalah jumlah hasil negatif yang benar dibagi dengan jumlah semua sampel yang relevan.</p></li>
 </ul>
 <br></section>
 <section id="inference-applying-a-trained-ml-model-to-make-predictions">
 <h2><a id='inference'></a> 5. Inference - Applying a trained ML model to make predictions<a class="headerlink" href="#inference-applying-a-trained-ml-model-to-make-predictions" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="../img/ml_workflow_5.png"><img alt="Logos AI4EO MOOC" src="../img/ml_workflow_5.png" style="width: 50%;" /></a></img></p>
-<p><strong>Inference</strong> is the process of applying a trained Machine Learning model to new data in order to make predictions. Logically, inference is the very last step of a Machine Learning workflow, because inference cannot happen without the previous steps.</p>
-<p><strong>Domain-specific inference examples shown in this course</strong>:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#../../3_land/3B_tile-based_classification_with_EuroSAT_data/3B_tile-based_classification_with_EuroSAT_data_inference.ipynb"><span class="xref myst">3B - Tile-based classification with EuroSAT data - Inference</span></a></p></li>
-<li><p><a class="reference internal" href="#../../6_climate/6F_ml4floods/6F_ml4floods_inference.ipynb"><span class="xref myst">6F - ML4Floods - Inference of a flood extent segmentation model using Sentinel-2 data</span></a></p></li>
-</ul>
-<br><p><a href='https://www.futurelearn.com/courses/artificial-intelligence-for-earth-monitoring/1/steps/1280510' target='_blank'>&lt;&lt; Back to FutureLearn</a><br></p>
-<hr><p><a class="reference internal" href="../img/copernicus_logo.png"><img alt="Copernicus logo" class="align-left" src="../img/copernicus_logo.png" style="width: 20%;" /></a></img></p>
-<p>Course developed for <a href='https://www.eumetsat.int/' target='_blank'> EUMETSAT</a>, <a href='https://www.ecmwf.int/' target='_blank'> ECMWF</a> and <a href='https://www.mercator-ocean.fr/en/' target='_blank'> Mercator Ocean International</a> in support of the <a href='https://www.copernicus.eu/en' target='_blank'> EU’s Copernicus Programme</a> and the <a href='https://wekeo.eu/' target='_blank'> WEkEO platform</a>.</p>
+<p><strong>Inference</strong> adalah proses penerapan model Machine Learning yang telah dilatih ke data baru untuk membuat prediksi. Secara logika, inferensi adalah langkah terakhir dari alur kerja Machine Learning, karena inferensi tidak dapat terjadi tanpa langkah-langkah sebelumnya..</p>
 </section>
 </section>
 
