@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Peramalan Deret Berkala &#8212; Sain Data Bumi</title>
+    <title>Peramalan Deret Berkala (Time Series) &#8212; Sain Data Bumi</title>
   
   
   
@@ -184,7 +184,7 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pindah.html">Menyalin folder dari Github</a></li>
 
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Peramalan  Deret Berkala</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Peramalan  Deret Berkala (Time Series)</a></li>
 
 
 
@@ -375,7 +375,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Peramalan  Deret Berkala</h1>
+    <h1>Peramalan  Deret Berkala (Time Series)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -385,8 +385,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Peramalan  Deret Berkala</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelajaran-mesin-untuk-peramalan">Pembelajaran mesin untuk peramalan¶</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Peramalan  Deret Berkala (Time Series)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelarajan-mesin-peramalan">Pembelarajan Mesin Peramalan</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-single-step">Peramalan single step</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-multi-step">Peramalan Multi-step</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursive-multi-step-forecasting">Recursive multi-step forecasting</a></li>
@@ -410,15 +410,15 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="peramalan-deret-berkala">
-<h1>Peramalan  Deret Berkala<a class="headerlink" href="#peramalan-deret-berkala" title="Link to this heading">#</a></h1>
+  <section id="peramalan-deret-berkala-time-series">
+<h1>Peramalan  Deret Berkala (Time Series)<a class="headerlink" href="#peramalan-deret-berkala-time-series" title="Link to this heading">#</a></h1>
 <p>Deret waktu adalah serangkaian data yang disusun secara berurutan dan diberi jangka waktu atauinterval yang sama atau tidak beraturan. Proses peramalan terdiri dari memprediksi nilai masa yang akan datang, baik dengan memodelkan deret tersebut berdasarkan perilaku masa lalunya (autoregresif) atau dengan memasukkan variabel eksternal(exogen) lainnya.</p>
 <p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/forecasting_multi-step_en.gif" /></p>
 <p style="text-align:center;">Data Deret Berkala</p>
 <p>Sumber (https://skforecast.org/0.13.0/introduction-forecasting/introduction-forecasting)</p>
 </section>
-<section id="pembelajaran-mesin-untuk-peramalan">
-<h1>Pembelajaran mesin untuk peramalan¶<a class="headerlink" href="#pembelajaran-mesin-untuk-peramalan" title="Link to this heading">#</a></h1>
+<section id="pembelarajan-mesin-peramalan">
+<h1>Pembelarajan Mesin Peramalan<a class="headerlink" href="#pembelarajan-mesin-peramalan" title="Link to this heading">#</a></h1>
 <p>Untuk menerapkan model pembelajaran mesin pada  peramalan, deret waktu perlu diubah menjadi matriks di mana setiap nilai dikaitkan dengan window waktu tertentu (dikenal sebagai jeda) yang mendahuluinya. Dalam konteks deret waktu, lag terkait dengan langkah waktu t didefinisikan sebagai nilai deret pada time step sebelumnya. Misalnya, lag 1 menyatakan nilai pada time step $t-1$, sedangkan lag $m$ menyatakan nilai pada time step $t-m$.</p>
 <p>Transformasi ini penting bagi model pembelajaran mesin untuk mengungkap ketergantungan dan pola antara nilai masa lalu dan masa depan dalam deret waktu. Dengan menggunakan lag sebagai fitur input, model pembelajaran mesin dapat belajar dari masa lalu dan membuat prediksi nilai yang akan datang. Jumlah lag yang digunakan sebagai fitur input dalam matriks merupakan <strong>hyperparameter</strong> penting yang perlu setting  secara hati-hati untuk mendapatkan kinerja model peramalan terbaik.</p>
 <p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/transform_timeseries.gif" /></p>
@@ -536,8 +536,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Peramalan  Deret Berkala</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelajaran-mesin-untuk-peramalan">Pembelajaran mesin untuk peramalan¶</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Peramalan  Deret Berkala (Time Series)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelarajan-mesin-peramalan">Pembelarajan Mesin Peramalan</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-single-step">Peramalan single step</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-multi-step">Peramalan Multi-step</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursive-multi-step-forecasting">Recursive multi-step forecasting</a></li>
