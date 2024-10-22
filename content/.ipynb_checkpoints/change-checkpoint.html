@@ -1,0 +1,822 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Monitoring change through time using satellite imagery filmstrip plots &#8212; Sain Data Bumi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../_static/myadmonitions.css?v=ca39b37b" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/myadmonitions-checkpoint.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script type="application/vnd.jupyter.widget-state+json">{"state": {"03071dc25b7944c5a5e553ba7abced9f": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"flex": "1 0 20em", "height": "3em", "width": "20em"}}, "04cbdfdbbf734dae8021c5ba9a01efe6": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_03071dc25b7944c5a5e553ba7abced9f", "style": "IPY_MODEL_99427a35f96045b2b7308a95a9c2fb42", "value": "<pre style=\"color:grey\">lat: [-34.0572, -33.8864]\nlon: [150.9570, 151.4301]</pre>"}}, "07c38bb75e8243609a49a748f4acf1f6": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonModel", "state": {"description": "done", "disabled": true, "layout": "IPY_MODEL_6c7d3ab9ddb340179c7b8e5900d87f2d", "style": "IPY_MODEL_e2e5848d3a394e179877effeb959a28c"}}, "14e271bc509146889e2d18cd3addf07a": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletWidgetControlModel", "state": {"_model_module": "jupyter-leaflet", "_model_module_version": "^0.14.0", "_view_count": null, "_view_module": "jupyter-leaflet", "_view_module_version": "^0.14.0", "options": ["position", "transparent_bg"], "position": "topright", "widget": "IPY_MODEL_07c38bb75e8243609a49a748f4acf1f6"}}, "208eb5f4b88c4624abe7b00372fff249": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletZoomControlModel", "state": {"_model_module_version": "^0.14.0", "_view_module_version": "^0.14.0", "options": ["position", "zoom_in_text", "zoom_in_title", "zoom_out_text", "zoom_out_title"]}}, "26e0e24901ba4573a37e037eda668f48": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletFullScreenControlModel", "state": {"_model_module_version": "^0.14.0", "_view_module_version": "^0.14.0", "options": ["position"]}}, "409578d0eb3d4f5cbd971d22381abb3d": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"height": "600px"}}, "44f8d335bf7f427a833b5faf6c7ff1f2": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletDrawControlModel", "state": {"_model_module_version": "^0.14.0", "_view_module_version": "^0.14.0", "data": [{"geometry": {"coordinates": [[[151.160545, -33.990013], [151.160545, -33.940182], [151.234703, -33.940182], [151.234703, -33.990013], [151.160545, -33.990013]]], "type": "Polygon"}, "properties": {"style": {"clickable": true, "color": "#000000", "fill": true, "fillColor": "#fca45d", "fillOpacity": 0.1, "opacity": 0.5, "stroke": true, "weight": 4}}, "type": "Feature"}], "options": ["position"], "polygon": {"shapeOptions": {"color": "#000000", "editing": {"color": "#000000", "fillColor": "#fca45d", "fillOpacity": 0.1}, "fillColor": "#fca45d", "fillOpacity": 0.1, "original": {"color": "#000000", "fillColor": "#fca45d", "fillOpacity": 0.1}}}, "polyline": {}, "rectangle": {"metric": ["km", "m"], "shapeOptions": {"color": "#000000", "fillColor": "#fca45d", "fillOpacity": 0.1}}}}, "69d7809765e344b4871f7b64249b8ffc": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletAttributionControlModel", "state": {"_model_module_version": "^0.14.0", "_view_module_version": "^0.14.0", "options": ["position", "prefix"], "position": "bottomright", "prefix": "ipyleaflet"}}, "6c7d3ab9ddb340179c7b8e5900d87f2d": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "5em"}}, "752db91f555748d39048ab9cf9060416": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletTileLayerModel", "state": {"_model_module_version": "^0.14.0", "_view_module_version": "^0.14.0", "attribution": "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community", "max_native_zoom": 18, "max_zoom": 20, "min_native_zoom": 0, "min_zoom": 1, "name": "Esri.WorldImagery", "options": ["attribution", "detect_retina", "max_native_zoom", "max_zoom", "min_native_zoom", "min_zoom", "no_wrap", "tile_size", "tms"], "url": "http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"}}, "876ff6aeb84b499588d3449da6eee277": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletMapStyleModel", "state": {"_model_module_version": "^0.14.0"}}, "90a58f05c8e44a11acdfac66fb067dc4": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletMapStyleModel", "state": {"_model_module_version": "^0.14.0", "cursor": "move"}}, "99427a35f96045b2b7308a95a9c2fb42": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "a52fd307a2e44f969d56e82852a76cef": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletMapStyleModel", "state": {"_model_module_version": "^0.14.0"}}, "af6eac08042240a69e18c7833161a044": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletMapModel", "state": {"_model_module_version": "^0.14.0", "_view_module_version": "^0.14.0", "bottom": 629904, "center": [-33.9719, 151.1934], "controls": ["IPY_MODEL_208eb5f4b88c4624abe7b00372fff249", "IPY_MODEL_69d7809765e344b4871f7b64249b8ffc", "IPY_MODEL_26e0e24901ba4573a37e037eda668f48"], "default_style": "IPY_MODEL_876ff6aeb84b499588d3449da6eee277", "dragging_style": "IPY_MODEL_90a58f05c8e44a11acdfac66fb067dc4", "east": 151.43005371093753, "fullscreen": false, "interpolation": "bilinear", "layers": ["IPY_MODEL_752db91f555748d39048ab9cf9060416"], "layout": "IPY_MODEL_409578d0eb3d4f5cbd971d22381abb3d", "left": 963982, "modisdate": "yesterday", "north": -33.886377470727545, "options": ["bounce_at_zoom_limits", "box_zoom", "center", "close_popup_on_click", "double_click_zoom", "dragging", "fullscreen", "inertia", "inertia_deceleration", "inertia_max_speed", "interpolation", "keyboard", "keyboard_pan_offset", "keyboard_zoom_offset", "max_zoom", "min_zoom", "scroll_wheel_zoom", "tap", "tap_tolerance", "touch_zoom", "world_copy_jump", "zoom", "zoom_animation_threshold", "zoom_delta", "zoom_snap", "zoom_start"], "right": 965360, "scroll_wheel_zoom": true, "south": -34.05721051351029, "style": "IPY_MODEL_a52fd307a2e44f969d56e82852a76cef", "top": 629304, "west": 150.95695495605472, "window_url": "https://app.sandbox.dea.ga.gov.au/user/robbibt/lab/tree/Robbi/dea-notebooks/Real_world_examples/Change_filmstrips.ipynb"}}, "e2e5848d3a394e179877effeb959a28c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonStyleModel", "state": {"button_color": "green"}}, "f4f69148d9e04ac983b304dd1303935c": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletWidgetControlModel", "state": {"_model_module": "jupyter-leaflet", "_model_module_version": "^0.14.0", "_view_count": null, "_view_module": "jupyter-leaflet", "_view_module_version": "^0.14.0", "options": ["position", "transparent_bg"], "position": "bottomleft", "widget": "IPY_MODEL_04cbdfdbbf734dae8021c5ba9a01efe6"}}}, "version_major": 2, "version_minor": 0}</script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@1.0.6/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/change';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Sain Data Bumi - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Sain Data Bumi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Pengantar
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pindah.html">Menyalin folder dari Github</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="peramalan.html">Peramalan  Deret Berkala (Time Series)</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcontent/change.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/change.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Monitoring change through time using satellite imagery filmstrip plots <img align="right" src="../Supplementary_data/dea_logo.jpg"></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#digital-earth-australia-use-case">Digital Earth Australia use case</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#description">Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting started</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-packages">Load packages</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-parameters">Analysis parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-location-and-generate-filmstrips">Select location and generate filmstrips</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-filmstrip-plots-to-identify-change">Using filmstrip plots to identify change</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#change-heatmap">Change heatmap</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-filmstrip-plot">Downloading filmstrip plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#export-geotiff-data">Export GeoTIFF data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-information">Additional information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tags">Tags</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="monitoring-change-through-time-using-satellite-imagery-filmstrip-plots">
+<h1>Monitoring change through time using satellite imagery filmstrip plots <img align="right" src="../Supplementary_data/dea_logo.jpg"><a class="headerlink" href="#monitoring-change-through-time-using-satellite-imagery-filmstrip-plots" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p><strong><a class="reference external" href="https://app.sandbox.dea.ga.gov.au/">Sign up to the DEA Sandbox</a></strong> to run this notebook interactively from a browser</p></li>
+<li><p><strong>Compatibility:</strong> Notebook currently compatible with both the <code class="docutils literal notranslate"><span class="pre">DEA</span> <span class="pre">Sandbox</span></code> and <code class="docutils literal notranslate"><span class="pre">NCI</span></code> environments</p></li>
+<li><p><strong>Products used:</strong>
+<a class="reference external" href="https://explorer.dea.ga.gov.au/ga_ls5t_ard_3">ga_ls5t_ard_3</a>,
+<a class="reference external" href="https://explorer.dea.ga.gov.au/ga_ls7e_ard_3">ga_ls7e_ard_3</a>,
+<a class="reference external" href="https://explorer.dea.ga.gov.au/ga_ls8c_ard_3">ga_ls8c_ard_3</a></p></li>
+</ul>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
+<p>Understanding how natural and human landscapes have changed through time can provide vital information about the health of local ecosystems and development of the built environment.
+For example, data on changes in the distribution of vegetation in the landscape can be used to monitor the impact of deforestation, or track the recovery of forests after habitat restoration or extreme natural events (e.g. bushfires).
+Tracking changes within urban areas can be used monitor the growth of infrastructure such as ports and transport networks, while data on coastal changes can be vital for predicting and managing the impacts of coastal erosion or the loss of coastal wetlands (e.g. mangroves).</p>
+<p>Although these examples of change can be tracked using direct on-the-ground monitoring (e.g. vegetation surveys), it can be extremely challenging and expensive to obtain a comprehensive understanding of these processes at a broader landscape scale.
+For many applications, it can also be extremely useful to obtain a record of the history of a location undergoing change.
+This typically requires historical monitoring data which is unlikely to be available for all but the most intensively monitored locations.</p>
+<section id="digital-earth-australia-use-case">
+<h3>Digital Earth Australia use case<a class="headerlink" href="#digital-earth-australia-use-case" title="Link to this heading">#</a></h3>
+<p>More than 30 years of satellite imagery from the <a class="reference external" href="https://www.usgs.gov/landsat-missions">NASA/USGS Landsat program</a> is freely available for Australia, making this a powerful resource for monitoring natural and human-driven change across the Australian continent.
+Because these satellites image every location over Australia regularly (approximately once every 16 days), they provide an unparalleled archive of how many of Australia’s landscapes have changed through time.</p>
+<p>Analysing change from individual satellite images can be made difficult by the presence of clouds, cloud shadow, sunglint over water, and dynamic processes like changing tides along the coastline.
+By combining individual noisy images into cleaner, cloud-free “summary” images that cover a longer time period (e.g. one or multiple years), we can obtain a clear, consistent view of the Australian environment that can be compared to reveal changes in the landscape over time.</p>
+</section>
+</section>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">#</a></h2>
+<p>In this example, Digital Earth Australia Landsat data is extracted for a given time range and location, and combined using the geometric median (“geomedian”) statistic to reveal the median or ‘typical’ appearance of the landscape for a series of time periods (for more information about geomedians, see the <a class="reference internal" href="#../How_to_guides/Generating_geomedian_composites.ipynb"><span class="xref myst">Geomedian composites notebook</span></a>).</p>
+<p>For coastal applications, the analysis can be customised to select only satellite images obtained during a specific tidal range (e.g. low, average or high tide).</p>
+<p>The results for each time period are combined into a ‘filmstrip’ plot which visualises how the landscape has changed in appearance across time, with a ‘change heatmap’ panel highlighting potential areas of greatest change:</p>
+<p><img alt="Example of filmstrip plot" src="Supplementary_data/Change_filmstrips/filmstrip_example.JPG" /></p>
+</section>
+<hr class="docutils" />
+<section id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
+<p>To run this analysis, run all the cells in the notebook, starting with the “Load packages” cell.</p>
+<section id="load-packages">
+<h3>Load packages<a class="headerlink" href="#load-packages" title="Link to this heading">#</a></h3>
+<p>Import Python packages used for the analysis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">from</span> <span class="nn">datacube.utils.cog</span> <span class="kn">import</span> <span class="n">write_cog</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;../Tools/&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">dea_tools.app</span> <span class="kn">import</span> <span class="n">changefilmstrips</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="analysis-parameters">
+<h3>Analysis parameters<a class="headerlink" href="#analysis-parameters" title="Link to this heading">#</a></h3>
+<p>The following cell sets important required parameters for the analysis:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">output_name</span></code>: A name that will be used to name the output filmstrip plot file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time_range</span></code>: The date range to analyse (e.g. <code class="docutils literal notranslate"><span class="pre">time_range</span> <span class="pre">=</span> <span class="pre">('1988-01-01',</span> <span class="pre">'2017-12-31')</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time_step</span></code>: This parameter allows us to choose the length of the time periods we want to compare (e.g. <code class="docutils literal notranslate"><span class="pre">time_step</span> <span class="pre">=</span> <span class="pre">{'years':</span> <span class="pre">5}</span></code> will generate one filmstrip plot for every five years of data in the dataset; <code class="docutils literal notranslate"><span class="pre">time_step</span> <span class="pre">=</span> <span class="pre">{'months':</span> <span class="pre">18}</span></code> will generate one plot for each 18 month period etc.
+Time periods are counted from the first value given in <code class="docutils literal notranslate"><span class="pre">time_range</span></code>.</p></li>
+</ul>
+<p>Optional parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tide_range</span></code>: This parameter allows you to generate filmstrip plots based on specific ocean tide conditions.
+This can be valuable for analysing change consistently along the coast.
+For example, <code class="docutils literal notranslate"><span class="pre">tide_range</span> <span class="pre">=</span> <span class="pre">(0.0,</span> <span class="pre">0.2)</span></code> will select only satellite images acquired at the lowest 20% of tides; <code class="docutils literal notranslate"><span class="pre">tide_range</span> <span class="pre">=</span> <span class="pre">(0.8,</span> <span class="pre">1.0)</span></code> will select images from the highest 20% of tides.
+The default is <code class="docutils literal notranslate"><span class="pre">tide_range</span> <span class="pre">=</span> <span class="pre">(0.0,</span> <span class="pre">1.0)</span></code> which will select all images regardless of tide.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resolution</span></code>: The spatial resolution to load data.
+The default is <code class="docutils literal notranslate"><span class="pre">resolution</span> <span class="pre">=</span> <span class="pre">(-30,</span> <span class="pre">30)</span></code>, which will load data at 30 m pixel resolution.
+Increasing this (e.g. to <code class="docutils literal notranslate"><span class="pre">resolution</span> <span class="pre">=</span> <span class="pre">(-100,</span> <span class="pre">100)</span></code>) can be useful for loading large spatial extents.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_cloud</span></code>: This parameter allows you to exclude satellite images with excessive cloud.
+The default is <code class="docutils literal notranslate"><span class="pre">50</span></code>, which will keep all images with less than 50% cloud.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ls7_slc_off</span></code>: Whether to include data from after the Landsat 7 SLC failure (i.e. SLC-off).
+Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>, which removes all Landsat 7 observations after May 31 2003.
+Setting this to <code class="docutils literal notranslate"><span class="pre">True</span></code> will result in extra data, but can also introduce horizontal striping in the output filmstrip plots.</p></li>
+</ul>
+<p><strong>If running the notebook for the first time</strong>, keep the default settings below. This will demonstrate how the analysis works and provide meaningful results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Required parameters</span>
+<span class="n">output_name</span> <span class="o">=</span> <span class="s1">&#39;example&#39;</span>
+<span class="n">time_range</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;1988-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2017-12-31&#39;</span><span class="p">)</span>
+<span class="n">time_step</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;years&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">}</span>
+
+<span class="c1"># Optional parameters</span>
+<span class="n">tide_range</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">resolution</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">max_cloud</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="n">ls7_slc_off</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="select-location-and-generate-filmstrips">
+<h2>Select location and generate filmstrips<a class="headerlink" href="#select-location-and-generate-filmstrips" title="Link to this heading">#</a></h2>
+<p>Run the following cell to start the analysis.
+This will plot an interactive map that is used to select the area to load satellite data for.</p>
+<p>Select the <code class="docutils literal notranslate"><span class="pre">Draw</span> <span class="pre">a</span> <span class="pre">rectangle</span></code> or <code class="docutils literal notranslate"><span class="pre">Draw</span> <span class="pre">a</span> <span class="pre">polygon</span></code> tool on the left of the map, and draw a shape around the area you are interested in.</p>
+<p>For the first run, try <strong>drawing a square around Sydney Airport and Port Botany</strong> to see an example of change driven by urban and coastal development.</p>
+<p>When you are ready, press the green <code class="docutils literal notranslate"><span class="pre">done</span></code> button on the top right of the map.
+This will start loading the data, and then generate a filmstrips plot.</p>
+<blockquote>
+<div><p>Depending on the size of the area you select, this step can take <strong>several minutes to complete</strong>.
+To keep load times reasonable, select an area <strong>smaller than 200 square kilometers</strong> in size (this limit can be overuled by supplying the <code class="docutils literal notranslate"><span class="pre">size_limit</span></code> parameter in the <code class="docutils literal notranslate"><span class="pre">run_filmstrip_app</span></code> function below).</p>
+</div></blockquote>
+<blockquote>
+<div><p>Once the analysis reaches the <code class="docutils literal notranslate"><span class="pre">Generating</span> <span class="pre">geomedian</span> <span class="pre">composites</span></code> step, you can check the status of the data load by clicking the <strong>Dashboard</strong> link under <strong>Client</strong> below.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">geomedians</span><span class="p">,</span> <span class="n">heatmap</span> <span class="o">=</span> <span class="n">changefilmstrips</span><span class="o">.</span><span class="n">run_filmstrip_app</span><span class="p">(</span>
+    <span class="n">output_name</span><span class="p">,</span> <span class="n">time_range</span><span class="p">,</span> <span class="n">time_step</span><span class="p">,</span> <span class="n">tide_range</span><span class="p">,</span> <span class="n">resolution</span><span class="p">,</span> <span class="n">max_cloud</span><span class="p">,</span>
+    <span class="n">ls7_slc_off</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "60efcaecf8b3487b96cbe61210187ac7"}</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">geomedians</span><span class="p">,</span> <span class="n">heatmap</span> <span class="o">=</span> <span class="n">changefilmstrips</span><span class="o">.</span><span class="n">run_filmstrip_app</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="n">output_name</span><span class="p">,</span> <span class="n">time_range</span><span class="p">,</span> <span class="n">time_step</span><span class="p">,</span> <span class="n">tide_range</span><span class="p">,</span> <span class="n">resolution</span><span class="p">,</span> <span class="n">max_cloud</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">ls7_slc_off</span><span class="p">)</span>
+
+<span class="nn">File /env/lib/python3.10/site-packages/dea_tools/app/changefilmstrips.py:123,</span> in <span class="ni">run_filmstrip_app</span><span class="nt">(output_name, time_range, time_step, tide_range, resolution, max_cloud, ls7_slc_off, size_limit)</span>
+<span class="g g-Whitespace">    </span><span class="mi">121</span> <span class="c1"># Plot interactive map to select area</span>
+<span class="g g-Whitespace">    </span><span class="mi">122</span> <span class="n">basemap</span> <span class="o">=</span> <span class="n">basemap_to_tiles</span><span class="p">(</span><span class="n">basemaps</span><span class="o">.</span><span class="n">Esri</span><span class="o">.</span><span class="n">WorldImagery</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">123</span> <span class="n">geopolygon</span> <span class="o">=</span> <span class="n">select_on_a_map</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="s1">&#39;600px&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">124</span>                              <span class="n">layers</span><span class="o">=</span><span class="p">(</span><span class="n">basemap</span><span class="p">,),</span>
+<span class="g g-Whitespace">    </span><span class="mi">125</span>                              <span class="n">center</span><span class="o">=</span><span class="n">centre_coords</span> <span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">127</span> <span class="c1"># Set centre coords based on most recent selection to re-focus</span>
+<span class="g g-Whitespace">    </span><span class="mi">128</span> <span class="c1"># subsequent data selections</span>
+<span class="g g-Whitespace">    </span><span class="mi">129</span> <span class="n">centre_coords</span> <span class="o">=</span> <span class="n">geopolygon</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="nn">File /env/lib/python3.10/site-packages/odc/ui/_map.py:251,</span> in <span class="ni">select_on_a_map</span><span class="nt">(m, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">247</span>     <span class="kn">from</span> <span class="nn">datacube.utils.geometry</span> <span class="kn">import</span> <span class="n">Geometry</span>
+<span class="g g-Whitespace">    </span><span class="mi">249</span>     <span class="k">return</span> <span class="n">Geometry</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">selection</span><span class="p">,</span> <span class="n">epsg4326</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">251</span> <span class="k">return</span> <span class="n">ui_poll</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">extract_geometry</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">done</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="nn">File /env/lib/python3.10/site-packages/odc/ui/_ui.py:55,</span> in <span class="ni">ui_poll</span><span class="nt">(f, sleep, n)</span>
+<span class="g g-Whitespace">     </span><span class="mi">54</span> <span class="k">def</span> <span class="nf">ui_poll</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">sleep</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">55</span>     <span class="k">return</span> <span class="n">run_ui_poll_loop</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">sleep</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+<span class="nn">File /env/lib/python3.10/site-packages/jupyter_ui_poll/_poll.py:326,</span> in <span class="ni">run_ui_poll_loop</span><span class="nt">(f, sleep, n)</span>
+<span class="g g-Whitespace">    </span><span class="mi">323</span>         <span class="n">x</span> <span class="o">=</span> <span class="n">f</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">324</span>         <span class="k">yield</span> <span class="n">x</span>
+<span class="ne">--&gt; </span><span class="mi">326</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">with_ui_events</span><span class="p">(</span><span class="n">as_iterator</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">sleep</span><span class="p">),</span> <span class="n">n</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">327</span>     <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">328</span>         <span class="k">return</span> <span class="n">x</span>
+
+<span class="nn">File /env/lib/python3.10/site-packages/jupyter_ui_poll/_poll.py:185,</span> in <span class="ni">IteratorWrapper.__iter__.&lt;locals&gt;._loop</span><span class="nt">(kernel, its, n)</span>
+<span class="g g-Whitespace">    </span><span class="mi">183</span> <span class="k">with</span> <span class="n">kernel</span> <span class="k">as</span> <span class="n">poll</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">184</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">185</span>         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">its</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">186</span>             <span class="n">poll</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">187</span>             <span class="k">yield</span> <span class="n">x</span>
+
+<span class="nn">File /env/lib/python3.10/site-packages/jupyter_ui_poll/_poll.py:321,</span> in <span class="ni">run_ui_poll_loop.&lt;locals&gt;.as_iterator</span><span class="nt">(f, sleep)</span>
+<span class="g g-Whitespace">    </span><span class="mi">319</span> <span class="k">while</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">320</span>     <span class="k">if</span> <span class="n">sleep</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">321</span>         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">323</span>     <span class="n">x</span> <span class="o">=</span> <span class="n">f</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">324</span>     <span class="k">yield</span> <span class="n">x</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="using-filmstrip-plots-to-identify-change">
+<h2>Using filmstrip plots to identify change<a class="headerlink" href="#using-filmstrip-plots-to-identify-change" title="Link to this heading">#</a></h2>
+<p>The filmstrip plot above contains several colour imagery panels that summarise the median or ‘typical’ appearance of the landscape for the time periods defined using <code class="docutils literal notranslate"><span class="pre">time_range</span></code> and <code class="docutils literal notranslate"><span class="pre">time_step</span></code>.
+If you ran the analysis over the Sydney Airport and Port Botany area, inspect each of the imagery plots.
+Some key examples of change that appear include:</p>
+<ul class="simple">
+<li><p>The 1994 construction of Sydney Airport’s third runway in the second panel (covering the five year period between 1993 and 1998)</p></li>
+<li><p>The 2011 expansion of Port Botany visible as construction in the fifth panel, and completed by the sixth panel</p></li>
+<li><p>Increasing commercial and industrial development (e.g. large white roofs) in the suburb of Mascot north of Port Botany</p></li>
+</ul>
+<section id="change-heatmap">
+<h3>Change heatmap<a class="headerlink" href="#change-heatmap" title="Link to this heading">#</a></h3>
+<p>To make it easier to identify areas that have changed between each filmstrip panel, the final panel provides a “change heatmap”.
+This highlights pixels whose values vary greatly between the panels in the filmstrip plot.
+Bright colours indicate pixels that have changed; dark colours indicate pixels that have remained relatively similar across time.</p>
+<p>Compare the “change heatmap” panel against the colour imagery panels.
+You should be able to clearly see Sydney Airport’s third runway and the Port Botany port expansion highlighted in bright colours.</p>
+<blockquote>
+<div><p><strong>Technical info:</strong> The “change heatmap” is calculated by first taking a log transform of the imagery data to emphasize dark pixels, then calculating standard deviation across all of the filmstrip panels to reveal pixels that changed over time.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="downloading-filmstrip-plot">
+<h2>Downloading filmstrip plot<a class="headerlink" href="#downloading-filmstrip-plot" title="Link to this heading">#</a></h2>
+<p>The high resolution version of the filmstrip plot generated above will be saved to the same location you are running this notebook from (e.g. typically <code class="docutils literal notranslate"><span class="pre">Real_world_examples</span></code>).
+In JupyterLab, use the file browser to locate the image file with a name in the following format:</p>
+<p><code class="docutils literal notranslate"><span class="pre">filmstrip_{output_name}_{date_string}_{time_step}.png</span></code></p>
+<p>If you are using the <strong>DEA Sandbox</strong>, you can download the image to your PC by right clicking on the image file and selecting <code class="docutils literal notranslate"><span class="pre">Download</span></code>.</p>
+</section>
+<section id="export-geotiff-data">
+<h2>Export GeoTIFF data<a class="headerlink" href="#export-geotiff-data" title="Link to this heading">#</a></h2>
+<p>It can be useful to export each of the filmstrip panels generated above as GeoTIFF raster files so that they can be loaded into a Geographic Information System (GIS) software for further analysis.
+Because the filmstrip panels were generated using the “geomedian” statistic that preserves relationships between spectral bands, the resulting data can be validly analysed in the same way as we would analyse an individual satellite image.</p>
+<p>To export the GeoTIFFs, run the following cell then right click on the files in the JupyterLab file browser and select <code class="docutils literal notranslate"><span class="pre">Download</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Export filmstrip panels</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">geomedians</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;timestep&#39;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Exporting </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1"> data&#39;</span><span class="p">)</span>
+    <span class="n">write_cog</span><span class="p">(</span><span class="n">geo_im</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">to_array</span><span class="p">(),</span> 
+              <span class="n">fname</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;geotiff_</span><span class="si">{</span><span class="n">output_name</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">.tif&#39;</span><span class="p">,</span> 
+              <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Export change heatmap</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exporting change heatmap&#39;</span><span class="p">)</span>
+<span class="n">write_cog</span><span class="p">(</span><span class="n">geo_im</span><span class="o">=</span><span class="n">heatmap</span><span class="p">,</span> 
+          <span class="n">fname</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;geotiff_</span><span class="si">{</span><span class="n">output_name</span><span class="si">}</span><span class="s1">_heatmap.tif&#39;</span><span class="p">,</span> 
+          <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exporting 1988-01-01 data
+Exporting 1993-01-01 data
+Exporting 1998-01-01 data
+Exporting 2003-01-01 data
+Exporting 2008-01-01 data
+Exporting 2013-01-01 data
+Exporting change heatmap
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath(&#39;geotiff_example_heatmap.tif&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<p>When you are done, return to the <a class="reference internal" href="#Analysis-parameters"><span class="xref myst">Analysis parameters</span></a> section, modify some values and rerun the analysis.
+For example, you could try:</p>
+<ul class="simple">
+<li><p>Modify <code class="docutils literal notranslate"><span class="pre">time_range</span></code> to look at a specific time period of interest (e.g. <code class="docutils literal notranslate"><span class="pre">time_range</span> <span class="pre">=</span> <span class="pre">('1990-01-01',</span> <span class="pre">'2000-01-01')</span></code>.</p></li>
+<li><p>Setting a shorter <code class="docutils literal notranslate"><span class="pre">time_step</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">time_step</span> <span class="pre">=</span> <span class="pre">{'years':</span> <span class="pre">2}</span></code>) for a more detailed look at how the landscape has changed over shorter time periods.</p></li>
+<li><p>Inspecting change along the coastline after controlling for tide using the <code class="docutils literal notranslate"><span class="pre">tide_range</span></code> parameter (e.g. <code class="docutils literal notranslate"><span class="pre">tide_range</span> <span class="pre">=</span> <span class="pre">(0.0,</span> <span class="pre">0.3)</span></code> to look at the landscape during the lowest 30% of tides).
+For the best results, test this out in an area with high tides such as <a class="reference external" href="https://goo.gl/maps/ZkCcXUSbsVhRMsgM9">Roebuck Bay in West Australia’s Kimberley region</a>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="additional-information">
+<h2>Additional information<a class="headerlink" href="#additional-information" title="Link to this heading">#</a></h2>
+<p><strong>License:</strong> The code in this notebook is licensed under the <a class="reference external" href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+Digital Earth Australia data is licensed under the <a class="reference external" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons by Attribution 4.0</a> license.</p>
+<p><strong>Contact:</strong> If you need assistance, please post a question on the <a class="reference external" href="https://discord.com/invite/4hhBQVas5U">Open Data Cube Discord chat</a> or on the <a class="reference external" href="https://gis.stackexchange.com/questions/ask?tags=open-data-cube">GIS Stack Exchange</a> using the <code class="docutils literal notranslate"><span class="pre">open-data-cube</span></code> tag (you can view previously asked questions <a class="reference external" href="https://gis.stackexchange.com/questions/tagged/open-data-cube">here</a>).
+If you would like to report an issue with this notebook, you can file one on <a class="reference external" href="https://github.com/GeoscienceAustralia/dea-notebooks">GitHub</a>.</p>
+<p><strong>Last modified:</strong> December 2023</p>
+<p><strong>Compatible datacube version:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datacube</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">datacube</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.8.6
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tags">
+<h2>Tags<a class="headerlink" href="#tags" title="Link to this heading">#</a></h2>
+<!-- Browse all available tags on the DEA User Guide's [Tags Index](https://knowledge.dea.ga.gov.au/genindex/) --></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#digital-earth-australia-use-case">Digital Earth Australia use case</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#description">Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting started</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-packages">Load packages</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-parameters">Analysis parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-location-and-generate-filmstrips">Select location and generate filmstrips</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-filmstrip-plots-to-identify-change">Using filmstrip plots to identify change</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#change-heatmap">Change heatmap</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-filmstrip-plot">Downloading filmstrip plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#export-geotiff-data">Export GeoTIFF data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-information">Additional information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tags">Tags</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mulaab Mulyo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
