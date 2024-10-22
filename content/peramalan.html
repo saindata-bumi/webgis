@@ -59,6 +59,8 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/peramalan';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -415,11 +417,11 @@ document.write(`
 <p>Deret waktu adalah serangkaian data yang disusun secara berurutan dan diberi jangka waktu atauinterval yang sama atau tidak beraturan. Proses peramalan terdiri dari memprediksi nilai masa yang akan datang, baik dengan memodelkan deret tersebut berdasarkan perilaku masa lalunya (autoregresif) atau dengan memasukkan variabel eksternal(exogen) lainnya.</p>
 <p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/forecasting_multi-step_en.gif" /></p>
 <p style="text-align:center;">Data Deret Berkala</p>
-<p>Sumber (https://skforecast.org/0.13.0/introduction-forecasting/introduction-forecasting)</p>
+<p>Sumber (<a class="reference external" href="https://skforecast.org/0.13.0/introduction-forecasting/introduction-forecasting">https://skforecast.org/0.13.0/introduction-forecasting/introduction-forecasting</a>)</p>
 </section>
 <section id="pembelarajan-mesin-peramalan">
 <h1>Pembelarajan Mesin Peramalan<a class="headerlink" href="#pembelarajan-mesin-peramalan" title="Link to this heading">#</a></h1>
-<p>Untuk menerapkan model pembelajaran mesin pada  peramalan, deret waktu perlu diubah menjadi matriks di mana setiap nilai dikaitkan dengan window waktu tertentu (dikenal sebagai jeda) yang mendahuluinya. Dalam konteks deret waktu, lag terkait dengan langkah waktu t didefinisikan sebagai nilai deret pada time step sebelumnya. Misalnya, lag 1 menyatakan nilai pada time step $t-1$, sedangkan lag $m$ menyatakan nilai pada time step $t-m$.</p>
+<p>Untuk menerapkan model pembelajaran mesin pada  peramalan, deret waktu perlu diubah menjadi matriks di mana setiap nilai dikaitkan dengan window waktu tertentu (dikenal sebagai jeda) yang mendahuluinya. Dalam konteks deret waktu, lag terkait dengan langkah waktu t didefinisikan sebagai nilai deret pada time step sebelumnya. Misalnya, lag 1 menyatakan nilai pada time step <span class="math notranslate nohighlight">\(t-1\)</span>, sedangkan lag <span class="math notranslate nohighlight">\(m\)</span> menyatakan nilai pada time step <span class="math notranslate nohighlight">\(t-m\)</span>.</p>
 <p>Transformasi ini penting bagi model pembelajaran mesin untuk mengungkap ketergantungan dan pola antara nilai masa lalu dan masa depan dalam deret waktu. Dengan menggunakan lag sebagai fitur input, model pembelajaran mesin dapat belajar dari masa lalu dan membuat prediksi nilai yang akan datang. Jumlah lag yang digunakan sebagai fitur input dalam matriks merupakan <strong>hyperparameter</strong> penting yang perlu setting  secara hati-hati untuk mendapatkan kinerja model peramalan terbaik.</p>
 <p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/transform_timeseries.gif" /></p>
 <p style="text-align:center;">Gambar Transformasi deret waktu menjadi matriks 5 lag dan vektor dengan nilai deret yang mengikuti setiap baris matriks</p>
@@ -436,10 +438,10 @@ document.write(`
 </section>
 <section id="peramalan-multi-step">
 <h1>Peramalan Multi-step<a class="headerlink" href="#peramalan-multi-step" title="Link to this heading">#</a></h1>
-<p>Saat bekerja dengan deret waktu, jarang untuk memprediksi hanya satu nilai berikutnya dalam deret $(t+1)$. Sebaliknya, tujuan yang paling umum adalah untuk memprediksi seluruh interval masa depan $(t+1, \dots t+n)$ atau titik waktu yang jauh $(t+n)$. Beberapa strategi memungkinkan pembuatan jenis prediksi ini.</p>
+<p>Saat bekerja dengan deret waktu, jarang untuk memprediksi hanya satu nilai berikutnya dalam deret <span class="math notranslate nohighlight">\((t+1)\)</span>. Sebaliknya, tujuan yang paling umum adalah untuk memprediksi seluruh interval masa depan <span class="math notranslate nohighlight">\((t+1, \dots t+n)\)</span> atau titik waktu yang jauh <span class="math notranslate nohighlight">\((t+n)\)</span>. Beberapa strategi memungkinkan pembuatan jenis prediksi ini.</p>
 <section id="recursive-multi-step-forecasting">
 <h2>Recursive multi-step forecasting<a class="headerlink" href="#recursive-multi-step-forecasting" title="Link to this heading">#</a></h2>
-<p>Karena nilai $t(n-1)$ diperlukan untuk memprediksi $t(n)$, dan $t(n-1)$ tidak diketahui, proses rekursif diterapkan di mana, setiap prediksi baru, didasarkan pada prediksi sebelumnya. Proses ini dikenal sebagai peramalan rekursif atau peramalan multi-langkah rekursif dan dapat dengan mudah dibuat dengan kelas ForecasterAutoreg dan ForecasterAutoregCustom.</p>
+<p>Karena nilai <span class="math notranslate nohighlight">\(t(n-1)\)</span> diperlukan untuk memprediksi <span class="math notranslate nohighlight">\(t(n)\)</span>, dan <span class="math notranslate nohighlight">\(t(n-1)\)</span> tidak diketahui, proses rekursif diterapkan di mana, setiap prediksi baru, didasarkan pada prediksi sebelumnya. Proses ini dikenal sebagai peramalan rekursif atau peramalan multi-langkah rekursif dan dapat dengan mudah dibuat dengan kelas ForecasterAutoreg dan ForecasterAutoregCustom.</p>
 <p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/diagram-recursive-mutistep-forecasting.png" /></p>
 <p>Gambar. Diagram  recursive multi-step forecasting</p>
 </section>

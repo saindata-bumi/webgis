@@ -62,7 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/pindah';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Peramalan Deret Berkala" href="peramalan.html" />
+    <link rel="next" title="Peramalan Deret Berkala (Time Series)" href="peramalan.html" />
     <link rel="prev" title="Pengantar" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -184,7 +184,7 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Menyalin folder dari Github</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="peramalan.html">Peramalan  Deret Berkala</a></li>
+<li class="toctree-l1"><a class="reference internal" href="peramalan.html">Peramalan  Deret Berkala (Time Series)</a></li>
 
 
 
@@ -402,17 +402,17 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="menyalin-folder-dari-github">
+  <section class="tex2jax_ignore mathjax_ignore" id="menyalin-folder-dari-github">
 <h1>Menyalin folder dari Github<a class="headerlink" href="#menyalin-folder-dari-github" title="Link to this heading">#</a></h1>
-<p>Kadang kala kita membutuhkan salah satu folder pada suatu repositori github yang harus kita pindahkan kedalam ruang kerja kita. Setelah browsing di [https://pypi.org/project] saya menemukan package yang memudahkan untuk melakukan itu di https://pypi.org/project/gh-folder-download/. Berikut langkah langkah yang harus dilakukan</p>
+<p>Kadang kala kita membutuhkan salah satu folder pada suatu repositori github yang harus kita pindahkan kedalam ruang kerja kita. Setelah browsing di [<a class="reference external" href="https://pypi.org/project">https://pypi.org/project</a>] saya menemukan package yang memudahkan untuk melakukan itu di <a class="reference external" href="https://pypi.org/project/gh-folder-download/">https://pypi.org/project/gh-folder-download/</a>. Berikut langkah langkah yang harus dilakukan</p>
 <ol class="arabic simple">
 <li><p>Install paket tersebut dengan perintah pip install gh-folder-download</p></li>
-<li><p>Tentukan folder yang akan di pindahkan, misal folder di [https://github.com/sentinel-hub/eo-learn/tree/master/examples]</p></li>
-<li><p>ketik perintah gh-folder-download –url [https://github.com/sentinel-hub/eo-learn/tree/master/examples –force]</p></li>
+<li><p>Tentukan folder yang akan di pindahkan, misal folder di [<a class="github reference external" href="https://github.com/sentinel-hub/eo-learn/tree/master/examples">sentinel-hub/eo-learn</a>]</p></li>
+<li><p>ketik perintah gh-folder-download –url [<a class="github reference external" href="https://github.com/sentinel-hub/eo-learn/tree/master/examples">sentinel-hub/eo-learn</a> –force]</p></li>
 <li><p>Selesai (perhatikan apakah folder sudah berpindah didirekotri kita)</p></li>
 </ol>
 </section>
-<section id="mengextract-file-zip-rar">
+<section class="tex2jax_ignore mathjax_ignore" id="mengextract-file-zip-rar">
 <h1>Mengextract file zip, rar<a class="headerlink" href="#mengextract-file-zip-rar" title="Link to this heading">#</a></h1>
 <ol class="arabic simple">
 <li><p>pip install patool</p></li>
@@ -422,10 +422,10 @@ document.write(`
 </ol>
 <section id="menyalin-folder-dari-google-drive">
 <h2>Menyalin folder dari google drive<a class="headerlink" href="#menyalin-folder-dari-google-drive" title="Link to this heading">#</a></h2>
-<p>Seringkali kita melakukan penyimpanan di google drive dalam sebuah folder. Misalkan kita telah men-share folder kita dengan link  https://drive.google.com/drive/folders/1iOSDorku0NS3z03bSEbM0uxhJPtcnXVQ?usp=sharing. Kode “ 1iOSDorku0NS3z03bSEbM0uxhJPtcnXVQ” adalah ID folder yang kita share.  Untuk menyalin sebuah folder dari google drive ke direktori kita silahkan ikuti langkah berikut.</p>
+<p>Seringkali kita melakukan penyimpanan di google drive dalam sebuah folder. Misalkan kita telah men-share folder kita dengan link  <a class="reference external" href="https://drive.google.com/drive/folders/1iOSDorku0NS3z03bSEbM0uxhJPtcnXVQ?usp=sharing">https://drive.google.com/drive/folders/1iOSDorku0NS3z03bSEbM0uxhJPtcnXVQ?usp=sharing</a>. Kode “ 1iOSDorku0NS3z03bSEbM0uxhJPtcnXVQ” adalah ID folder yang kita share.  Untuk menyalin sebuah folder dari google drive ke direktori kita silahkan ikuti langkah berikut.</p>
 <ol class="arabic simple">
 <li><p>Install model “pip install gdrive”</p></li>
-<li><p>Ketik perintah “gdown https://drive.google.com/drive/folders/1iOSDorku0NS3z03bSEbM0uxhJPtcnXVQ -O pindahan –folder</p></li>
+<li><p>Ketik perintah “gdown <a class="reference external" href="https://drive.google.com/drive/folders/1iOSDorku0NS3z03bSEbM0uxhJPtcnXVQ">https://drive.google.com/drive/folders/1iOSDorku0NS3z03bSEbM0uxhJPtcnXVQ</a> -O pindahan –folder</p></li>
 </ol>
 <p>Ket: pindahan adalah nama folder yang akan dibentuk direktori aktif kita tempat menyalin insi dari folder yang disali</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
@@ -478,7 +478,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Peramalan  Deret Berkala</p>
+        <p class="prev-next-title">Peramalan  Deret Berkala (Time Series)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
