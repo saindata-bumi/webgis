@@ -1,0 +1,120 @@
+Traceback (most recent call last):
+  File "/env/lib/python3.10/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/env/lib/python3.10/site-packages/nbclient/client.py", line 1314, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/env/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+  File "/env/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/env/lib/python3.10/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/env/lib/python3.10/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/env/lib/python3.10/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# transforming each variable into a matrix format
+from keras.models import Sequential
+from keras.layers import Dense, LSTM, TimeDistributed, RepeatVector, Dropout
+from sklearn.model_selection import train_test_split
+
+mat_by_variable = []
+for col in data:
+    col_df = time_delay_embedding(data[col], n_lags=N_LAGS, horizon=HORIZON)
+    mat_by_variable.append(col_df)
+
+# concatenating all variables
+mat_df = pd.concat(mat_by_variable, axis=1).dropna()
+
+# defining target (Y) and explanatory variables (X)
+predictor_variables = mat_df.columns.str.contains('\(t\-|\(t\)')
+target_variables = mat_df.columns.str.contains('\(t\+')
+X = mat_df.iloc[:, predictor_variables]
+Y = mat_df.iloc[:, target_variables]
+X_3d = from_matrix_to_3d(X)
+Y_3d = from_matrix_to_3d(Y)
+
+# Define model parameters
+N_LAGS = 3  # Example value, set appropriately
+N_FEATURES = 1  # Example value, set appropriately
+HORIZON = 1  # Example value, set appropriately
+
+# Assuming X_3d and Y_3d are defined elsewhere
+X_3d = X_3d.astype('float32')  # Ensure data type is float32
+Y_3d = Y_3d.astype('float32')  # Ensure data type is float32
+
+# Train/test split
+X_train, X_valid, Y_train, Y_valid = train_test_split(X_3d, Y_3d, test_size=0.2, shuffle=False)
+
+# Check shapes
+print(f"X_train shape: {X_train.shape}")
+print(f"Y_train shape: {Y_train.shape}")
+print(f"X_valid shape: {X_valid.shape}")
+print(f"Y_valid shape: {Y_valid.shape}")
+
+# Initialize the model
+model = Sequential()
+model.add(LSTM(8, activation='relu', input_shape=(N_LAGS, N_FEATURES)))
+model.add(Dropout(0.2))
+model.add(RepeatVector(HORIZON))
+model.add(LSTM(4, activation='relu', return_sequences=True))
+model.add(Dropout(0.2))
+model.add(TimeDistributed(Dense(N_FEATURES)))
+
+# Compile the model
+model.compile(optimizer='adam', loss='mse')
+
+# Fit the model
+model.fit(X_train, Y_train, epochs=500, validation_data=(X_valid, Y_valid))
+
+# Make predictions
+preds = model.predict(X_valid)
+------------------
+
+----- stdout -----
+X_train shape: (141, 3, 6)
+Y_train shape: (141, 2, 6)
+X_valid shape: (36, 3, 6)
+Y_valid shape: (36, 2, 6)
+Epoch 1/500
+----- stderr -----
+/env/lib/python3.10/site-packages/keras/src/layers/rnn/rnn.py:204: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(**kwargs)
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mValueError[0m                                Traceback (most recent call last)
+Cell [0;32mIn[11], line 53[0m
+[1;32m     50[0m model[38;5;241m.[39mcompile(optimizer[38;5;241m=[39m[38;5;124m'[39m[38;5;124madam[39m[38;5;124m'[39m, loss[38;5;241m=[39m[38;5;124m'[39m[38;5;124mmse[39m[38;5;124m'[39m)
+[1;32m     52[0m [38;5;66;03m# Fit the model[39;00m
+[0;32m---> 53[0m [43mmodel[49m[38;5;241;43m.[39;49m[43mfit[49m[43m([49m[43mX_train[49m[43m,[49m[43m [49m[43mY_train[49m[43m,[49m[43m [49m[43mepochs[49m[38;5;241;43m=[39;49m[38;5;241;43m500[39;49m[43m,[49m[43m [49m[43mvalidation_data[49m[38;5;241;43m=[39;49m[43m([49m[43mX_valid[49m[43m,[49m[43m [49m[43mY_valid[49m[43m)[49m[43m)[49m
+[1;32m     55[0m [38;5;66;03m# Make predictions[39;00m
+[1;32m     56[0m preds [38;5;241m=[39m model[38;5;241m.[39mpredict(X_valid)
+
+File [0;32m/env/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py:122[0m, in [0;36mfilter_traceback.<locals>.error_handler[0;34m(*args, **kwargs)[0m
+[1;32m    119[0m     filtered_tb [38;5;241m=[39m _process_traceback_frames(e[38;5;241m.[39m__traceback__)
+[1;32m    120[0m     [38;5;66;03m# To get the full stack trace, call:[39;00m
+[1;32m    121[0m     [38;5;66;03m# `keras.config.disable_traceback_filtering()`[39;00m
+[0;32m--> 122[0m     [38;5;28;01mraise[39;00m e[38;5;241m.[39mwith_traceback(filtered_tb) [38;5;28;01mfrom[39;00m [38;5;28;01mNone[39;00m
+[1;32m    123[0m [38;5;28;01mfinally[39;00m:
+[1;32m    124[0m     [38;5;28;01mdel[39;00m filtered_tb
+
+File [0;32m/env/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py:122[0m, in [0;36mfilter_traceback.<locals>.error_handler[0;34m(*args, **kwargs)[0m
+[1;32m    119[0m     filtered_tb [38;5;241m=[39m _process_traceback_frames(e[38;5;241m.[39m__traceback__)
+[1;32m    120[0m     [38;5;66;03m# To get the full stack trace, call:[39;00m
+[1;32m    121[0m     [38;5;66;03m# `keras.config.disable_traceback_filtering()`[39;00m
+[0;32m--> 122[0m     [38;5;28;01mraise[39;00m e[38;5;241m.[39mwith_traceback(filtered_tb) [38;5;28;01mfrom[39;00m [38;5;28;01mNone[39;00m
+[1;32m    123[0m [38;5;28;01mfinally[39;00m:
+[1;32m    124[0m     [38;5;28;01mdel[39;00m filtered_tb
+
+[0;31mValueError[0m: Exception encountered when calling LSTMCell.call().
+
+[1mDimensions must be equal, but are 6 and 1 for '{{node sequential_1_1/lstm_2_1/lstm_cell_1/MatMul}} = MatMul[T=DT_FLOAT, grad_a=false, grad_b=false, transpose_a=false, transpose_b=false](sequential_1_1/lstm_2_1/strided_slice_2, sequential_1_1/lstm_2_1/lstm_cell_1/Cast/ReadVariableOp)' with input shapes: [?,6], [1,32].[0m
+
+Arguments received by LSTMCell.call():
+  • inputs=tf.Tensor(shape=(None, 6), dtype=float32)
+  • states=('tf.Tensor(shape=(None, 8), dtype=float32)', 'tf.Tensor(shape=(None, 8), dtype=float32)')
+  • training=True
+
