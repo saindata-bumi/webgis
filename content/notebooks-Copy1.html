@@ -1,0 +1,788 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Alur Kerja Pembelajaran Mesin &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/notebooks-Copy1';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Pengantar
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="peramalan.html">Peramalan  Deret Berkala (Time Series)</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcontent/notebooks-Copy1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/notebooks-Copy1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Alur Kerja Pembelajaran Mesin</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengantar">Pengantar</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#garis-besar-pembahasan">Garis besar pembahasan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memahami-masalah-pembelajaran-mesin-anda"><a id="understand"></a>1. Memahami masalah pembelajaran mesin anda</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbedaan-mendasar-kecerdasan-buatan-pembelajaran-mesing-dan-deep-learning">Perbedaan mendasar Kecerdasan Buatan, Pembelajaran Mesing dan Deep Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kategori-pembelajaran-mesin">Kategori Pembelajaran Mesin</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-learning">Supervised Learning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-learning">Unsupervised Learning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reinforcement-learning">Reinforcement Learning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-neural-networks">Deep Learning / Neural Networks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation"><a id="data_preparation"></a>2. Data preparation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-training-and-testing-the-model"><a id="model_training"></a>3. Building, training and testing the model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-the-data">Splitting the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-model">Building the model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-training-the-model">Fitting (training) the model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation"><a id="model_evaluation"></a>4. Model evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-applying-a-trained-ml-model-to-make-predictions"><a id="inference"></a> 5. Inference - Applying a trained ML model to make predictions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <hr><section class="tex2jax_ignore mathjax_ignore" id="alur-kerja-pembelajaran-mesin">
+<h1>Alur Kerja Pembelajaran Mesin<a class="headerlink" href="#alur-kerja-pembelajaran-mesin" title="Link to this heading">#</a></h1>
+<p><em>referensi : <a class="github reference external" href="https://github.com/wekeo/ai4EM_MOOC/tree/main/2_ai4eo/2C_Understanding_ML_workflows">wekeo/ai4EM_MOOC</a></em></p>
+<hr><hr><section id="pengantar">
+<h2>Pengantar<a class="headerlink" href="#pengantar" title="Link to this heading">#</a></h2>
+<p align="justify"> Bagian ini memberikan  gambaran umum tentang langkah-langkah  alur kerja Machine Learning. Sebelum memulai pada implementasi sain data bumi, kita perlu mengenal secara  umum tentang prinsip-prinsip Pembelajaran Mesin, istilah umum yang sering digunakan dan alur kerja Pembelajaran Mesin
+<p>Alur kerja Machine Learning dapat dibagi menjadi lima langkah utama:</p></p>
+<p>Selanjutnya, kami akan menjelaskan kepada Anda secara rinci masing-masing dari lima langkah alur kerja. Jika diperlukan, kami mengkaitkan dengan contoh  khusus sesuai dengan langkah tersebut</p>
+<hr></section>
+<section id="garis-besar-pembahasan">
+<h2>Garis besar pembahasan<a class="headerlink" href="#garis-besar-pembahasan" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>1 - <a class="reference internal" href="#understand"><span class="xref myst">Memahami masalah pembelajaran mesin anda</span></a></p></li>
+<li><p>2 - <a class="reference internal" href="#data_preparation"><span class="xref myst">Persiapan data </span></a></p></li>
+<li><p>3 - <a class="reference internal" href="#model_training"><span class="xref myst">Membangun model , training dan testing the model</span></a></p></li>
+<li><p>4 - <a class="reference internal" href="#model_evaluation"><span class="xref myst">Evaluasi Model</span></a></p></li>
+<li><p>5 - <a class="reference internal" href="#inference"><span class="xref myst">Inference</span></a></p></li>
+</ul>
+<hr><br></section>
+<section id="memahami-masalah-pembelajaran-mesin-anda">
+<h2><a id='understand'></a>1. Memahami masalah pembelajaran mesin anda<a class="headerlink" href="#memahami-masalah-pembelajaran-mesin-anda" title="Link to this heading">#</a></h2>
+<p>Tahap awal dalam  setiap proyek Machine Learning adalah memahami masalah yang ingin kita pecahkan. Dengan mamahami masalah secara jelas maka kita dapat menentukan model apa yang akan digunakan untuk memecahkannya. Pemahaman yang baik tentang masalah  adalah kunci keberhasilan proyek yang kita kerjakan. Model ML yang diimpleentasikan adalah sebuah algoritma yang keakuratan terhadapa prediksi atau klasifikasinya  bergantung pada pemahaman tentang masalah tersebut</p>
+<section id="perbedaan-mendasar-kecerdasan-buatan-pembelajaran-mesing-dan-deep-learning">
+<h3>Perbedaan mendasar Kecerdasan Buatan, Pembelajaran Mesing dan Deep Learning<a class="headerlink" href="#perbedaan-mendasar-kecerdasan-buatan-pembelajaran-mesing-dan-deep-learning" title="Link to this heading">#</a></h3>
+<p>Sebelum kita mendalami lebih dalam  Pembelajaran Mesin, ada baiknya jika kita lebih memahami perbedaan antara <code class="docutils literal notranslate"><span class="pre">Kecerdasan</span> <span class="pre">Buatan</span></code>, <code class="docutils literal notranslate"><span class="pre">Pembelajaran</span> <span class="pre">Mesin</span></code>, dan `Deep Learning’</p>
+<br>
+<br>
+<ul class="simple">
+<li><p><strong>Kecerdasan Buatan</strong>: adalah ilmu yang mempelajari cara membangun program dan mesin cerdas yang dapat memecahkan masalah secara kreatif.</p></li>
+<li><p><strong>Pembelajaran Mesin</strong>: adalah bagian dari Kecerdasan Buatan yang menjadikan sistem mampua untuk belajar dan memperbaiki dari pengalamannya, tanpa diprogram secara eksplisit. ML menggunakan berbagai algoritma yang membantu memecahkan masalah.</p></li>
+<li><p><strong>Deep Learning</strong>: adalah bagia dari Pembelajaran Mesin dengan Neural Networks sebagai dasar pondasinya algoritma. Perbedaan antara jaringan saraf tunggal dan algoritma Deep Learning adalah jumlah lapisan atau kedalaman simpul. Suatu algoritma harus memiliki setidaknya tiga lapisan node untuk diklasifikasikan sebagai algoritma Deep Learning</p></li>
+</ul>
+<p>Subsequently, we will show you the different categories of Machine Learning and for each category we will list popular ML algorithms.</p>
+</section>
+<section id="kategori-pembelajaran-mesin">
+<h3>Kategori Pembelajaran Mesin<a class="headerlink" href="#kategori-pembelajaran-mesin" title="Link to this heading">#</a></h3>
+<p>Pembelajaran Mesin secara kasar dapat dibagi menjadi empat pendekatan dasar: <code class="docutils literal notranslate"><span class="pre">Pembelajaran</span> <span class="pre">yang</span> <span class="pre">terawasi</span> <span class="pre">(Supervised</span> <span class="pre">Learning)</span></code>, <code class="docutils literal notranslate"><span class="pre">Pembelajaran</span> <span class="pre">Tak</span> <span class="pre">Terawasi</span> <span class="pre">(Unsupervised</span> <span class="pre">Learning)</span></code>, <code class="docutils literal notranslate"><span class="pre">Pembelajaran</span> <span class="pre">Penguatan</span> <span class="pre">(Reinforcement</span> <span class="pre">Learning)</span></code>, dan <code class="docutils literal notranslate"><span class="pre">Pembelajaran</span> <span class="pre">Mendalam</span> <span class="pre">(Deep</span> <span class="pre">Learning)</span> <span class="pre">/</span> <span class="pre">Jaringan</span> <span class="pre">Syaraf</span> <span class="pre">Tiruan</span></code>. Kategori-kategorinya cukup tumpang tindih dan tidak jelas, dan metode tertentu terkadang sulit ditempatkan dalam satu kategori.</p>
+<section id="supervised-learning">
+<h4>Supervised Learning<a class="headerlink" href="#supervised-learning" title="Link to this heading">#</a></h4>
+<p>In supervised learning, your algorithm learns from ‘labelled’ data. Based on the ‘labelled’ data, the algorithm assigns test data into specific categories. The goal in supervised learning is to predict outcomes for new data and you know upfront the type of results to expect. Supervised learning algorithms can be classified in two categories:</p>
+<ul class="simple">
+<li><p><strong>Classification</strong>: you have a classification problem if your target variable is categorical, e.g. the result can be classified into either class A or class B. Common classification algorithms are:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">K-Nearest</span> <span class="pre">Neighbor</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Naive</span> <span class="pre">Bayes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Decision</span> <span class="pre">Trees</span> <span class="pre">/</span> <span class="pre">Random</span> <span class="pre">Forest</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Support</span> <span class="pre">Vector</span> <span class="pre">Machine</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Logistic</span> <span class="pre">Regression</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>Regression</strong>: Regression is another type of a supervised learning method that uses an algorithm to understand the relationship between dependent and independent variables. Regression models are often used to predict numerical values based on different data points. Popular regression algorithms are:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Linear</span> <span class="pre">regression</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Logistic</span> <span class="pre">regression</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Polynomial</span> <span class="pre">regression</span></code></p></li>
+</ul>
+</li>
+</ul>
+<br><p><strong>Domain-specific ML examples using supervised learning algorithms for classification</strong><br></p>
+<blockquote>
+<div><p><strong>Week 3</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#../../3_land/3D2_land_cover_classification_with_Sentinel-2_data/3D2_supervised_classification_using_Sentinel-2.ipynb"><span class="xref myst">3D2 - Supervised land cover classification with Sentinel-2 data - Decision Tree / Random Forest / Support Vector Machine (SVM)</span></a></p></li>
+</ul>
+<p><strong>Week 4</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#../../4_ocean/4F_ML_to_differentiate_between_sediment_and_chlorophyll/4Fa_Using_ML_for_water_type_identification.ipynb"><span class="xref myst">4Fa - Using ML for water type identification - Naive Bayes Classification</span></a></p></li>
+</ul>
+<p><strong>Week 6</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#../../6_climate/6C_cumulo_cloud_classification/6C_cumulo_cloud_classification.ipynb"><span class="xref myst">6C - Global Cloud Classification with CUMULO - Gradient Boosting of Decision Trees</span></a></p></li>
+</ul>
+</div></blockquote>
+<br></section>
+<section id="unsupervised-learning">
+<h4>Unsupervised Learning<a class="headerlink" href="#unsupervised-learning" title="Link to this heading">#</a></h4>
+<p>In unsupervised learning, your algorithm learns from unlabeled, un-categorized data and the algorithm operates on the data without prior training. These algorithms discover hidden patterns in data without the need for human intervention. The goals in unsupervised learning is to get insights from large volumes of new data. Unsupervised learning can be categorized into three categories:</p>
+<ul class="simple">
+<li><p><strong>Clustering</strong>: is a data mining technique for grouping unlabeled data based on their similarities or differences.</p></li>
+<li><p><strong>Association</strong>: is another type of an unsupervised learning method that uses different rules to find relationships between variables in a given dataset.</p></li>
+<li><p><strong>Dimensionality Reduction</strong>: is a learning technique used when the number of features (or dimensions) in a given dataset is too high. Dimensionality reduction algorithms reduce the number of data inputs to a manageable size while also preserving the data integrity. This technique is often used in the pre-processing stage to bring the data input to a manageable size.</p></li>
+</ul>
+<p>Common unsupervised learning algorithms are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Gaussian</span> <span class="pre">mixtures</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">K-Means</span> <span class="pre">Clustering</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Boosting</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Hierarchical</span> <span class="pre">Clustering</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">K-Means</span> <span class="pre">Clustering</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Spectral</span> <span class="pre">Clustering</span></code></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Referensi</span>
+</pre></div>
+</div>
+</div>
+</div>
+<br><p><strong>ML example using an unsupervised learning alogorithm</strong><br></p>
+<blockquote>
+<div><p><strong>Week 3</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#../../3_land/3D2_land_cover_classification_with_Sentinel-2_data/3D2_unsupervised_classification_using_Sentinel-2.ipynb"><span class="xref myst">3D2 - Unsupervised land cover classification with Sentinel-2 data - K-means clustering</span></a></p></li>
+</ul>
+</div></blockquote>
+<br></section>
+<section id="reinforcement-learning">
+<h4>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Link to this heading">#</a></h4>
+<p>Reinforcement Learning is commonly used in situations where an AI agent, e.g. a self-driving car, must operate in an environment where feedback about good or bad choices is available with some delay.</p>
+<p><strong>ML example of reinforcement learning with Earth Observation data</strong></p>
+<blockquote>
+<div><p>Week 2</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#../../2_ai4eo/2B_Reinforcement_Learning/2B_reinforcement_learning_image-cropping_training.ipynb"><span class="xref myst">2B - Aesthetics Aware Reinforcement Learning for Image Cropping</span></a></p></li>
+</ul>
+</div></blockquote>
+<br></section>
+<section id="deep-learning-neural-networks">
+<h4>Deep Learning / Neural Networks<a class="headerlink" href="#deep-learning-neural-networks" title="Link to this heading">#</a></h4>
+<p>Deep Learning / Neural Networks is a subset of Machine Learning and the main difference to other Machine Learning algorithms is in how much data the algorithm uses to learn. Neural Networks replicate the structure and function of the human brain. Neural networks consist of artificial neurons, also known as nodes, which are stacked next to each other in three layers: <code class="docutils literal notranslate"><span class="pre">input</span> <span class="pre">layer</span></code>, <code class="docutils literal notranslate"><span class="pre">hidden</span> <span class="pre">layer(s)</span></code> and <code class="docutils literal notranslate"><span class="pre">output</span> <span class="pre">layer</span></code>.</p>
+<p>Neural networks can leverage labeled datasets (supervised learning) but can also work with unstructured, raw data (unsupervised learning). The <em>deep</em> in Deep Learning refers to the depth of layers in a neural network. A neural network that consists of more than three layers (including input and output layers) can be considered a deep learning algorithm.</p>
+<p>Common algorithms in Deep Learning are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Convolutional</span> <span class="pre">Neural</span> <span class="pre">Networks</span> <span class="pre">(CNNs)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Recurrent</span> <span class="pre">Neural</span> <span class="pre">Networks</span> <span class="pre">(RNNs)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Multilayer</span> <span class="pre">Perceptrons</span> <span class="pre">(MLPs)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Self</span> <span class="pre">Organizing</span> <span class="pre">Maps</span> <span class="pre">(SOMs)</span></code></p></li>
+</ul>
+<br><p><strong>ML examples applying Deep Learning algorithms</strong><br></p>
+<blockquote>
+<div><p><strong>Week 3</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#../../3_land/3B_tile-based_classification_with_EuroSAT_data/3B_tile-based_classification_with_EuroSAT_data_training.ipynb"><span class="xref myst">3B - Tile-based classification with EuroSAT data - Sequential Convolutional Neural Network</span></a></p></li>
+<li><p><a class="reference internal" href="#../../3_land/3D1_soil_moisture_estimation/3D_soil_moisture_estimation.ipynb"><span class="xref myst">3D1 - Soil moisture estimation - Sequential Convolutional Neural Network</span></a></p></li>
+</ul>
+<p><strong>Week 4</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#../../4_ocean/4B_ship_classification_with_Sentinel-1_data/4B_ship_classification_with_sentinel-1_data.ipynb"><span class="xref myst">4B - Ship classification with Sentinel-1 data - VGG16 Convolutional Neural Network</span></a></p></li>
+<li><p><a class="reference internal" href="#../../4_ocean/4F_ML_to_differentiate_between_sediment_and_chlorophyll/4Fb_Using_ML_to_retrieve_water_quality_indicators_in_coastal_waters.ipynb"><span class="xref myst">4Fb - Using ML to retrieve water quality indicators in coastal areas - Auto-associative Neural Network</span></a></p></li>
+</ul>
+<p><strong>Week 5</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#../../5_atmosphere/5B_ozone_concentration_estimation/5B_Ozone_concentration_estimation.ipynb"><span class="xref myst">5B - Ozone concentration estimation - Sequential Convolutional Neural Network</span></a></p></li>
+<li><p><a class="reference internal" href="#../../5_atmosphere/5C_methane_retrievals_using_s5p/5C_Retrieving_methane_from_Sentinel_5P.ipynb"><span class="xref myst">5C - Physics-based Machine Learning for Copernicus Sentinel-5P Methane Retrieval - Sequential Convolutional Neural Network</span></a></p></li>
+</ul>
+<p><strong>Week 6</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#../../6_climate/6F_ml4floods/6F_ml4floods_training.ipynb"><span class="xref myst">6F - ML4Floods - Convolutional Neural Network</span></a></p></li>
+</ul>
+</div></blockquote>
+<br></section>
+</section>
+</section>
+<section id="data-preparation">
+<h2><a id='data_preparation'></a>2. Data preparation<a class="headerlink" href="#data-preparation" title="Link to this heading">#</a></h2>
+<p><img src='../../img/ml_workflow_2.png' alt='Logos AI4EO MOOC' width='50%'></img></p>
+<p>Data preparation, including cleaning and pre-processing, is often the most time-consuming aspect. In fact, many of the examples provided in this course work with already pre-processed data. Data is the foundational aspect of machine learning that can impact performance, fairness, robutness and scalability of your ML system. In the end, your result depends on the accuracy of your input data. Data in its raw form cannot be used for most Machine Learning algorithms and depending on your ML problem, the algorithm and Python package you are using, you have to pre-process the data.</p>
+<p>Common pre-processing steps specifically for <strong>Earth Observation</strong> data are:</p>
+<ul class="simple">
+<li><p><strong>Data labelling</strong>: this is often a very time-intensive manual process required for supervised learning algorithms. You select manually data points or images and assign them a label (or class). The Machine-Learning algorithm uses the labelled information in order to predict these labels (classes / categories) for unseen data.</p></li>
+<li><p><strong>One-hot encoding of labels</strong>: is a common way of pre-processing categorical features for Machine Learning. The labels are represented as class numbers, e.g. ranging from 0 to 2. In the one-hot encoding process, the class numbers are converted to a (binary) bitwise representation in order to avoid the algorithm assuming any sort of intrinsic hierarchy or number order.</p></li>
+<li><p><strong>Geo-referencing and subsetting</strong>: depending on which input data you have, this step might be necessary for satellite images to bring them onto a common grid.</p></li>
+<li><p><strong>Resampling</strong>: this step is necessary if your input data have different spatial or temporal resolutions. In resampling, you bring all the input data to the same spatial / temporal resolution.</p></li>
+<li><p><strong>Rearranging and reshaping</strong>: this is a step that is specifically required in Machine Learning with Earth Observation data, as they are multi-dimensional in their nature. In this operation, you reshape the original data structure into a suitable structure for the ML algorithm.</p></li>
+<li><p><strong>Normalisation</strong> is a common pre-processing step in Machine Learning to bring variables that are measured in different units to a common scale. Common normalisation functions are e.g. <code class="docutils literal notranslate"><span class="pre">minmax</span></code> or <code class="docutils literal notranslate"><span class="pre">mean_std</span></code>. <code class="docutils literal notranslate"><span class="pre">minmax</span></code> normalises the data based on the minimum and maximum values of the data and <code class="docutils literal notranslate"><span class="pre">mean_std</span></code> uses the <em>mean</em> and <em>standard deviation</em> to normalise the data.</p></li>
+<li><p><strong>Dimensionality reduction</strong>: if your input data is large, you could apply e.g. a clustering algorithm in order to reduce the number of input data. In this way you also reduce redundancy and colinearity.</p></li>
+</ul>
+<p><strong>Read more on the impact and downstream effects of data issues in ML workflows</strong></p>
+<blockquote>
+<div><p><a href='https://ai.googleblog.com/2021/06/data-cascades-in-machine-learning.html' target='_blank'>Data Cascades in Machine Learning</a></p>
+</div></blockquote>
+<br></section>
+<section id="building-training-and-testing-the-model">
+<h2><a id='model_training'></a>3. Building, training and testing the model<a class="headerlink" href="#building-training-and-testing-the-model" title="Link to this heading">#</a></h2>
+<p><img src='../../img/ml_workflow_3.png' alt='Logos AI4EO MOOC' width='50%'></img></p>
+<p>After data pre-processing, you can start with building your Machine Learning model. The first step is to split your data in <code class="docutils literal notranslate"><span class="pre">training</span></code>, <code class="docutils literal notranslate"><span class="pre">validation</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> data followed by building the model with defining a set of <code class="docutils literal notranslate"><span class="pre">hyperparameters</span></code>. Afterwards, you run (train) the model.</p>
+<section id="splitting-the-data">
+<h3>Splitting the data<a class="headerlink" href="#splitting-the-data" title="Link to this heading">#</a></h3>
+<p>The first step is to define the input (X) and output (y) variables :</p>
+<ul class="simple">
+<li><p><strong>Input variable (X)</strong>: the input variable is often refered to as <code class="docutils literal notranslate"><span class="pre">X</span></code> and is the variable / parameter you give to the ML model as input.</p></li>
+<li><p><strong>Output variable (y)</strong>: the output variable is often refered to as <code class="docutils literal notranslate"><span class="pre">y</span></code> and is the variable / parameter you would like to predict with your Machine Learning model.</p></li>
+</ul>
+<br>
+<p>The next step is then to split the input and output variables into two or three subsets:</p>
+<ul class="simple">
+<li><p><strong>Training data</strong>: the training data is used to train the model and is always a greater proportion (e.g. 70% or 80%) compared to the validation and test data subsets.</p></li>
+<li><p><strong>Test data</strong>: test data is a subset of <em>unseen</em> data of a smaller proportion (e.g. 20%) used to assess the performance of a trained model.</p></li>
+</ul>
+<p>Alternatively, you can split your training data set and use a proportion for cross-validation.</p>
+<ul class="simple">
+<li><p><strong>Validation data</strong>: validation data is primarily used to estimate the skill of a machine learning model during the training process, which helps to fine-tune hyperparameters.</p></li>
+</ul>
+<p>scikit-learn’s function <a href='https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html' target='_blank'>train_test_split</a> is a common function used to split the data into subsets for training, validation and testing.</p>
+<br>
+</section>
+<section id="building-the-model">
+<h3>Building the model<a class="headerlink" href="#building-the-model" title="Link to this heading">#</a></h3>
+<p>The next step is to build the Machine Learning model. This process involves to define the model architecture and a set of <code class="docutils literal notranslate"><span class="pre">hyperparameters</span></code>. Hyperparameters are used to fine-tune the accuracy of your Machine Learning model.</p>
+<p>Hyperparameters are classified in <code class="docutils literal notranslate"><span class="pre">model</span> <span class="pre">hyperparameters</span></code> and <code class="docutils literal notranslate"><span class="pre">algorithm</span> <span class="pre">hyperparameters</span></code>:</p>
+<ul class="simple">
+<li><p><strong>model hyperpararmeters</strong>: they influence the performance of the model, as they are defined during the model setup, but cannot be change while fitting the model to the training data</p></li>
+<li><p><strong>algorithm hyperparameters</strong>: they have no influence on the performance of the model but affect the speed and quality of the learning process. Examples are <code class="docutils literal notranslate"><span class="pre">learning</span> <span class="pre">rate</span></code> or <code class="docutils literal notranslate"><span class="pre">batch</span> <span class="pre">size</span></code>.</p></li>
+</ul>
+<br>
+</section>
+<section id="fitting-training-the-model">
+<h3>Fitting (training) the model<a class="headerlink" href="#fitting-training-the-model" title="Link to this heading">#</a></h3>
+<p>The last step is the training process. During the training process, the defined model is <em>fitted</em> to the training data during multiple training cycles (called <code class="docutils literal notranslate"><span class="pre">epochs</span></code>). After each iteration step, the results are validated / tested against the validation or test dataset. This step helps to assess and evaluate the model accuracy during the training process.</p>
+<p>Some algorithms also allow for setting an early stopping hyperparameter. This parameter would stop the training process, if after a given number of epochs / training cycles the model accuracy has not improved.</p>
+<br></section>
+</section>
+<section id="model-evaluation">
+<h2><a id='model_evaluation'></a>4. Model evaluation<a class="headerlink" href="#model-evaluation" title="Link to this heading">#</a></h2>
+<p><img src='../../img/ml_workflow_4.png' alt='Logos AI4EO MOOC' width='50%'></img></p>
+<p>After your model is trained, you want to know the performance and accuracy of your model. For this reason, the evaluation of the trained model is an important step. Subsequently, we will present you a selection of common evaluation metrics for Machine Learning.</p>
+<p><strong>Note:</strong> We do not provide a full list of possible evaluation metrics, but rather a list of metrics that are used in this course. See the <a href='https://scikit-learn.org/stable/modules/model_evaluation.html' target='_blank'>documentation of scikit-learn’s metrics and scoring APIs</a> to get a good overview of common evaluation metrics for different Machine Learning categories.</p>
+<p><strong>General metrics:</strong></p>
+<ul class="simple">
+<li><p><strong>Mean Absolute Error (MAE)</strong>: Mean Absolute Error is the average of the difference between the original and the predicted values. MAE shows how far the predictions were from the actual output, but it does not provide any information on the direction of the error. For example, if the model is under- or over-predicting.</p></li>
+<li><p><strong>Root Mean Squared Error (RMSE) and Normalized Root Mean Squared Error (nRMSE)</strong>: RMSE and nRMSE is a standard way to measure the error of a model. RMSE is often used to evaluate a trained model for usefulness / accuracy.</p></li>
+<li><p><strong>Pearson Correlation Coefficient</strong>: The Pearson Correlation Coefficient is a measure of the strength of a linear association between two variables (actual vs. predicted).</p></li>
+</ul>
+<br>
+<p><strong>Metrics specifically for classification problems:</strong></p>
+<ul class="simple">
+<li><p><strong>Overall Accuracy Score</strong>: Accuracy is the ratio of number of correct predictions to the total number of input samples.</p></li>
+<li><p><strong>Confusion Matrix</strong>: a confusion matrix is a matrix which describes the complete performance of the model. Each row of the matrix represents the actual class and each column represents the predicted class - or vice versa. The matrix allows you to quantify the accuracy of your classification - how much information has been correctly classified and how much information has not been correctly classified. The matrix can be provided as table or as graphical output (e.g. as a heatmap).</p></li>
+<li><p><strong>Recall (Sensitivity)</strong>: Recall is the number of correct positive results divided by the number of all relevant samples. The higher the Recall the better.</p></li>
+<li><p><strong>Precision (Positive predictive value)</strong>: Precision is the number of correct positive results divided by the number of positive results predicted by the classifier. The higher the Precision the better.</p></li>
+<li><p><strong>F1 Score</strong>: the F1 score helps to measure the metrics <em>Recall</em> and <em>Precision</em> at the same time and is the harmonic mean of both metric. The F1 score can be between 0 and 1.0.</p></li>
+<li><p><strong>Specificity (True Negative Rate)</strong>: Specificity is the number of correct negative results divided by the number of all relevant samples.</p></li>
+</ul>
+<br></section>
+<section id="inference-applying-a-trained-ml-model-to-make-predictions">
+<h2><a id='inference'></a> 5. Inference - Applying a trained ML model to make predictions<a class="headerlink" href="#inference-applying-a-trained-ml-model-to-make-predictions" title="Link to this heading">#</a></h2>
+<p><img src='../../img/ml_workflow_5.png' alt='Logos AI4EO MOOC' width='50%'></img></p>
+<p><strong>Inference</strong> is the process of applying a trained Machine Learning model to new data in order to make predictions. Logically, inference is the very last step of a Machine Learning workflow, because inference cannot happen without the previous steps.</p>
+<p><strong>Domain-specific inference examples shown in this course</strong>:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#../../3_land/3B_tile-based_classification_with_EuroSAT_data/3B_tile-based_classification_with_EuroSAT_data_inference.ipynb"><span class="xref myst">3B - Tile-based classification with EuroSAT data - Inference</span></a></p></li>
+<li><p><a class="reference internal" href="#../../6_climate/6F_ml4floods/6F_ml4floods_inference.ipynb"><span class="xref myst">6F - ML4Floods - Inference of a flood extent segmentation model using Sentinel-2 data</span></a></p></li>
+</ul>
+<br><p><a href='https://www.futurelearn.com/courses/artificial-intelligence-for-earth-monitoring/1/steps/1280510' target='_blank'>&lt;&lt; Back to FutureLearn</a><br></p>
+<hr><p><img src='../../img/copernicus_logo.png' alt='Copernicus logo' align='left' width='20%'></img></p>
+<p>Course developed for <a href='https://www.eumetsat.int/' target='_blank'> EUMETSAT</a>, <a href='https://www.ecmwf.int/' target='_blank'> ECMWF</a> and <a href='https://www.mercator-ocean.fr/en/' target='_blank'> Mercator Ocean International</a> in support of the <a href='https://www.copernicus.eu/en' target='_blank'> EU’s Copernicus Programme</a> and the <a href='https://wekeo.eu/' target='_blank'> WEkEO platform</a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengantar">Pengantar</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#garis-besar-pembahasan">Garis besar pembahasan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memahami-masalah-pembelajaran-mesin-anda"><a id="understand"></a>1. Memahami masalah pembelajaran mesin anda</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbedaan-mendasar-kecerdasan-buatan-pembelajaran-mesing-dan-deep-learning">Perbedaan mendasar Kecerdasan Buatan, Pembelajaran Mesing dan Deep Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kategori-pembelajaran-mesin">Kategori Pembelajaran Mesin</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-learning">Supervised Learning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-learning">Unsupervised Learning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reinforcement-learning">Reinforcement Learning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-neural-networks">Deep Learning / Neural Networks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation"><a id="data_preparation"></a>2. Data preparation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-training-and-testing-the-model"><a id="model_training"></a>3. Building, training and testing the model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-the-data">Splitting the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-model">Building the model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-training-the-model">Fitting (training) the model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation"><a id="model_evaluation"></a>4. Model evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-applying-a-trained-ml-model-to-make-predictions"><a id="inference"></a> 5. Inference - Applying a trained ML model to make predictions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

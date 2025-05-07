@@ -1,0 +1,833 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Peramalan Recursive multi-step &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="application/vnd.jupyter.widget-state+json">{"state": {"03071dc25b7944c5a5e553ba7abced9f": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"flex": "1 0 20em", "height": "3em", "width": "20em"}}, "04cbdfdbbf734dae8021c5ba9a01efe6": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_03071dc25b7944c5a5e553ba7abced9f", "style": "IPY_MODEL_99427a35f96045b2b7308a95a9c2fb42", "value": "<pre style=\"color:grey\">lat: [-34.0572, -33.8864]\nlon: [150.9570, 151.4301]</pre>"}}, "07c38bb75e8243609a49a748f4acf1f6": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonModel", "state": {"description": "done", "disabled": true, "layout": "IPY_MODEL_6c7d3ab9ddb340179c7b8e5900d87f2d", "style": "IPY_MODEL_e2e5848d3a394e179877effeb959a28c"}}, "14e271bc509146889e2d18cd3addf07a": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletWidgetControlModel", "state": {"_model_module": "jupyter-leaflet", "_model_module_version": "^0.14.0", "_view_count": null, "_view_module": "jupyter-leaflet", "_view_module_version": "^0.14.0", "options": ["position", "transparent_bg"], "position": "topright", "widget": "IPY_MODEL_07c38bb75e8243609a49a748f4acf1f6"}}, "208eb5f4b88c4624abe7b00372fff249": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletZoomControlModel", "state": {"_model_module_version": "^0.14.0", "_view_module_version": "^0.14.0", "options": ["position", "zoom_in_text", "zoom_in_title", "zoom_out_text", "zoom_out_title"]}}, "26e0e24901ba4573a37e037eda668f48": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletFullScreenControlModel", "state": {"_model_module_version": "^0.14.0", "_view_module_version": "^0.14.0", "options": ["position"]}}, "409578d0eb3d4f5cbd971d22381abb3d": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"height": "600px"}}, "44f8d335bf7f427a833b5faf6c7ff1f2": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletDrawControlModel", "state": {"_model_module_version": "^0.14.0", "_view_module_version": "^0.14.0", "data": [{"geometry": {"coordinates": [[[151.160545, -33.990013], [151.160545, -33.940182], [151.234703, -33.940182], [151.234703, -33.990013], [151.160545, -33.990013]]], "type": "Polygon"}, "properties": {"style": {"clickable": true, "color": "#000000", "fill": true, "fillColor": "#fca45d", "fillOpacity": 0.1, "opacity": 0.5, "stroke": true, "weight": 4}}, "type": "Feature"}], "options": ["position"], "polygon": {"shapeOptions": {"color": "#000000", "editing": {"color": "#000000", "fillColor": "#fca45d", "fillOpacity": 0.1}, "fillColor": "#fca45d", "fillOpacity": 0.1, "original": {"color": "#000000", "fillColor": "#fca45d", "fillOpacity": 0.1}}}, "polyline": {}, "rectangle": {"metric": ["km", "m"], "shapeOptions": {"color": "#000000", "fillColor": "#fca45d", "fillOpacity": 0.1}}}}, "69d7809765e344b4871f7b64249b8ffc": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletAttributionControlModel", "state": {"_model_module_version": "^0.14.0", "_view_module_version": "^0.14.0", "options": ["position", "prefix"], "position": "bottomright", "prefix": "ipyleaflet"}}, "6c7d3ab9ddb340179c7b8e5900d87f2d": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "5em"}}, "752db91f555748d39048ab9cf9060416": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletTileLayerModel", "state": {"_model_module_version": "^0.14.0", "_view_module_version": "^0.14.0", "attribution": "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community", "max_native_zoom": 18, "max_zoom": 20, "min_native_zoom": 0, "min_zoom": 1, "name": "Esri.WorldImagery", "options": ["attribution", "detect_retina", "max_native_zoom", "max_zoom", "min_native_zoom", "min_zoom", "no_wrap", "tile_size", "tms"], "url": "http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"}}, "876ff6aeb84b499588d3449da6eee277": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletMapStyleModel", "state": {"_model_module_version": "^0.14.0"}}, "90a58f05c8e44a11acdfac66fb067dc4": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletMapStyleModel", "state": {"_model_module_version": "^0.14.0", "cursor": "move"}}, "99427a35f96045b2b7308a95a9c2fb42": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "a52fd307a2e44f969d56e82852a76cef": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletMapStyleModel", "state": {"_model_module_version": "^0.14.0"}}, "af6eac08042240a69e18c7833161a044": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletMapModel", "state": {"_model_module_version": "^0.14.0", "_view_module_version": "^0.14.0", "bottom": 629904, "center": [-33.9719, 151.1934], "controls": ["IPY_MODEL_208eb5f4b88c4624abe7b00372fff249", "IPY_MODEL_69d7809765e344b4871f7b64249b8ffc", "IPY_MODEL_26e0e24901ba4573a37e037eda668f48"], "default_style": "IPY_MODEL_876ff6aeb84b499588d3449da6eee277", "dragging_style": "IPY_MODEL_90a58f05c8e44a11acdfac66fb067dc4", "east": 151.43005371093753, "fullscreen": false, "interpolation": "bilinear", "layers": ["IPY_MODEL_752db91f555748d39048ab9cf9060416"], "layout": "IPY_MODEL_409578d0eb3d4f5cbd971d22381abb3d", "left": 963982, "modisdate": "yesterday", "north": -33.886377470727545, "options": ["bounce_at_zoom_limits", "box_zoom", "center", "close_popup_on_click", "double_click_zoom", "dragging", "fullscreen", "inertia", "inertia_deceleration", "inertia_max_speed", "interpolation", "keyboard", "keyboard_pan_offset", "keyboard_zoom_offset", "max_zoom", "min_zoom", "scroll_wheel_zoom", "tap", "tap_tolerance", "touch_zoom", "world_copy_jump", "zoom", "zoom_animation_threshold", "zoom_delta", "zoom_snap", "zoom_start"], "right": 965360, "scroll_wheel_zoom": true, "south": -34.05721051351029, "style": "IPY_MODEL_a52fd307a2e44f969d56e82852a76cef", "top": 629304, "west": 150.95695495605472, "window_url": "https://app.sandbox.dea.ga.gov.au/user/robbibt/lab/tree/Robbi/dea-notebooks/Real_world_examples/Change_filmstrips.ipynb"}}, "e2e5848d3a394e179877effeb959a28c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonStyleModel", "state": {"button_color": "green"}}, "f4f69148d9e04ac983b304dd1303935c": {"model_module": "jupyter-leaflet", "model_module_version": "^0.14.0", "model_name": "LeafletWidgetControlModel", "state": {"_model_module": "jupyter-leaflet", "_model_module_version": "^0.14.0", "_view_count": null, "_view_module": "jupyter-leaflet", "_view_module_version": "^0.14.0", "options": ["position", "transparent_bg"], "position": "bottomleft", "widget": "IPY_MODEL_04cbdfdbbf734dae8021c5ba9a01efe6"}}}, "version_major": 2, "version_minor": 0}</script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@1.0.6/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/multistepml-Copy1';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Pengantar
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="peramalan.html">Peramalan  Deret Berkala (Time Series)</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcontent/multistepml-Copy1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/multistepml-Copy1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Peramalan Recursive multi-step</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Peramalan Recursive multi-step</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-svr">Model SVR</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="peramalan-recursive-multi-step">
+<h1>Peramalan Recursive multi-step<a class="headerlink" href="#peramalan-recursive-multi-step" title="Link to this heading">#</a></h1>
+<section id="latar-belakang">
+<h2>Latar Belakang<a class="headerlink" href="#latar-belakang" title="Link to this heading">#</a></h2>
+<p>Peramalan multi-step rekursif mengggunaan nilai-nilai dari hasil prediksi dari langkah-langkah waktu sebelumnya sebagai masukan untuk meramalkan nilai-nilai  waktu berikutnya. Model awalnya memprediksi satu langkah ke depan dan kemudian menggunakan ramalan itu sebagai masukan untuk langkah waktu berikutnya, proses ini terus diulang ini sampai dengan k langkah yang ditentukan
+Untuk memperjelas, karena nilai <span class="math notranslate nohighlight">\(t_{n-1}\)</span> diperlukan untuk memprediksi <span class="math notranslate nohighlight">\(t_n\)</span>, dan <span class="math notranslate nohighlight">\(t_{n-1}\)</span> tidak diketahui, maka diterapkan proses rekursif, di mana setiap prediksi baru didasarkan pada prediksi sebelumnya.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.9.1/img/diagram-recursive-mutistep-forecasting.png" /></p>
+<p>Gambar. peramalan recursive multi-step forecasting.</p>
+<p>Saat menggunakan model pembelajaran mesin untuk peramalan multi-step rekursif, salah satu tantangan utamanya adalah mengubah data deret waktu menjadi format matriks yang menghubungkan setiap nilai  dengan nilai nilai sebelumnya (lag). Proses ini butuh rekayasa fitur yang cermat untuk memastikan model dapat secara akurat menangkap pola yang mendasari dalam data</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.9.1/img/matrix_transformation_with_exog_variable.png" /></p>
+<p>Dengan menggunakan kelas ForecasterAutoreg dan ForecasterAutoregCustom, model pembelajaran mesin untuk peramalan multi-step rekursif dapat dibangun dengan mudah. Kelas-kelas ini dapat secara otomatis mengubah data deret waktu menjadi format matriks yang sesuai sebagai input ke algoritma pembelajaran mesin, dan menyediakan berbagai pilihan untuk mengatur parameter model guna mencapai kinerja terbaik.</p>
+<p>Library yang diperlukan  adalah skforecast. Sehingga perlu diinstalasi</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">skforecast</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Libraries</span>
+<span class="c1"># ==============================================================================</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">skforecast.ForecasterAutoreg</span> <span class="kn">import</span> <span class="n">ForecasterAutoreg</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_percentage_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">root_mean_squared_error</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">skforecast.ForecasterAutoreg</span> <span class="kn">import</span> <span class="n">ForecasterAutoreg</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;skforecast.ForecasterAutoreg&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;https://raw.githubusercontent.com/saindata-bumi/webgis/refs/heads/main/datafull.csv&#39;</span>
+<span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;waktu&#39;</span><span class="p">,</span> <span class="s1">&#39;SO2&#39;</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;waktu&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1635
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">asfreq</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download data</span>
+<span class="c1"># ==============================================================================</span>
+<span class="n">url</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;https://raw.githubusercontent.com/saindata-bumi/webgis/refs/heads/main/datafull.csv&#39;</span>
+<span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;waktu&#39;</span><span class="p">,</span> <span class="s1">&#39;SO2&#39;</span><span class="p">])</span>
+
+
+<span class="c1"># Data preprocessing</span>
+<span class="c1"># ==============================================================================</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;waktu&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;waktu&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;waktu&#39;</span><span class="p">)</span>
+<span class="c1">#data = data.asfreq(&#39;MS&#39;)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;SO2&#39;</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+
+<span class="c1"># Split train-test</span>
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># ==============================================================================</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">data_train</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="n">steps</span><span class="p">]</span>
+<span class="n">data_test</span>  <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="n">steps</span><span class="p">:]</span>
+
+<span class="c1"># Plot</span>
+<span class="c1"># ==============================================================================</span>
+<span class="c1">#fig, ax = plt.subplots(figsize=(6, 3))</span>
+<span class="c1">#data_train.plot(ax=ax, label=&#39;train&#39;)</span>
+<span class="c1">#data_test.plot(ax=ax, label=&#39;test&#39;)</span>
+<span class="c1">#ax.legend();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot predictions</span>
+<span class="c1"># ==============================================================================</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">skforecast.ForecasterAutoregDirect</span> <span class="kn">import</span> <span class="n">ForecasterAutoregDirect</span>
+<span class="kn">from</span> <span class="nn">xgboost</span> <span class="kn">import</span> <span class="n">XGBRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Initialize the forecaster</span>
+<span class="n">forecaster</span> <span class="o">=</span> <span class="n">ForecasterAutoregDirect</span><span class="p">(</span>
+    <span class="n">regressor</span><span class="o">=</span><span class="n">svm</span><span class="o">.</span><span class="n">SVR</span><span class="p">(),</span>
+    <span class="n">steps</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">lags</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">transformer_y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span>
+<span class="p">)</span>
+
+<span class="c1"># Fit the model</span>
+<span class="n">forecaster</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">data_train</span><span class="p">)</span>
+
+<span class="c1"># Make predictions</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">forecaster</span><span class="o">.</span><span class="n">predict</span><span class="p">()</span>
+
+<span class="n">error_mse</span> <span class="o">=</span> <span class="n">root_mean_squared_error</span><span class="p">(</span>
+                <span class="n">y_true</span> <span class="o">=</span> <span class="n">data_test</span><span class="p">,</span>
+                <span class="n">y_pred</span> <span class="o">=</span> <span class="n">predictions</span>
+            <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test error (rmse): </span><span class="si">{</span><span class="n">error_mse</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="c1"># Display the first 3 predictions</span>
+
+
+<span class="c1"># Plot the results</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test error (rmse): 6.506386853578388
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="model-svr">
+<h1>Model SVR<a class="headerlink" href="#model-svr" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span>
+<span class="n">forecaster</span> <span class="o">=</span> <span class="n">ForecasterAutoreg</span><span class="p">(</span>
+                 <span class="n">regressor</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVR</span><span class="p">(),</span>
+                 <span class="n">lags</span>      <span class="o">=</span> <span class="mi">20</span>
+             <span class="p">)</span>
+
+<span class="n">forecaster</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">data_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">forecaster</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">data_train</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">)</span>
+<span class="n">data_test</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="n">predictions</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;predictions&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+<span class="n">error_mse</span> <span class="o">=</span> <span class="n">root_mean_squared_error</span><span class="p">(</span>
+                <span class="n">y_true</span> <span class="o">=</span> <span class="n">data_test</span><span class="p">,</span>
+                <span class="n">y_pred</span> <span class="o">=</span> <span class="n">predictions</span>
+            <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test error (rmse): </span><span class="si">{</span><span class="n">error_mse</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">mape</span><span class="o">=</span><span class="n">mean_absolute_percentage_error</span><span class="p">(</span>
+                <span class="n">y_true</span> <span class="o">=</span> <span class="n">data_test</span><span class="p">,</span>
+                <span class="n">y_pred</span> <span class="o">=</span> <span class="n">predictions</span>
+            <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test error (mape): </span><span class="si">{</span><span class="n">mape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test error (rmse): 2.9779832983428274
+Test error (mape): 2.8843840050626524
+</pre></div>
+</div>
+<img alt="../_images/7d39d7071399ddbecfcdd79dbe532a624ea3ed2d71ae9c22a9758a85fb631c4b.png" src="../_images/7d39d7071399ddbecfcdd79dbe532a624ea3ed2d71ae9c22a9758a85fb631c4b.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_train</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>datetime
+2021-12-01    2.050
+2022-01-01    1.787
+2022-02-01   -1.992
+2022-03-01    2.670
+2022-04-01    1.916
+2022-05-01    0.507
+2022-06-01    3.007
+2022-07-01    5.653
+2022-08-01    6.196
+2022-09-01    1.488
+2022-10-01    2.108
+2022-11-01    1.764
+2022-12-01   -0.606
+2023-01-01    2.887
+Freq: MS, Name: y, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">data_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create and fit forecaster</span>
+<span class="kn">from</span> <span class="nn">skforecast.ForecasterAutoregDirect</span> <span class="kn">import</span> <span class="n">ForecasterAutoregDirect</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span>
+<span class="c1"># ==============================================================================</span>
+<span class="n">forecaster</span> <span class="o">=</span> <span class="n">ForecasterAutoregDirect</span><span class="p">(</span>
+                 <span class="n">regressor</span>     <span class="o">=</span> <span class="n">Ridge</span><span class="p">(),</span>
+                 <span class="n">steps</span>         <span class="o">=</span> <span class="mi">36</span><span class="p">,</span>
+                 <span class="n">lags</span>          <span class="o">=</span> <span class="mi">15</span><span class="p">,</span>
+                 <span class="n">transformer_y</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">n_jobs</span>        <span class="o">=</span> <span class="s1">&#39;auto&#39;</span>
+             <span class="p">)</span>
+
+<span class="n">forecaster</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">data_train</span><span class="p">)</span>
+<span class="n">forecaster</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">44</span><span class="p">],</span> <span class="n">line</span> <span class="mi">13</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># ==============================================================================</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">forecaster</span> <span class="o">=</span> <span class="n">ForecasterAutoregDirect</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>                  <span class="n">regressor</span>     <span class="o">=</span> <span class="n">Ridge</span><span class="p">(),</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>                  <span class="n">steps</span>         <span class="o">=</span> <span class="mi">36</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>                  <span class="n">n_jobs</span>        <span class="o">=</span> <span class="s1">&#39;auto&#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>              <span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">13</span> <span class="n">forecaster</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">data_train</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="n">forecaster</span>
+
+<span class="nn">File /env/lib/python3.10/site-packages/skforecast/ForecasterAutoregDirect/ForecasterAutoregDirect.py:625,</span> in <span class="ni">ForecasterAutoregDirect.fit</span><span class="nt">(self, y, exog, store_last_window, store_in_sample_residuals)</span>
+<span class="g g-Whitespace">    </span><span class="mi">622</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitted</span>              <span class="o">=</span> <span class="kc">False</span>
+<span class="g g-Whitespace">    </span><span class="mi">623</span> <span class="bp">self</span><span class="o">.</span><span class="n">training_range</span>      <span class="o">=</span> <span class="kc">None</span>
+<span class="ne">--&gt; </span><span class="mi">625</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_train_X_y</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">exog</span><span class="o">=</span><span class="n">exog</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">627</span> <span class="k">def</span> <span class="nf">fit_forecaster</span><span class="p">(</span><span class="n">regressor</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">store_in_sample_residuals</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">628</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">629</span><span class="sd">     Auxiliary function to fit each of the forecaster&#39;s regressors in parallel.</span>
+<span class="g g-Whitespace">    </span><span class="mi">630</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">648</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">649</span><span class="sd">     &quot;&quot;&quot;</span>
+
+<span class="nn">File /env/lib/python3.10/site-packages/skforecast/ForecasterAutoregDirect/ForecasterAutoregDirect.py:391,</span> in <span class="ni">ForecasterAutoregDirect.create_train_X_y</span><span class="nt">(self, y, exog)</span>
+<span class="g g-Whitespace">    </span><span class="mi">363</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">364</span><span class="sd"> Create training matrices from univariate time series and exogenous</span>
+<span class="g g-Whitespace">    </span><span class="mi">365</span><span class="sd"> variables. The resulting matrices contain the target variable and predictors</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">387</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">388</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">390</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_lag</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">391</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">392</span>         <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Minimum length of `y` for training this forecaster is &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">393</span>          <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">max_lag</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="si">}</span><span class="s2">. Got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2">. Reduce the &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">394</span>          <span class="sa">f</span><span class="s2">&quot;number of predicted steps, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="si">}</span><span class="s2">, or the maximum &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">395</span>          <span class="sa">f</span><span class="s2">&quot;lag, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">max_lag</span><span class="si">}</span><span class="s2">, if no more data is available.&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">396</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">398</span> <span class="n">check_y</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">399</span> <span class="n">y</span> <span class="o">=</span> <span class="n">input_to_frame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">input_name</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+
+<span class="ne">ValueError</span>: Minimum length of `y` for training this forecaster is 51. Got 3. Reduce the number of predicted steps, 36, or the maximum lag, 15, if no more data is available.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Peramalan Recursive multi-step</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-svr">Model SVR</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

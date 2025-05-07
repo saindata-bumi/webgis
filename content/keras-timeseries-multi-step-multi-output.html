@@ -1,0 +1,2254 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Tensorflow Timeseries LSTM Tutorial &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/keras-timeseries-multi-step-multi-output';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Pengantar
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="peramalan.html">Peramalan  Deret Berkala (Time Series)</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcontent/keras-timeseries-multi-step-multi-output.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/keras-timeseries-multi-step-multi-output.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Tensorflow Timeseries LSTM Tutorial</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copyright-2019-the-tensorflow-authors">Copyright 2019 The TensorFlow Authors.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-weather-dataset">The weather dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-forecast-a-univariate-time-series">Part 1: Forecast a univariate time series</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#baseline">Baseline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrent-neural-network">Recurrent neural network</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-using-the-simple-lstm-model">Predict using the simple LSTM model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-forecast-a-multivariate-time-series">Part 2: Forecast a multivariate time series</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-step-model">Single step model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-a-single-step-future">Predict a single step future</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-step-model">Multi-Step model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-a-multi-step-future">Predict a multi-step future</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-step-multi-input-and-multi-output">Multi-Step, Multi-Input, and Multi-Output</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convolutional-lstm">Convolutional LSTM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simplified-the-convolutional-lstm">Simplified the Convolutional LSTM</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="tensorflow-timeseries-lstm-tutorial">
+<h1>Tensorflow Timeseries LSTM Tutorial<a class="headerlink" href="#tensorflow-timeseries-lstm-tutorial" title="Link to this heading">#</a></h1>
+<p>In this notebook, I explore the the incredible guide by Tensorflow, <a class="reference external" href="https://www.tensorflow.org/tutorials/structured_data/time_series"><strong>LINK</strong></a>, and attempt to build off the work by adding Multi-Ouput, Multi-Timestep implimentation.</p>
+<section id="copyright-2019-the-tensorflow-authors">
+<h2>Copyright 2019 The TensorFlow Authors.<a class="headerlink" href="#copyright-2019-the-tensorflow-authors" title="Link to this heading">#</a></h2>
+<table class="tfo-notebook-buttons" align="left">
+  <td>
+    <a target="_blank" href="https://www.tensorflow.org/tutorials/structured_data/time_series"><img src="https://www.tensorflow.org/images/tf_logo_32px.png" />View on TensorFlow.org</a>
+  </td>
+  <td>
+    <a target="_blank" href="https://colab.research.google.com/github/tensorflow/docs/blob/master/site/en/tutorials/structured_data/time_series.ipynb"><img src="https://www.tensorflow.org/images/colab_logo_32px.png" />Run in Google Colab</a>
+  </td>
+  <td>
+    <a target="_blank" href="https://github.com/tensorflow/docs/blob/master/site/en/tutorials/structured_data/time_series.ipynb"><img src="https://www.tensorflow.org/images/GitHub-Mark-32px.png" />View source on GitHub</a>
+  </td>
+  <td>
+    <a href="https://storage.googleapis.com/tensorflow_docs/docs/site/en/tutorials/structured_data/time_series.ipynb"><img src="https://www.tensorflow.org/images/download_logo_32px.png" />Download notebook</a>
+  </td>
+</table><p>This tutorial is an introduction to time series forecasting using Recurrent Neural Networks (RNNs). This is covered in two parts: first, you will forecast a univariate time series, then you will forecast a multivariate time series.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.callbacks</span> <span class="kn">import</span> <span class="n">CSVLogger</span><span class="p">,</span> <span class="n">EarlyStopping</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">gc</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tensorflow Version: </span><span class="si">{</span><span class="n">tf</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pandas Version: </span><span class="si">{</span><span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Numpy Version: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;System Version: </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.grid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+
+<span class="n">notebookstart</span><span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">tensorflow.keras.callbacks</span> <span class="kn">import</span> <span class="n">CSVLogger</span><span class="p">,</span> <span class="n">EarlyStopping</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;tensorflow&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data Loader Parameters</span>
+<span class="n">BATCH_SIZE</span> <span class="o">=</span> <span class="mi">256</span>
+<span class="n">BUFFER_SIZE</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">TRAIN_SPLIT</span> <span class="o">=</span> <span class="mi">300000</span>
+
+<span class="c1"># LSTM Parameters</span>
+<span class="n">EVALUATION_INTERVAL</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">EPOCHS</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">PATIENCE</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># Reproducibility</span>
+<span class="n">SEED</span> <span class="o">=</span> <span class="mi">13</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-weather-dataset">
+<h2>The weather dataset<a class="headerlink" href="#the-weather-dataset" title="Link to this heading">#</a></h2>
+<p>This tutorial uses a <a href="https://www.bgc-jena.mpg.de/wetter/" class="external">[weather time series dataset</a> recorded by the <a href="https://www.bgc-jena.mpg.de" class="external">Max Planck Institute for Biogeochemistry</a>.</p>
+<p>This dataset contains 14 different features such as air temperature, atmospheric pressure, and humidity. These were collected every 10 minutes, beginning in 2003. For efficiency, you will use only the data collected between 2009 and 2016. This section of the dataset was prepared by François Chollet for his book <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python">Deep Learning with Python</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zip_path</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">get_file</span><span class="p">(</span>
+    <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;https://storage.googleapis.com/tensorflow/tf-keras-datasets/jena_climate_2009_2016.csv.zip&#39;</span><span class="p">,</span>
+    <span class="n">fname</span><span class="o">=</span><span class="s1">&#39;jena_climate_2009_2016.csv.zip&#39;</span><span class="p">,</span>
+    <span class="n">extract</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">csv_path</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">zip_path</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DataFrame Shape: </span><span class="si">{}</span><span class="s2"> rows, </span><span class="si">{}</span><span class="s2"> columns&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/jena_climate_2009_2016.csv.zip
+13574144/13568290 [==============================] - 0s 0us/step
+DataFrame Shape: 420551 rows, 15 columns
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date Time</th>
+      <th>p (mbar)</th>
+      <th>T (degC)</th>
+      <th>Tpot (K)</th>
+      <th>Tdew (degC)</th>
+      <th>rh (%)</th>
+      <th>VPmax (mbar)</th>
+      <th>VPact (mbar)</th>
+      <th>VPdef (mbar)</th>
+      <th>sh (g/kg)</th>
+      <th>H2OC (mmol/mol)</th>
+      <th>rho (g/m**3)</th>
+      <th>wv (m/s)</th>
+      <th>max. wv (m/s)</th>
+      <th>wd (deg)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>01.01.2009 00:10:00</td>
+      <td>996.52</td>
+      <td>-8.02</td>
+      <td>265.40</td>
+      <td>-8.90</td>
+      <td>93.3</td>
+      <td>3.33</td>
+      <td>3.11</td>
+      <td>0.22</td>
+      <td>1.94</td>
+      <td>3.12</td>
+      <td>1307.75</td>
+      <td>1.03</td>
+      <td>1.75</td>
+      <td>152.3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>01.01.2009 00:20:00</td>
+      <td>996.57</td>
+      <td>-8.41</td>
+      <td>265.01</td>
+      <td>-9.28</td>
+      <td>93.4</td>
+      <td>3.23</td>
+      <td>3.02</td>
+      <td>0.21</td>
+      <td>1.89</td>
+      <td>3.03</td>
+      <td>1309.80</td>
+      <td>0.72</td>
+      <td>1.50</td>
+      <td>136.1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>01.01.2009 00:30:00</td>
+      <td>996.53</td>
+      <td>-8.51</td>
+      <td>264.91</td>
+      <td>-9.31</td>
+      <td>93.9</td>
+      <td>3.21</td>
+      <td>3.01</td>
+      <td>0.20</td>
+      <td>1.88</td>
+      <td>3.02</td>
+      <td>1310.24</td>
+      <td>0.19</td>
+      <td>0.63</td>
+      <td>171.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>01.01.2009 00:40:00</td>
+      <td>996.51</td>
+      <td>-8.31</td>
+      <td>265.12</td>
+      <td>-9.07</td>
+      <td>94.2</td>
+      <td>3.26</td>
+      <td>3.07</td>
+      <td>0.19</td>
+      <td>1.92</td>
+      <td>3.08</td>
+      <td>1309.19</td>
+      <td>0.34</td>
+      <td>0.50</td>
+      <td>198.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>01.01.2009 00:50:00</td>
+      <td>996.51</td>
+      <td>-8.27</td>
+      <td>265.15</td>
+      <td>-9.04</td>
+      <td>94.1</td>
+      <td>3.27</td>
+      <td>3.08</td>
+      <td>0.19</td>
+      <td>1.92</td>
+      <td>3.09</td>
+      <td>1309.00</td>
+      <td>0.32</td>
+      <td>0.63</td>
+      <td>214.3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>As you can see above, an observation is recorded every 10 mintues. This means that, for a single hour, you will have 6 observations. Similarly, a single day will contain 144 (6x24) observations.</p>
+<p>Given a specific time, let’s say you want to predict the temperature 6 hours in the future. In order to make this prediction, you choose to use 5 days of observations. Thus, you would create a window containing the last 720(5x144) observations to train the model. Many such configurations are possible, making this dataset a good one to experiment with.</p>
+<p>The function below returns the above described windows of time for the model to train on. The parameter <code class="docutils literal notranslate"><span class="pre">history_size</span></code> is the size of the past window of information. The <code class="docutils literal notranslate"><span class="pre">target_size</span></code> is how far in the future does the model need to learn to predict. The <code class="docutils literal notranslate"><span class="pre">target_size</span></code> is the label that needs to be predicted.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">univariate_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">,</span> <span class="n">history_size</span><span class="p">,</span> <span class="n">target_size</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">start_index</span> <span class="o">=</span> <span class="n">start_index</span> <span class="o">+</span> <span class="n">history_size</span>
+    <span class="k">if</span> <span class="n">end_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">end_index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span> <span class="o">-</span> <span class="n">target_size</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">):</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="n">history_size</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="c1"># Reshape data from (history_size,) to (history_size, 1)</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="n">indices</span><span class="p">],</span> <span class="p">(</span><span class="n">history_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">target_size</span><span class="p">])</span>
+        
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In both the following tutorials, the first 300,000 rows of the data will be the training dataset, and there remaining will be the validation dataset. This amounts to ~2100 days worth of training data.</p>
+</section>
+<section id="part-1-forecast-a-univariate-time-series">
+<h2>Part 1: Forecast a univariate time series<a class="headerlink" href="#part-1-forecast-a-univariate-time-series" title="Link to this heading">#</a></h2>
+<p>First, you will train a model using only a single feature (temperature), and use it to make predictions for that value in the future.</p>
+<p>Let’s first extract only the temperature from the dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uni_data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;T (degC)&#39;</span><span class="p">]</span>
+<span class="n">uni_data</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date Time&#39;</span><span class="p">]</span>
+<span class="n">uni_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Date Time
+01.01.2009 00:10:00   -8.02
+01.01.2009 00:20:00   -8.41
+01.01.2009 00:30:00   -8.51
+01.01.2009 00:40:00   -8.31
+01.01.2009 00:50:00   -8.27
+Name: T (degC), dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s observe how this data looks across time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uni_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">uni_data</span> <span class="o">=</span> <span class="n">uni_data</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/f4316cc4f5a8799096a4d84a43d288b3ea1d929a6f6cb44237e5bc63efd38148.png" src="../_images/f4316cc4f5a8799096a4d84a43d288b3ea1d929a6f6cb44237e5bc63efd38148.png" />
+</div>
+</div>
+<p>It is important to scale features before training a neural network. Standardization is a common way of doing this scaling by subtracting the mean and dividing by the standard deviation of each feature.You could also use a <code class="docutils literal notranslate"><span class="pre">tf.keras.utils.normalize</span></code> method that rescales the values into a range of [0,1].</p>
+<p>Note: The mean and standard deviation should only be computed using the training data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uni_train_mean</span> <span class="o">=</span> <span class="n">uni_data</span><span class="p">[:</span><span class="n">TRAIN_SPLIT</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">uni_train_std</span> <span class="o">=</span> <span class="n">uni_data</span><span class="p">[:</span><span class="n">TRAIN_SPLIT</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s standardize the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uni_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">uni_data</span><span class="o">-</span><span class="n">uni_train_mean</span><span class="p">)</span><span class="o">/</span><span class="n">uni_train_std</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s now create the data for the univariate model. For part 1, the model will be given the last 20 recorded temperature observations, and needs to learn to predict the temperature at the next time step.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">univariate_past_history</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">univariate_future_target</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">x_train_uni</span><span class="p">,</span> <span class="n">y_train_uni</span> <span class="o">=</span> <span class="n">univariate_data</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">uni_data</span><span class="p">,</span>
+                                           <span class="n">start_index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                           <span class="n">end_index</span><span class="o">=</span><span class="n">TRAIN_SPLIT</span><span class="p">,</span>
+                                           <span class="n">history_size</span><span class="o">=</span><span class="n">univariate_past_history</span><span class="p">,</span>
+                                           <span class="n">target_size</span><span class="o">=</span><span class="n">univariate_future_target</span><span class="p">)</span>
+<span class="n">x_val_uni</span><span class="p">,</span> <span class="n">y_val_uni</span> <span class="o">=</span> <span class="n">univariate_data</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">uni_data</span><span class="p">,</span>
+                                       <span class="n">start_index</span><span class="o">=</span><span class="n">TRAIN_SPLIT</span><span class="p">,</span>
+                                       <span class="n">end_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                       <span class="n">history_size</span><span class="o">=</span><span class="n">univariate_past_history</span><span class="p">,</span>
+                                       <span class="n">target_size</span><span class="o">=</span><span class="n">univariate_future_target</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is what the <code class="docutils literal notranslate"><span class="pre">univariate_data</span></code> function returns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;In:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">uni_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">uni_data</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Out&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_train_uni</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">x_train_uni</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">uni_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>In:
+(420551,)
+[-1.99766294 -2.04281897 -2.05439744 -2.0312405  -2.02660912]
+
+Out
+(299980, 20, 1)
+0.7133023105402199
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Single window of past history. Shape: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x_train_uni</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">x_train_uni</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Target temperature to predict. Shape: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y_train_uni</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">y_train_uni</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Single window of past history. Shape: (20, 1)
+[[-1.99766294]
+ [-2.04281897]
+ [-2.05439744]
+ [-2.0312405 ]
+ [-2.02660912]
+ [-2.00113649]
+ [-1.95134907]
+ [-1.95134907]
+ [-1.98492663]
+ [-2.04513467]
+ [-2.08334362]
+ [-2.09723778]
+ [-2.09376424]
+ [-2.09144854]
+ [-2.07176515]
+ [-2.07176515]
+ [-2.07639653]
+ [-2.08913285]
+ [-2.09260639]
+ [-2.10418486]]
+
+ Target temperature to predict. Shape: ()
+-2.1041848598100876
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that the data has been created, let’s take a look at a single example. The information given to the network is given in blue, and it must predict the value at the red cross.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_time_steps</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">length</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">show_plot</span><span class="p">(</span><span class="n">plot_data</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;History&#39;</span><span class="p">,</span> <span class="s1">&#39;True Future&#39;</span><span class="p">,</span> <span class="s1">&#39;Model Prediction&#39;</span><span class="p">]</span>
+    <span class="n">marker</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="s1">&#39;rx&#39;</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">]</span>
+    <span class="n">time_steps</span> <span class="o">=</span> <span class="n">create_time_steps</span><span class="p">(</span><span class="n">plot_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">delta</span><span class="p">:</span>
+        <span class="n">future</span> <span class="o">=</span> <span class="n">delta</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">future</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">plot_data</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">future</span><span class="p">,</span> <span class="n">plot_data</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">marker</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                   <span class="n">label</span><span class="o">=</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_steps</span><span class="p">,</span> <span class="n">plot_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">marker</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="n">time_steps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">future</span><span class="o">+</span><span class="mi">5</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time-Step&#39;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">show_plot</span><span class="p">([</span><span class="n">x_train_uni</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y_train_uni</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Sample Example&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/opt/conda/lib/python3.6/site-packages/matplotlib/pyplot.py&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/435df99439ab12ca03cbb17f2eb58c5897e8d09e89c0f9c179ed5a5586fc0768.png" src="../_images/435df99439ab12ca03cbb17f2eb58c5897e8d09e89c0f9c179ed5a5586fc0768.png" />
+</div>
+</div>
+<section id="baseline">
+<h3>Baseline<a class="headerlink" href="#baseline" title="Link to this heading">#</a></h3>
+<p>Before proceeding to train a model, let’s first set a simple baseline. Given an input point, the baseline method looks at all the history and predicts the next point to be the average of the last 20 observations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">baseline</span><span class="p">(</span><span class="n">history</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">history</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">show_plot</span><span class="p">([</span><span class="n">x_train_uni</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y_train_uni</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">baseline</span><span class="p">(</span><span class="n">x_train_uni</span><span class="p">[</span><span class="mi">0</span><span class="p">])],</span> <span class="mi">0</span><span class="p">,</span>
+           <span class="s1">&#39;Baseline Prediction Example&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/opt/conda/lib/python3.6/site-packages/matplotlib/pyplot.py&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/1a6b6c5eb0b2ff771f71682f58329883937a45d9b9e217d8b37c9b8df54a2446.png" src="../_images/1a6b6c5eb0b2ff771f71682f58329883937a45d9b9e217d8b37c9b8df54a2446.png" />
+</div>
+</div>
+<p>Let’s see if you can beat this baseline using a recurrent neural network.</p>
+</section>
+<section id="recurrent-neural-network">
+<h3>Recurrent neural network<a class="headerlink" href="#recurrent-neural-network" title="Link to this heading">#</a></h3>
+<p>A Recurrent Neural Network (RNN) is a type of neural network well-suited to time series data. RNNs process a time series step-by-step, maintaining an internal state summarizing the information they’ve seen so far. For more details, read the <a class="reference external" href="https://www.tensorflow.org/tutorials/sequences/recurrent">RNN tutorial</a>. In this tutorial, you will use a specialized RNN layer called Long Short Term Memory (<a class="reference external" href="https://www.tensorflow.org/versions/r2.0/api_docs/python/tf/keras/layers/LSTM">LSTM</a>)</p>
+<p>Let’s now use <code class="docutils literal notranslate"><span class="pre">tf.data</span></code> to shuffle, batch, and cache the dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_univariate</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">x_train_uni</span><span class="p">,</span> <span class="n">y_train_uni</span><span class="p">))</span>
+<span class="n">train_univariate</span> <span class="o">=</span> <span class="n">train_univariate</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">BUFFER_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">BATCH_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+
+<span class="n">val_univariate</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">x_val_uni</span><span class="p">,</span> <span class="n">y_val_uni</span><span class="p">))</span>
+<span class="n">val_univariate</span> <span class="o">=</span> <span class="n">val_univariate</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">BATCH_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The following visualisation should help you understand how the data is represented after batching.</p>
+<p><img alt="Time Series" src="content/images/time_series.png" /></p>
+<p>You will see the LSTM requires the input shape of the data it is being given.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_train_uni</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(299980, 20, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simple_lstm_model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="n">x_train_uni</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]),</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="n">simple_lstm_model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mae&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s make a sample prediction, to check the output of the model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">val_univariate</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">simple_lstm_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(256, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s train the model now. Due to the large size of the dataset, in the interest of saving time, each epoch will only run for 200 steps, instead of the complete training data as normally done.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">early_stopping</span> <span class="o">=</span> <span class="n">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span> <span class="n">patience</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">restore_best_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">simple_lstm_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_univariate</span><span class="p">,</span>
+                      <span class="n">epochs</span><span class="o">=</span><span class="n">EPOCHS</span><span class="p">,</span>
+                      <span class="n">steps_per_epoch</span><span class="o">=</span><span class="n">EVALUATION_INTERVAL</span><span class="p">,</span>
+                      <span class="n">validation_data</span><span class="o">=</span><span class="n">val_univariate</span><span class="p">,</span>
+                      <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">early_stopping</span><span class="p">],</span>
+                      <span class="n">validation_steps</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train for 200 steps, validate for 50 steps
+Epoch 1/4
+200/200 [==============================] - 3s 14ms/step - loss: 0.4075 - val_loss: 0.1351
+Epoch 2/4
+200/200 [==============================] - 1s 6ms/step - loss: 0.1118 - val_loss: 0.0360
+Epoch 3/4
+200/200 [==============================] - 1s 6ms/step - loss: 0.0490 - val_loss: 0.0289
+Epoch 4/4
+200/200 [==============================] - 1s 6ms/step - loss: 0.0444 - val_loss: 0.0257
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7fe64a44e4a8&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="predict-using-the-simple-lstm-model">
+<h4>Predict using the simple LSTM model<a class="headerlink" href="#predict-using-the-simple-lstm-model" title="Link to this heading">#</a></h4>
+<p>Now that you have trained your simple LSTM, let’s try and make a few predictions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">val_univariate</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">plot</span> <span class="o">=</span> <span class="n">show_plot</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
+                    <span class="n">simple_lstm_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">]],</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Simple LSTM model&#39;</span><span class="p">)</span>
+    <span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/147314aabca0535b780df2c85d8d577a8a86a72b9422b5beb374ed3f6e07464b.png" src="../_images/147314aabca0535b780df2c85d8d577a8a86a72b9422b5beb374ed3f6e07464b.png" />
+<img alt="../_images/16dd6dcb27e6f14c586d26b1da6638b2f7740da39108a4d05a6ae02965a18fb8.png" src="../_images/16dd6dcb27e6f14c586d26b1da6638b2f7740da39108a4d05a6ae02965a18fb8.png" />
+<img alt="../_images/b4b168637db10c78bd31ba0926da66a08420482088f2c06f9831b04bae29d347.png" src="../_images/b4b168637db10c78bd31ba0926da66a08420482088f2c06f9831b04bae29d347.png" />
+</div>
+</div>
+<p>This looks better than the baseline. Now that you have seen the basics, let’s move on to part two, where you will work with a multivariate time series.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">simple_lstm_model</span><span class="p">,</span> <span class="n">val_univariate</span><span class="p">,</span> <span class="n">train_univariate</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="part-2-forecast-a-multivariate-time-series">
+<h2>Part 2: Forecast a multivariate time series<a class="headerlink" href="#part-2-forecast-a-multivariate-time-series" title="Link to this heading">#</a></h2>
+<p>The original dataset contains fourteen features. For simplicity, this section considers only three of the original fourteen. The features used are air temperature, atmospheric pressure, and air density.</p>
+<p>To use more features, add their names to this list.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">features_considered</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;p (mbar)&#39;</span><span class="p">,</span> <span class="s1">&#39;T (degC)&#39;</span><span class="p">,</span> <span class="s1">&#39;rho (g/m**3)&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">features_considered</span><span class="p">]</span>
+<span class="n">features</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date Time&#39;</span><span class="p">]</span>
+<span class="n">features</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>p (mbar)</th>
+      <th>T (degC)</th>
+      <th>rho (g/m**3)</th>
+    </tr>
+    <tr>
+      <th>Date Time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>01.01.2009 00:10:00</th>
+      <td>996.52</td>
+      <td>-8.02</td>
+      <td>1307.75</td>
+    </tr>
+    <tr>
+      <th>01.01.2009 00:20:00</th>
+      <td>996.57</td>
+      <td>-8.41</td>
+      <td>1309.80</td>
+    </tr>
+    <tr>
+      <th>01.01.2009 00:30:00</th>
+      <td>996.53</td>
+      <td>-8.51</td>
+      <td>1310.24</td>
+    </tr>
+    <tr>
+      <th>01.01.2009 00:40:00</th>
+      <td>996.51</td>
+      <td>-8.31</td>
+      <td>1309.19</td>
+    </tr>
+    <tr>
+      <th>01.01.2009 00:50:00</th>
+      <td>996.51</td>
+      <td>-8.27</td>
+      <td>1309.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Let’s have a look at how each of these features vary across time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">features</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fe6437387f0&gt;,
+       &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fe649eebda0&gt;,
+       &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fe649ea39e8&gt;],
+      dtype=object)
+</pre></div>
+</div>
+<img alt="../_images/4e052d328bfc89caddf290ead68fd08ba97fdab0568c80d4432cdab932278dd7.png" src="../_images/4e052d328bfc89caddf290ead68fd08ba97fdab0568c80d4432cdab932278dd7.png" />
+</div>
+</div>
+<p>As mentioned, the first step will be to standardize the dataset using the mean and standard deviation of the training data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">values</span>
+<span class="n">data_mean</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[:</span><span class="n">TRAIN_SPLIT</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">data_std</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[:</span><span class="n">TRAIN_SPLIT</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="p">(</span><span class="n">dataset</span><span class="o">-</span><span class="n">data_mean</span><span class="p">)</span><span class="o">/</span><span class="n">data_std</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>p (mbar)</th>
+      <th>T (degC)</th>
+      <th>rho (g/m**3)</th>
+    </tr>
+    <tr>
+      <th>Date Time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>01.01.2009 00:10:00</th>
+      <td>0.955474</td>
+      <td>-1.997663</td>
+      <td>2.235079</td>
+    </tr>
+    <tr>
+      <th>01.01.2009 00:20:00</th>
+      <td>0.961545</td>
+      <td>-2.042819</td>
+      <td>2.285240</td>
+    </tr>
+    <tr>
+      <th>01.01.2009 00:30:00</th>
+      <td>0.956688</td>
+      <td>-2.054397</td>
+      <td>2.296006</td>
+    </tr>
+    <tr>
+      <th>01.01.2009 00:40:00</th>
+      <td>0.954259</td>
+      <td>-2.031241</td>
+      <td>2.270314</td>
+    </tr>
+    <tr>
+      <th>01.01.2009 00:50:00</th>
+      <td>0.954259</td>
+      <td>-2.026609</td>
+      <td>2.265665</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="single-step-model">
+<h3>Single step model<a class="headerlink" href="#single-step-model" title="Link to this heading">#</a></h3>
+<p>In a single step setup, the model learns to predict a single point in the future based on some history provided.</p>
+<p>The below function performs the same windowing task as below, however, here it samples the past observation based on the step size given.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">multivariate_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">,</span> <span class="n">history_size</span><span class="p">,</span>
+                      <span class="n">target_size</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">single_step</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">start_index</span> <span class="o">=</span> <span class="n">start_index</span> <span class="o">+</span> <span class="n">history_size</span>
+    <span class="k">if</span> <span class="n">end_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">end_index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span> <span class="o">-</span> <span class="n">target_size</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">):</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="n">history_size</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="n">indices</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">single_step</span><span class="p">:</span>
+            <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">target_size</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">target_size</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this tutorial, the network is shown data from the last five (5) days, i.e. 720 observations that are sampled every hour. The sampling is done every one hour since a drastic change is not expected within 60 minutes. Thus, 120 observation represent history of the last five days.  For the single step prediction model, the label for a datapoint is the temperature 12 hours into the future. In order to create a label for this, the temperature after 72(12*6) observations is used.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">past_history</span> <span class="o">=</span> <span class="mi">720</span>
+<span class="n">future_target</span> <span class="o">=</span> <span class="mi">72</span>
+<span class="n">STEP</span> <span class="o">=</span> <span class="mi">6</span>
+
+<span class="n">x_train_single</span><span class="p">,</span> <span class="n">y_train_single</span> <span class="o">=</span> <span class="n">multivariate_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">dataset</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span>
+                                                   <span class="n">TRAIN_SPLIT</span><span class="p">,</span> <span class="n">past_history</span><span class="p">,</span>
+                                                   <span class="n">future_target</span><span class="p">,</span> <span class="n">STEP</span><span class="p">,</span>
+                                                   <span class="n">single_step</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">x_val_single</span><span class="p">,</span> <span class="n">y_val_single</span> <span class="o">=</span> <span class="n">multivariate_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">dataset</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+                                               <span class="n">TRAIN_SPLIT</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">past_history</span><span class="p">,</span>
+                                               <span class="n">future_target</span><span class="p">,</span> <span class="n">STEP</span><span class="p">,</span>
+                                               <span class="n">single_step</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s look at a single data-point.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">x_train_single</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Single window of past history : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x_train_single</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_train_single</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(299280, 120, 3)
+Single window of past history : (120, 3)
+(120, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_data_single</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">x_train_single</span><span class="p">,</span> <span class="n">y_train_single</span><span class="p">))</span>
+<span class="n">train_data_single</span> <span class="o">=</span> <span class="n">train_data_single</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">BUFFER_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">BATCH_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+
+<span class="n">val_data_single</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">x_val_single</span><span class="p">,</span> <span class="n">y_val_single</span><span class="p">))</span>
+<span class="n">val_data_single</span> <span class="o">=</span> <span class="n">val_data_single</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">BATCH_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">single_step_model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
+<span class="n">single_step_model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span>
+                                           <span class="n">input_shape</span><span class="o">=</span><span class="n">x_train_single</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]))</span>
+<span class="n">single_step_model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="n">single_step_model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">RMSprop</span><span class="p">(),</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mae&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s check out a sample prediction.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">val_data_single</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">single_step_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(256, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Evaluation Threshold: </span><span class="si">{</span><span class="n">EVALUATION_INTERVAL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+      <span class="sa">f</span><span class="s2">&quot;Epochs: </span><span class="si">{</span><span class="n">EPOCHS</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">early_stopping</span> <span class="o">=</span> <span class="n">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span> <span class="n">patience</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">restore_best_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">single_step_history</span> <span class="o">=</span> <span class="n">single_step_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data_single</span><span class="p">,</span>
+                                            <span class="n">epochs</span><span class="o">=</span><span class="n">EPOCHS</span><span class="p">,</span>
+                                            <span class="n">steps_per_epoch</span><span class="o">=</span><span class="n">EVALUATION_INTERVAL</span><span class="p">,</span>
+                                            <span class="n">validation_data</span><span class="o">=</span><span class="n">val_data_single</span><span class="p">,</span>
+                                            <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">early_stopping</span><span class="p">],</span>
+                                            <span class="n">validation_steps</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Evaluation Threshold: 200
+Epochs: 4
+Train for 200 steps, validate for 50 steps
+Epoch 1/4
+200/200 [==============================] - 4s 22ms/step - loss: 0.3090 - val_loss: 0.2647
+Epoch 2/4
+200/200 [==============================] - 2s 12ms/step - loss: 0.2624 - val_loss: 0.2427
+Epoch 3/4
+200/200 [==============================] - 2s 11ms/step - loss: 0.2614 - val_loss: 0.2456
+Epoch 4/4
+200/200 [==============================] - 2s 11ms/step - loss: 0.2568 - val_loss: 0.2446
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_train_history</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">]</span>
+    <span class="n">val_loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_loss&#39;</span><span class="p">]</span>
+
+    <span class="n">epochs</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">loss</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training loss&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">val_loss</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Validation loss&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_train_history</span><span class="p">(</span><span class="n">single_step_history</span><span class="p">,</span>
+                   <span class="s1">&#39;Single Step Training and validation loss&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7e8091de9bfa6f8ec70624c7dd937c212337687a60542cc8a6560f77d3b65140.png" src="../_images/7e8091de9bfa6f8ec70624c7dd937c212337687a60542cc8a6560f77d3b65140.png" />
+</div>
+</div>
+<section id="predict-a-single-step-future">
+<h4>Predict a single step future<a class="headerlink" href="#predict-a-single-step-future" title="Link to this heading">#</a></h4>
+<p>Now that the model is trained, let’s make a few sample predictions. The model is given the history of three features over the past five days sampled every hour (120 data-points), since the goal is to predict the temperature, the plot only displays the past temperature. The prediction is made one day into the future (hence the gap between the history and prediction).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">val_data_single</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">plot</span> <span class="o">=</span> <span class="n">show_plot</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
+                    <span class="n">single_step_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">]],</span> <span class="mi">12</span><span class="p">,</span>
+                   <span class="s1">&#39;Single Step Prediction&#39;</span><span class="p">)</span>
+    <span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/de70c112a5ce8e6dc377f5accfcc7ef744ba3a332d6d9136fbc9a8229038fcca.png" src="../_images/de70c112a5ce8e6dc377f5accfcc7ef744ba3a332d6d9136fbc9a8229038fcca.png" />
+<img alt="../_images/de200e8d244e5ecd66a0900516d73c4adcbaa672b1984d1f7a85ce3ab16d267d.png" src="../_images/de200e8d244e5ecd66a0900516d73c4adcbaa672b1984d1f7a85ce3ab16d267d.png" />
+<img alt="../_images/7c7cc1631b9e7d458a3a76bb3c42fed4a5cb565bf8ea1697f831b79c6c30308d.png" src="../_images/7c7cc1631b9e7d458a3a76bb3c42fed4a5cb565bf8ea1697f831b79c6c30308d.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">single_step_history</span><span class="p">,</span> <span class="n">val_data_single</span><span class="p">,</span> <span class="n">train_data_single</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="multi-step-model">
+<h3>Multi-Step model<a class="headerlink" href="#multi-step-model" title="Link to this heading">#</a></h3>
+<p>In a multi-step prediction model, given a past history, the model needs to learn to predict a range of future values. Thus, unlike a single step model, where only a single future point is predicted, a multi-step model predict a sequence of the future.</p>
+<p>For the multi-step model, the training data again consists of recordings over the past five days sampled every hour. However, here, the model needs to learn to predict the temperature for the next 12 hours. Since an obversation is taken every 10 minutes, the output is 72 predictions. For this task, the dataset needs to be prepared accordingly, thus the first step is just to create it again, but with a different target window.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">past_history</span> <span class="o">=</span> <span class="mi">720</span>
+<span class="n">future_target</span> <span class="o">=</span> <span class="mi">72</span>
+<span class="n">STEP</span> <span class="o">=</span> <span class="mi">6</span>
+
+<span class="n">x_train_multi</span><span class="p">,</span> <span class="n">y_train_multi</span> <span class="o">=</span> <span class="n">multivariate_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">dataset</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span>
+                                                 <span class="n">TRAIN_SPLIT</span><span class="p">,</span> <span class="n">past_history</span><span class="p">,</span>
+                                                 <span class="n">future_target</span><span class="p">,</span> <span class="n">STEP</span><span class="p">)</span>
+<span class="n">x_val_multi</span><span class="p">,</span> <span class="n">y_val_multi</span> <span class="o">=</span> <span class="n">multivariate_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">dataset</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+                                             <span class="n">TRAIN_SPLIT</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">past_history</span><span class="p">,</span>
+                                             <span class="n">future_target</span><span class="p">,</span> <span class="n">STEP</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s check out a sample data-point.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="n">x_train_multi</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+       <span class="n">y_train_multi</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+       <span class="s1">&#39;Single window of past history : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x_train_multi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
+       <span class="s1">&#39;Target temperature to predict : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y_train_multi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
+       <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(299280, 120, 3)
+(299280, 72)
+Single window of past history : (120, 3)
+Target temperature to predict : (72,)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_data_multi</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">x_train_multi</span><span class="p">,</span> <span class="n">y_train_multi</span><span class="p">))</span>
+<span class="n">train_data_multi</span> <span class="o">=</span> <span class="n">train_data_multi</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">BUFFER_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">BATCH_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+
+<span class="n">val_data_multi</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">x_val_multi</span><span class="p">,</span> <span class="n">y_val_multi</span><span class="p">))</span>
+<span class="n">val_data_multi</span> <span class="o">=</span> <span class="n">val_data_multi</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">BATCH_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Plotting a sample data-point.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">multi_step_plot</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">true_future</span><span class="p">,</span> <span class="n">prediction</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">num_in</span> <span class="o">=</span> <span class="n">create_time_steps</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">history</span><span class="p">))</span>
+    <span class="n">num_out</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">true_future</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">num_in</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">history</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;History&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_out</span><span class="p">)</span><span class="o">/</span><span class="n">STEP</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">true_future</span><span class="p">),</span> <span class="s1">&#39;bo&#39;</span><span class="p">,</span>
+           <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True Future&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">prediction</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_out</span><span class="p">)</span><span class="o">/</span><span class="n">STEP</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">prediction</span><span class="p">),</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span>
+                 <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predicted Future&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this plot and subsequent similar plots, the history and the future data are sampled every hour.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">train_data_multi</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">multi_step_plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2490600568e99fa4074d41ce2f88142495508fed929ee00e09c0366680d4882a.png" src="../_images/2490600568e99fa4074d41ce2f88142495508fed929ee00e09c0366680d4882a.png" />
+</div>
+</div>
+<p>Since the task here is a bit more complicated than the previous task, the model now consists of two LSTM layers. Finally, since 72 predictions are made, the dense layer outputs 72 predictions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">multi_step_model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
+<span class="n">multi_step_model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span>
+                                          <span class="n">return_sequences</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                          <span class="n">input_shape</span><span class="o">=</span><span class="n">x_train_multi</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]))</span>
+<span class="n">multi_step_model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">multi_step_model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">72</span><span class="p">))</span>
+
+<span class="n">multi_step_model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">RMSprop</span><span class="p">(</span><span class="n">clipvalue</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mae&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">multi_step_model</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential_2&quot;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+lstm_2 (LSTM)                (None, 120, 32)           4608      
+_________________________________________________________________
+lstm_3 (LSTM)                (None, 16)                3136      
+_________________________________________________________________
+dense_2 (Dense)              (None, 72)                1224      
+=================================================================
+Total params: 8,968
+Trainable params: 8,968
+Non-trainable params: 0
+_________________________________________________________________
+None
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s see how the model predicts before it trains.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">val_data_multi</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">multi_step_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(256, 72)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">early_stopping</span> <span class="o">=</span> <span class="n">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span> <span class="n">patience</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">restore_best_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">multi_step_history</span> <span class="o">=</span> <span class="n">multi_step_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data_multi</span><span class="p">,</span>
+                                          <span class="n">epochs</span><span class="o">=</span><span class="n">EPOCHS</span><span class="p">,</span>
+                                          <span class="n">steps_per_epoch</span><span class="o">=</span><span class="n">EVALUATION_INTERVAL</span><span class="p">,</span>
+                                          <span class="n">validation_data</span><span class="o">=</span><span class="n">val_data_multi</span><span class="p">,</span>
+                                          <span class="n">validation_steps</span><span class="o">=</span><span class="n">EVALUATION_INTERVAL</span><span class="p">,</span>
+                                          <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">early_stopping</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train for 200 steps, validate for 200 steps
+Epoch 1/4
+200/200 [==============================] - 30s 152ms/step - loss: 0.4965 - val_loss: 0.3998
+Epoch 2/4
+200/200 [==============================] - 26s 132ms/step - loss: 0.3481 - val_loss: 0.3581
+Epoch 3/4
+200/200 [==============================] - 27s 135ms/step - loss: 0.3287 - val_loss: 0.2862
+Epoch 4/4
+200/200 [==============================] - 26s 130ms/step - loss: 0.2408 - val_loss: 0.2400
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_train_history</span><span class="p">(</span><span class="n">multi_step_history</span><span class="p">,</span> <span class="s1">&#39;Multi-Step Training and validation loss&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/97a980903f4226b48fb604ee6d4cfa2ef26c8cfbe5aadb72de1f7e590ec2703f.png" src="../_images/97a980903f4226b48fb604ee6d4cfa2ef26c8cfbe5aadb72de1f7e590ec2703f.png" />
+</div>
+</div>
+<section id="predict-a-multi-step-future">
+<h4>Predict a multi-step future<a class="headerlink" href="#predict-a-multi-step-future" title="Link to this heading">#</a></h4>
+<p>Let’s now have a look at how well your network has learnt to predict the future.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">val_data_multi</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">multi_step_plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">multi_step_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7c9cb6ba2e8163af38fc98746ab5ce201eb64daea914d1568102ac43f885dda1.png" src="../_images/7c9cb6ba2e8163af38fc98746ab5ce201eb64daea914d1568102ac43f885dda1.png" />
+<img alt="../_images/3931641bcadc0c87d092417b9038ceefc93a28ff258833b2d93eae49b0ad2b48.png" src="../_images/3931641bcadc0c87d092417b9038ceefc93a28ff258833b2d93eae49b0ad2b48.png" />
+<img alt="../_images/a1f59c949e6d0b6ea3623e86634ed789794de0edfa2d11ccde25d682d66198b4.png" src="../_images/a1f59c949e6d0b6ea3623e86634ed789794de0edfa2d11ccde25d682d66198b4.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">multi_step_model</span><span class="p">,</span> <span class="n">val_data_multi</span><span class="p">,</span> <span class="n">train_data_multi</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<p>This tutorial was a quick introduction to time series forecasting using an RNN. You may now try to predict the stock market and become a billionaire.</p>
+<p>In addition, you may also write a generator to yield data (instead of the uni/multivariate_data function), which would be more memory efficient. You may also check out this <a class="reference external" href="https://www.tensorflow.org/guide/data#time_series_windowing">time series windowing</a> guide and use it in this tutorial.</p>
+<p>For further understanding, you may read Chapter 15 of <a class="reference external" href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/">Hands-on Machine Learning with Scikit-Learn, Keras, and TensorFlow</a>, 2nd Edition and Chapter 6 of <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python">Deep Learning with Python</a>.</p>
+</section>
+<section id="multi-step-multi-input-and-multi-output">
+<h2>Multi-Step, Multi-Input, and Multi-Output<a class="headerlink" href="#multi-step-multi-input-and-multi-output" title="Link to this heading">#</a></h2>
+<p><em>By Nick Brooks, Feb 2020</em></p>
+<p>Inspired by the following paper:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/1903.02791">https://arxiv.org/abs/1903.02791</a></p></li>
+<li><p><a class="github reference external" href="https://github.com/niklascp/bus-arrival-convlstm/tree/master/jupyter">niklascp/bus-arrival-convlstm</a></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">multivariate_multioutput_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">,</span> <span class="n">history_size</span><span class="p">,</span>
+                      <span class="n">target_size</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">single_step</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">start_index</span> <span class="o">=</span> <span class="n">start_index</span> <span class="o">+</span> <span class="n">history_size</span>
+    <span class="k">if</span> <span class="n">end_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">end_index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span> <span class="o">-</span> <span class="n">target_size</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">):</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="n">history_size</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="n">indices</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">single_step</span><span class="p">:</span>
+            <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">target_size</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">target_size</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)[:,:,:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">labels</span><span class="p">)[:,:,:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">multi_step_output_plot</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">true_future</span><span class="p">,</span> <span class="n">prediction</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">num_in</span> <span class="o">=</span> <span class="n">create_time_steps</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">history</span><span class="p">))</span>
+    <span class="n">num_out</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">true_future</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">])):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">num_in</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">history</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]),</span> <span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_out</span><span class="p">)</span><span class="o">/</span><span class="n">STEP</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">true_future</span><span class="p">[:,</span><span class="n">i</span><span class="p">]),</span> <span class="n">c</span><span class="o">+</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+               <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;True </span><span class="si">{</span><span class="n">var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">prediction</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_out</span><span class="p">)</span><span class="o">/</span><span class="n">STEP</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">prediction</span><span class="p">[:,</span><span class="n">i</span><span class="p">]),</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                     <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Predicted </span><span class="si">{</span><span class="n">var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">future_target</span> <span class="o">=</span> <span class="mi">72</span>
+<span class="n">x_train_multi</span><span class="p">,</span> <span class="n">y_train_multi</span> <span class="o">=</span> <span class="n">multivariate_multioutput_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">],</span> <span class="n">dataset</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span>
+                                                 <span class="n">TRAIN_SPLIT</span><span class="p">,</span> <span class="n">past_history</span><span class="p">,</span>
+                                                 <span class="n">future_target</span><span class="p">,</span> <span class="n">STEP</span><span class="p">)</span>
+<span class="n">x_val_multi</span><span class="p">,</span> <span class="n">y_val_multi</span> <span class="o">=</span> <span class="n">multivariate_multioutput_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">],</span> <span class="n">dataset</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">],</span>
+                                             <span class="n">TRAIN_SPLIT</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">past_history</span><span class="p">,</span>
+                                             <span class="n">future_target</span><span class="p">,</span> <span class="n">STEP</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="n">x_train_multi</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+       <span class="n">y_train_multi</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+       <span class="n">x_val_multi</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+       <span class="n">y_val_multi</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+       <span class="s1">&#39;Single window of past history : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x_train_multi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
+       <span class="s1">&#39;Target temperature to predict : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y_train_multi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
+       <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(299280, 120, 2, 1, 1)
+(299280, 72, 2, 1, 1)
+(119759, 120, 2, 1, 1)
+(119759, 72, 2, 1, 1)
+Single window of past history : (120, 2, 1, 1)
+Target temperature to predict : (72, 2, 1, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">BATCH_SIZE</span> <span class="o">=</span> <span class="mi">128</span>
+
+<span class="n">train_data_multi</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">x_train_multi</span><span class="p">,</span> <span class="n">y_train_multi</span><span class="p">))</span>
+<span class="n">train_data_multi</span> <span class="o">=</span> <span class="n">train_data_multi</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">BUFFER_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">BATCH_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+
+<span class="n">val_data_multi</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">x_val_multi</span><span class="p">,</span> <span class="n">y_val_multi</span><span class="p">))</span>
+<span class="n">val_data_multi</span> <span class="o">=</span> <span class="n">val_data_multi</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">BATCH_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">val_data_multi</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">multi_step_output_plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/db32ea20ffbf77779131adf55cedaff48bbf901f31f2ced58c06886a87689fb8.png" src="../_images/db32ea20ffbf77779131adf55cedaff48bbf901f31f2ced58c06886a87689fb8.png" />
+<img alt="../_images/a5da98f5ab9aa26f10f16fa7f24be7ec46925196237429d0604a5735362e814a.png" src="../_images/a5da98f5ab9aa26f10f16fa7f24be7ec46925196237429d0604a5735362e814a.png" />
+<img alt="../_images/6a251599459b446314c6e57ab89029b6b504272b54641e980d5679f310dfc680.png" src="../_images/6a251599459b446314c6e57ab89029b6b504272b54641e980d5679f310dfc680.png" />
+<img alt="../_images/0d63879275d4cab46dcb68526eb36023e5fbbc219d7323b62f087966fc268f1b.png" src="../_images/0d63879275d4cab46dcb68526eb36023e5fbbc219d7323b62f087966fc268f1b.png" />
+<img alt="../_images/7f375712f86dccaa8da3ed7fd001c13065c3c81454800306c30f7d5891c698f3.png" src="../_images/7f375712f86dccaa8da3ed7fd001c13065c3c81454800306c30f7d5891c698f3.png" />
+<img alt="../_images/99707f3e94949b28c97fa767e9f28070a5fd24d2d9de8e485e5b0cc5dd42bbcd.png" src="../_images/99707f3e94949b28c97fa767e9f28070a5fd24d2d9de8e485e5b0cc5dd42bbcd.png" />
+<img alt="../_images/8feaf94df16f611fdce0baeb2774cdd94d8d2050b9a2df58b5b91c270025cbdc.png" src="../_images/8feaf94df16f611fdce0baeb2774cdd94d8d2050b9a2df58b5b91c270025cbdc.png" />
+<img alt="../_images/0b993399e3d341cc31662739251da9b7b09aca89c3f7aeb1b6f5ae3b916c417a.png" src="../_images/0b993399e3d341cc31662739251da9b7b09aca89c3f7aeb1b6f5ae3b916c417a.png" />
+<img alt="../_images/5870172330180f96dbce0c84b428a180d6b85dc3a58c7f8b07844acc3cd0ec60.png" src="../_images/5870172330180f96dbce0c84b428a180d6b85dc3a58c7f8b07844acc3cd0ec60.png" />
+<img alt="../_images/36ae0ddd0f3a6cc53ec9aa4eceead1d01488bfaceff9de8a9875863bc9bc7f7b.png" src="../_images/36ae0ddd0f3a6cc53ec9aa4eceead1d01488bfaceff9de8a9875863bc9bc7f7b.png" />
+</div>
+</div>
+<section id="convolutional-lstm">
+<h3>Convolutional LSTM<a class="headerlink" href="#convolutional-lstm" title="Link to this heading">#</a></h3>
+<p>As taken from the paper.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_model</span><span class="p">(</span><span class="n">input_timesteps</span><span class="p">,</span> <span class="n">output_timesteps</span><span class="p">,</span> <span class="n">num_links</span><span class="p">,</span> <span class="n">num_inputs</span><span class="p">):</span>
+    <span class="c1"># COPY PASTA</span>
+    <span class="c1"># https://github.com/niklascp/bus-arrival-convlstm/blob/master/jupyter/ConvLSTM_3x15min_10x64-5x64-10x64-5x64-Comparison.ipynb</span>
+    
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">BatchNormalization</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;batch_norm_0&#39;</span><span class="p">,</span> <span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">input_timesteps</span><span class="p">,</span> <span class="n">num_inputs</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ConvLSTM2D</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span><span class="s1">&#39;conv_lstm_1&#39;</span><span class="p">,</span>
+                         <span class="n">filters</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>                       
+                         <span class="n">padding</span> <span class="o">=</span> <span class="s1">&#39;same&#39;</span><span class="p">,</span> 
+                         <span class="n">return_sequences</span> <span class="o">=</span> <span class="kc">True</span><span class="p">))</span>
+    
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;dropout_1&#39;</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">BatchNormalization</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;batch_norm_1&#39;</span><span class="p">))</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ConvLSTM2D</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span><span class="s1">&#39;conv_lstm_2&#39;</span><span class="p">,</span>
+                         <span class="n">filters</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> 
+                         <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span>
+                         <span class="n">return_sequences</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>
+    
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.20</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;dropout_2&#39;</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">BatchNormalization</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;batch_norm_2&#39;</span><span class="p">))</span>
+    
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Flatten</span><span class="p">())</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">RepeatVector</span><span class="p">(</span><span class="n">output_timesteps</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Reshape</span><span class="p">((</span><span class="n">output_timesteps</span><span class="p">,</span> <span class="n">num_inputs</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="p">)))</span>
+    
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ConvLSTM2D</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span><span class="s1">&#39;conv_lstm_3&#39;</span><span class="p">,</span>
+                         <span class="n">filters</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> 
+                         <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span>
+                         <span class="n">return_sequences</span> <span class="o">=</span> <span class="kc">True</span><span class="p">))</span>
+    
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.20</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;dropout_3&#39;</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">BatchNormalization</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;batch_norm_3&#39;</span><span class="p">))</span>
+    
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ConvLSTM2D</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span><span class="s1">&#39;conv_lstm_4&#39;</span><span class="p">,</span>
+                         <span class="n">filters</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> 
+                         <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span>
+                         <span class="n">return_sequences</span> <span class="o">=</span> <span class="kc">True</span><span class="p">))</span>
+    
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">TimeDistributed</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;dense_1&#39;</span><span class="p">,</span> <span class="n">activation</span> <span class="o">=</span> <span class="s1">&#39;relu&#39;</span><span class="p">)))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;dense_2&#39;</span><span class="p">,</span> <span class="n">activation</span> <span class="o">=</span> <span class="s1">&#39;linear&#39;</span><span class="p">))</span>
+
+<span class="c1">#     optimizer = RMSprop() #lr=0.0001, rho=0.9, epsilon=1e-08, decay=0.9)</span>
+<span class="c1">#     optimizer = tf.keras.optimizers.Adam(0.1)</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">RMSprop</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.004</span><span class="p">,</span> <span class="n">clipvalue</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span> <span class="o">=</span> <span class="s2">&quot;mse&quot;</span><span class="p">,</span> <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mae&#39;</span><span class="p">,</span> <span class="s1">&#39;mse&#39;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">future_target</span> <span class="o">=</span> <span class="mi">72</span>
+<span class="n">x_train_multi</span><span class="p">,</span> <span class="n">y_train_multi</span> <span class="o">=</span> <span class="n">multivariate_multioutput_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">],</span> <span class="n">dataset</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span>
+                                                 <span class="n">TRAIN_SPLIT</span><span class="p">,</span> <span class="n">past_history</span><span class="p">,</span>
+                                                 <span class="n">future_target</span><span class="p">,</span> <span class="n">STEP</span><span class="p">)</span>
+<span class="n">x_val_multi</span><span class="p">,</span> <span class="n">y_val_multi</span> <span class="o">=</span> <span class="n">multivariate_multioutput_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">],</span> <span class="n">dataset</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">],</span>
+                                             <span class="n">TRAIN_SPLIT</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">past_history</span><span class="p">,</span>
+                                             <span class="n">future_target</span><span class="p">,</span> <span class="n">STEP</span><span class="p">)</span>
+
+<span class="n">BATCH_SIZE</span> <span class="o">=</span> <span class="mi">128</span>
+
+<span class="n">train_data_multi</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">x_train_multi</span><span class="p">,</span> <span class="n">y_train_multi</span><span class="p">))</span>
+<span class="n">train_data_multi</span> <span class="o">=</span> <span class="n">train_data_multi</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">BUFFER_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">BATCH_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+
+<span class="n">val_data_multi</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">x_val_multi</span><span class="p">,</span> <span class="n">y_val_multi</span><span class="p">))</span>
+<span class="n">val_data_multi</span> <span class="o">=</span> <span class="n">val_data_multi</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">BATCH_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">EPOCHS</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">steps_per_epoch</span> <span class="o">=</span> <span class="mi">350</span>
+<span class="n">validation_steps</span> <span class="o">=</span> <span class="mi">500</span>
+
+<span class="n">modelstart</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">early_stopping</span> <span class="o">=</span> <span class="n">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span> <span class="n">patience</span> <span class="o">=</span> <span class="n">PATIENCE</span><span class="p">,</span> <span class="n">restore_best_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">(</span><span class="n">x_train_multi</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">future_target</span><span class="p">,</span> <span class="n">y_train_multi</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">x_train_multi</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+
+<span class="c1"># Train</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TRAIN MODEL...&quot;</span><span class="p">)</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data_multi</span><span class="p">,</span>
+                    <span class="n">epochs</span> <span class="o">=</span> <span class="n">EPOCHS</span><span class="p">,</span>
+                    <span class="n">validation_data</span><span class="o">=</span><span class="n">val_data_multi</span><span class="p">,</span>
+                    <span class="n">steps_per_epoch</span><span class="o">=</span><span class="n">steps_per_epoch</span><span class="p">,</span>
+                    <span class="n">validation_steps</span><span class="o">=</span><span class="n">validation_steps</span><span class="p">,</span>
+                    <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">early_stopping</span><span class="p">])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;multi-output-timesteps.h5&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Model Runtime: </span><span class="si">%0.2f</span><span class="s2"> Minutes&quot;</span><span class="o">%</span><span class="p">((</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">modelstart</span><span class="p">)</span><span class="o">/</span><span class="mi">60</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential_3&quot;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+batch_norm_0 (BatchNormaliza (None, 120, 2, 1, 1)      4         
+_________________________________________________________________
+conv_lstm_1 (ConvLSTM2D)     (None, 120, 2, 1, 64)     166656    
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 120, 2, 1, 64)     0         
+_________________________________________________________________
+batch_norm_1 (BatchNormaliza (None, 120, 2, 1, 64)     256       
+_________________________________________________________________
+conv_lstm_2 (ConvLSTM2D)     (None, 2, 1, 64)          164096    
+_________________________________________________________________
+dropout_2 (Dropout)          (None, 2, 1, 64)          0         
+_________________________________________________________________
+batch_norm_2 (BatchNormaliza (None, 2, 1, 64)          256       
+_________________________________________________________________
+flatten (Flatten)            (None, 128)               0         
+_________________________________________________________________
+repeat_vector (RepeatVector) (None, 72, 128)           0         
+_________________________________________________________________
+reshape (Reshape)            (None, 72, 2, 1, 64)      0         
+_________________________________________________________________
+conv_lstm_3 (ConvLSTM2D)     (None, 72, 2, 1, 64)      327936    
+_________________________________________________________________
+dropout_3 (Dropout)          (None, 72, 2, 1, 64)      0         
+_________________________________________________________________
+batch_norm_3 (BatchNormaliza (None, 72, 2, 1, 64)      256       
+_________________________________________________________________
+conv_lstm_4 (ConvLSTM2D)     (None, 72, 2, 1, 64)      164096    
+_________________________________________________________________
+time_distributed (TimeDistri (None, 72, 2, 1, 1)       65        
+_________________________________________________________________
+dense_2 (Dense)              (None, 72, 2, 1, 1)       2         
+=================================================================
+Total params: 823,623
+Trainable params: 823,237
+Non-trainable params: 386
+_________________________________________________________________
+None
+
+TRAIN MODEL...
+Train for 350 steps, validate for 500 steps
+Epoch 1/40
+350/350 [==============================] - 535s 2s/step - loss: 0.9827 - mae: 0.7726 - mse: 0.9827 - val_loss: 0.9528 - val_mae: 0.7741 - val_mse: 0.9528
+Epoch 2/40
+350/350 [==============================] - 525s 1s/step - loss: 0.9857 - mae: 0.7787 - mse: 0.9857 - val_loss: 0.9119 - val_mae: 0.7574 - val_mse: 0.9119
+Epoch 3/40
+350/350 [==============================] - 513s 1s/step - loss: 0.9819 - mae: 0.7885 - mse: 0.9819 - val_loss: 0.9165 - val_mae: 0.7591 - val_mse: 0.9165
+Epoch 4/40
+350/350 [==============================] - 514s 1s/step - loss: 1.1225 - mae: 0.8371 - mse: 1.1225 - val_loss: 0.9000 - val_mae: 0.7523 - val_mse: 0.9000
+Epoch 5/40
+350/350 [==============================] - 516s 1s/step - loss: 0.8534 - mae: 0.7464 - mse: 0.8534 - val_loss: 1.0729 - val_mae: 0.8231 - val_mse: 1.0729
+Epoch 6/40
+350/350 [==============================] - 517s 1s/step - loss: 0.8704 - mae: 0.7438 - mse: 0.8704 - val_loss: 1.0000 - val_mae: 0.7933 - val_mse: 1.0000
+Epoch 7/40
+350/350 [==============================] - 520s 1s/step - loss: 0.9311 - mae: 0.7464 - mse: 0.9317 - val_loss: 0.9205 - val_mae: 0.7610 - val_mse: 0.9205
+Epoch 8/40
+350/350 [==============================] - 518s 1s/step - loss: 0.9782 - mae: 0.7756 - mse: 0.9782 - val_loss: 1.2118 - val_mae: 0.8786 - val_mse: 1.2118
+Epoch 9/40
+350/350 [==============================] - 526s 2s/step - loss: 0.9372 - mae: 0.7623 - mse: 0.9372 - val_loss: 1.1598 - val_mae: 0.8581 - val_mse: 1.1598
+
+Model Runtime: 78.09 Minutes
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_train_history</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="s1">&#39;Multi-Step, Multi-Output Training and validation loss&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/dbfd002f47a8c327c4046f9c0d2590a979c3add1f97bcdc50b988f3143a378ea.png" src="../_images/dbfd002f47a8c327c4046f9c0d2590a979c3add1f97bcdc50b988f3143a378ea.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">val_data_multi</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">multi_step_output_plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,:,:,:,:])))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1015fc5f02476521ef99fbe189550f33206e6ad1c69a7d6fe3ab948d13679827.png" src="../_images/1015fc5f02476521ef99fbe189550f33206e6ad1c69a7d6fe3ab948d13679827.png" />
+<img alt="../_images/e392261f59ffca0ebdcbdbca716d7b2a4889a851530fbe12eff867177b4604ec.png" src="../_images/e392261f59ffca0ebdcbdbca716d7b2a4889a851530fbe12eff867177b4604ec.png" />
+<img alt="../_images/1e4b4ff68d659a8ac20a2e64c093c3e0f821341fd064922f9f6972aeafcdcb78.png" src="../_images/1e4b4ff68d659a8ac20a2e64c093c3e0f821341fd064922f9f6972aeafcdcb78.png" />
+<img alt="../_images/2ed6b46d59977ac917cd94ba4151c4d856932f273b09e54b12800d9649e5ff37.png" src="../_images/2ed6b46d59977ac917cd94ba4151c4d856932f273b09e54b12800d9649e5ff37.png" />
+<img alt="../_images/67c2e49fa1b4202db73b9bec8a01acf425dcc406149dbf1ecd7274907e280f3c.png" src="../_images/67c2e49fa1b4202db73b9bec8a01acf425dcc406149dbf1ecd7274907e280f3c.png" />
+<img alt="../_images/747948f24c47d13c285f787c48cd9696d1d6edc8a3b68cd047aef64cf91afbb2.png" src="../_images/747948f24c47d13c285f787c48cd9696d1d6edc8a3b68cd047aef64cf91afbb2.png" />
+<img alt="../_images/257ebfac839ba07029a4d1512c8c7321c6580361953c0f40d41464aa3e81fcd8.png" src="../_images/257ebfac839ba07029a4d1512c8c7321c6580361953c0f40d41464aa3e81fcd8.png" />
+<img alt="../_images/265ca7a47f42d42c52e951bd515df079d937ff5ac60000ed6a933f2cc180a740.png" src="../_images/265ca7a47f42d42c52e951bd515df079d937ff5ac60000ed6a933f2cc180a740.png" />
+<img alt="../_images/044d1c02bb6fa5fc984a150e24f43a3aa10d0d92b85d2498f4c7e6d85b43322a.png" src="../_images/044d1c02bb6fa5fc984a150e24f43a3aa10d0d92b85d2498f4c7e6d85b43322a.png" />
+<img alt="../_images/0568ad666fb6acd923f9f90a41196e48c3bad9fbf3ce114e9525f298265809ef.png" src="../_images/0568ad666fb6acd923f9f90a41196e48c3bad9fbf3ce114e9525f298265809ef.png" />
+</div>
+</div>
+</section>
+<section id="simplified-the-convolutional-lstm">
+<h3>Simplified the Convolutional LSTM<a class="headerlink" href="#simplified-the-convolutional-lstm" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_model</span><span class="p">(</span><span class="n">input_timesteps</span><span class="p">,</span> <span class="n">output_timesteps</span><span class="p">,</span> <span class="n">num_links</span><span class="p">,</span> <span class="n">num_inputs</span><span class="p">):</span>    
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">BatchNormalization</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;batch_norm_0&#39;</span><span class="p">,</span> <span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">input_timesteps</span><span class="p">,</span> <span class="n">num_inputs</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ConvLSTM2D</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span><span class="s1">&#39;conv_lstm_1&#39;</span><span class="p">,</span>
+                         <span class="n">filters</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>                       
+                         <span class="n">padding</span> <span class="o">=</span> <span class="s1">&#39;same&#39;</span><span class="p">,</span> 
+                         <span class="n">return_sequences</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>
+    
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;dropout_1&#39;</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">BatchNormalization</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;batch_norm_1&#39;</span><span class="p">))</span>
+
+<span class="c1">#     model.add(ConvLSTM2D(name =&#39;conv_lstm_2&#39;,</span>
+<span class="c1">#                          filters = 64, kernel_size = (5, 1), </span>
+<span class="c1">#                          padding=&#39;same&#39;,</span>
+<span class="c1">#                          return_sequences = False))</span>
+    
+<span class="c1">#     model.add(Dropout(0.20, name = &#39;dropout_2&#39;))</span>
+<span class="c1">#     model.add(BatchNormalization(name = &#39;batch_norm_2&#39;))</span>
+    
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Flatten</span><span class="p">())</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">RepeatVector</span><span class="p">(</span><span class="n">output_timesteps</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Reshape</span><span class="p">((</span><span class="n">output_timesteps</span><span class="p">,</span> <span class="n">num_inputs</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="p">)))</span>
+    
+<span class="c1">#     model.add(ConvLSTM2D(name =&#39;conv_lstm_3&#39;,</span>
+<span class="c1">#                          filters = 64, kernel_size = (10, 1), </span>
+<span class="c1">#                          padding=&#39;same&#39;,</span>
+<span class="c1">#                          return_sequences = True))</span>
+    
+<span class="c1">#     model.add(Dropout(0.20, name = &#39;dropout_3&#39;))</span>
+<span class="c1">#     model.add(BatchNormalization(name = &#39;batch_norm_3&#39;))</span>
+    
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ConvLSTM2D</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span><span class="s1">&#39;conv_lstm_4&#39;</span><span class="p">,</span>
+                         <span class="n">filters</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> 
+                         <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span>
+                         <span class="n">return_sequences</span> <span class="o">=</span> <span class="kc">True</span><span class="p">))</span>
+    
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">TimeDistributed</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;dense_1&#39;</span><span class="p">,</span> <span class="n">activation</span> <span class="o">=</span> <span class="s1">&#39;relu&#39;</span><span class="p">)))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;dense_2&#39;</span><span class="p">))</span>
+
+<span class="c1">#     optimizer = RMSprop() #lr=0.0001, rho=0.9, epsilon=1e-08, decay=0.9)</span>
+<span class="c1">#     optimizer = tf.keras.optimizers.Adam(0.1)</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">RMSprop</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.003</span><span class="p">,</span> <span class="n">clipvalue</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span> <span class="o">=</span> <span class="s2">&quot;mse&quot;</span><span class="p">,</span> <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mae&#39;</span><span class="p">,</span> <span class="s1">&#39;mse&#39;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extend Prediction Window..</span>
+<span class="n">future_target</span> <span class="o">=</span> <span class="mi">144</span>
+<span class="n">x_train_multi</span><span class="p">,</span> <span class="n">y_train_multi</span> <span class="o">=</span> <span class="n">multivariate_multioutput_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">],</span> <span class="n">dataset</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span>
+                                                 <span class="n">TRAIN_SPLIT</span><span class="p">,</span> <span class="n">past_history</span><span class="p">,</span>
+                                                 <span class="n">future_target</span><span class="p">,</span> <span class="n">STEP</span><span class="p">)</span>
+<span class="n">x_val_multi</span><span class="p">,</span> <span class="n">y_val_multi</span> <span class="o">=</span> <span class="n">multivariate_multioutput_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">],</span> <span class="n">dataset</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">],</span>
+                                             <span class="n">TRAIN_SPLIT</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">past_history</span><span class="p">,</span>
+                                             <span class="n">future_target</span><span class="p">,</span> <span class="n">STEP</span><span class="p">)</span>
+
+<span class="n">BATCH_SIZE</span> <span class="o">=</span> <span class="mi">128</span>
+
+<span class="n">train_data_multi</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">x_train_multi</span><span class="p">,</span> <span class="n">y_train_multi</span><span class="p">))</span>
+<span class="n">train_data_multi</span> <span class="o">=</span> <span class="n">train_data_multi</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">BUFFER_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">BATCH_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+
+<span class="n">val_data_multi</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">x_val_multi</span><span class="p">,</span> <span class="n">y_val_multi</span><span class="p">))</span>
+<span class="n">val_data_multi</span> <span class="o">=</span> <span class="n">val_data_multi</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">BATCH_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">EPOCHS</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">steps_per_epoch</span> <span class="o">=</span> <span class="mi">350</span>
+<span class="n">validation_steps</span> <span class="o">=</span> <span class="mi">500</span>
+
+<span class="n">modelstart</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">early_stopping</span> <span class="o">=</span> <span class="n">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span> <span class="n">patience</span> <span class="o">=</span> <span class="n">PATIENCE</span><span class="p">,</span> <span class="n">restore_best_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">(</span><span class="n">x_train_multi</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">future_target</span><span class="p">,</span> <span class="n">y_train_multi</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">x_train_multi</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+
+<span class="c1"># Train</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TRAIN MODEL...&quot;</span><span class="p">)</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data_multi</span><span class="p">,</span>
+                    <span class="n">epochs</span> <span class="o">=</span> <span class="n">EPOCHS</span><span class="p">,</span>
+                    <span class="n">validation_data</span><span class="o">=</span><span class="n">val_data_multi</span><span class="p">,</span>
+                    <span class="n">steps_per_epoch</span><span class="o">=</span><span class="n">steps_per_epoch</span><span class="p">,</span>
+                    <span class="n">validation_steps</span><span class="o">=</span><span class="n">validation_steps</span><span class="p">,</span>
+                    <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">early_stopping</span><span class="p">])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;multi-output-timesteps.h5&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Model Runtime: </span><span class="si">%0.2f</span><span class="s2"> Minutes&quot;</span><span class="o">%</span><span class="p">((</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">modelstart</span><span class="p">)</span><span class="o">/</span><span class="mi">60</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential_4&quot;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+batch_norm_0 (BatchNormaliza (None, 120, 2, 1, 1)      4         
+_________________________________________________________________
+conv_lstm_1 (ConvLSTM2D)     (None, 2, 1, 64)          166656    
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 2, 1, 64)          0         
+_________________________________________________________________
+batch_norm_1 (BatchNormaliza (None, 2, 1, 64)          256       
+_________________________________________________________________
+flatten_1 (Flatten)          (None, 128)               0         
+_________________________________________________________________
+repeat_vector_1 (RepeatVecto (None, 144, 128)          0         
+_________________________________________________________________
+reshape_1 (Reshape)          (None, 144, 2, 1, 64)     0         
+_________________________________________________________________
+conv_lstm_4 (ConvLSTM2D)     (None, 144, 2, 1, 64)     164096    
+_________________________________________________________________
+time_distributed_1 (TimeDist (None, 144, 2, 1, 1)      65        
+_________________________________________________________________
+dense_2 (Dense)              (None, 144, 2, 1, 1)      2         
+=================================================================
+Total params: 331,079
+Trainable params: 330,949
+Non-trainable params: 130
+_________________________________________________________________
+None
+
+TRAIN MODEL...
+Train for 350 steps, validate for 500 steps
+Epoch 1/30
+350/350 [==============================] - 365s 1s/step - loss: 0.3356 - mae: 0.4311 - mse: 0.3356 - val_loss: 0.6685 - val_mae: 0.6493 - val_mse: 0.6685
+Epoch 2/30
+350/350 [==============================] - 359s 1s/step - loss: 0.2108 - mae: 0.3420 - mse: 0.2108 - val_loss: 0.3068 - val_mae: 0.4309 - val_mse: 0.3068
+Epoch 3/30
+350/350 [==============================] - 358s 1s/step - loss: 0.2109 - mae: 0.3453 - mse: 0.2109 - val_loss: 0.2634 - val_mae: 0.3914 - val_mse: 0.2634
+Epoch 4/30
+350/350 [==============================] - 358s 1s/step - loss: 0.2265 - mae: 0.3569 - mse: 0.2265 - val_loss: 0.3212 - val_mae: 0.4482 - val_mse: 0.3212
+Epoch 5/30
+350/350 [==============================] - 359s 1s/step - loss: 0.1781 - mae: 0.3185 - mse: 0.1781 - val_loss: 0.2361 - val_mae: 0.3665 - val_mse: 0.2361
+Epoch 6/30
+350/350 [==============================] - 360s 1s/step - loss: 0.1754 - mae: 0.3157 - mse: 0.1754 - val_loss: 0.2369 - val_mae: 0.3649 - val_mse: 0.2369
+Epoch 7/30
+350/350 [==============================] - 362s 1s/step - loss: 0.1795 - mae: 0.3159 - mse: 0.1796 - val_loss: 0.2133 - val_mae: 0.3380 - val_mse: 0.2133
+Epoch 8/30
+350/350 [==============================] - 359s 1s/step - loss: 0.1605 - mae: 0.2974 - mse: 0.1605 - val_loss: 0.1889 - val_mae: 0.3189 - val_mse: 0.1889
+Epoch 9/30
+350/350 [==============================] - 355s 1s/step - loss: 0.1378 - mae: 0.2756 - mse: 0.1378 - val_loss: 0.2112 - val_mae: 0.3429 - val_mse: 0.2112
+Epoch 10/30
+350/350 [==============================] - 356s 1s/step - loss: 0.1429 - mae: 0.2774 - mse: 0.1429 - val_loss: 0.3326 - val_mae: 0.4587 - val_mse: 0.3326
+Epoch 11/30
+350/350 [==============================] - 351s 1s/step - loss: 0.1531 - mae: 0.2861 - mse: 0.1531 - val_loss: 0.2541 - val_mae: 0.3797 - val_mse: 0.2541
+Epoch 12/30
+350/350 [==============================] - 352s 1s/step - loss: 0.1196 - mae: 0.2553 - mse: 0.1196 - val_loss: 0.2846 - val_mae: 0.4199 - val_mse: 0.2846
+Epoch 13/30
+350/350 [==============================] - 350s 1s/step - loss: 0.1279 - mae: 0.2630 - mse: 0.1279 - val_loss: 0.2171 - val_mae: 0.3532 - val_mse: 0.2171
+
+Model Runtime: 77.43 Minutes
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_train_history</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="s1">&#39;Multi-Step, Multi-Output Training and validation loss&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c2cfbc322245753ae105d0b6ca8b960877610a2995687a395cd4d46217744d72.png" src="../_images/c2cfbc322245753ae105d0b6ca8b960877610a2995687a395cd4d46217744d72.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">val_data_multi</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">multi_step_output_plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,:,:,:,:])))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/75277485b70d52f6d31d784a95686833cae283029e58e212dc60755190431fc5.png" src="../_images/75277485b70d52f6d31d784a95686833cae283029e58e212dc60755190431fc5.png" />
+<img alt="../_images/aab9782bfa415370e59cd569c9d8bbe4aa03ecb48db5f335eb8c59b14d08595e.png" src="../_images/aab9782bfa415370e59cd569c9d8bbe4aa03ecb48db5f335eb8c59b14d08595e.png" />
+<img alt="../_images/8701e8c6b12065de12f91af72cff26d848779e3c37ec733dd1a6111c71c0afed.png" src="../_images/8701e8c6b12065de12f91af72cff26d848779e3c37ec733dd1a6111c71c0afed.png" />
+<img alt="../_images/b21bb0e5dffe94b82ed9a169bafa6c3fd32c864b75d9c9f43e202d396438500f.png" src="../_images/b21bb0e5dffe94b82ed9a169bafa6c3fd32c864b75d9c9f43e202d396438500f.png" />
+<img alt="../_images/4100307ec822608b9be7e029572b6abbab38e6bbe4213ff8a257ff5d5acf84b7.png" src="../_images/4100307ec822608b9be7e029572b6abbab38e6bbe4213ff8a257ff5d5acf84b7.png" />
+<img alt="../_images/48755cf1fb8bb4109bab9774fd2e024e06fb596139067c763c187236d14b1b24.png" src="../_images/48755cf1fb8bb4109bab9774fd2e024e06fb596139067c763c187236d14b1b24.png" />
+<img alt="../_images/1ad47b22fc0dcd58a0dd6ff19d0f9de3b646d4ba3fd3c1185576f49197331ba2.png" src="../_images/1ad47b22fc0dcd58a0dd6ff19d0f9de3b646d4ba3fd3c1185576f49197331ba2.png" />
+<img alt="../_images/fc845800897b76dcc5fdadf292893baf26ec345a789914d816e1da80fe79c048.png" src="../_images/fc845800897b76dcc5fdadf292893baf26ec345a789914d816e1da80fe79c048.png" />
+<img alt="../_images/374efc661e07eebf344795ec2aa3bc3415bd227651e93ffe2523ebf0f6ef8e16.png" src="../_images/374efc661e07eebf344795ec2aa3bc3415bd227651e93ffe2523ebf0f6ef8e16.png" />
+<img alt="../_images/19234639391ea186abad93331e3313997210ff3234310c8aeab7b5cec64c29cf.png" src="../_images/19234639391ea186abad93331e3313997210ff3234310c8aeab7b5cec64c29cf.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Notebook Runtime: </span><span class="si">%0.2f</span><span class="s2"> Minutes&quot;</span><span class="o">%</span><span class="p">((</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">notebookstart</span><span class="p">)</span><span class="o">/</span><span class="mi">60</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Notebook Runtime: 160.15 Minutes
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copyright-2019-the-tensorflow-authors">Copyright 2019 The TensorFlow Authors.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-weather-dataset">The weather dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-forecast-a-univariate-time-series">Part 1: Forecast a univariate time series</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#baseline">Baseline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrent-neural-network">Recurrent neural network</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-using-the-simple-lstm-model">Predict using the simple LSTM model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-forecast-a-multivariate-time-series">Part 2: Forecast a multivariate time series</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-step-model">Single step model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-a-single-step-future">Predict a single step future</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-step-model">Multi-Step model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-a-multi-step-future">Predict a multi-step future</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-step-multi-input-and-multi-output">Multi-Step, Multi-Input, and Multi-Output</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convolutional-lstm">Convolutional LSTM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simplified-the-convolutional-lstm">Simplified the Convolutional LSTM</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

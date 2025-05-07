@@ -1,0 +1,716 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Alur Kerja Pembelajaran Mesin &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/notebooks';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Pengantar
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="peramalan.html">Peramalan  Deret Berkala (Time Series)</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcontent/notebooks.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/notebooks.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Alur Kerja Pembelajaran Mesin</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengantar">Pengantar</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#garis-besar-pembahasan">Garis besar pembahasan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memahami-masalah-pembelajaran-mesin-anda"><a id="understand"></a>1. Memahami masalah pembelajaran mesin anda</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbedaan-mendasar-kecerdasan-buatan-pembelajaran-mesing-dan-deep-learning">Perbedaan mendasar Kecerdasan Buatan, Pembelajaran Mesing dan Deep Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kategori-pembelajaran-mesin">Kategori Pembelajaran Mesin</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelajaran-terawasi-supervised-learning">Pembelajaran Terawasi(Supervised Learning)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelajaran-tak-terawasi-unsupervised-learning">Pembelajaran Tak terawasi (Unsupervised Learning)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reinforcement-learning">Reinforcement Learning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-jaringan-syarat-neural-networks">Deep Learning / Jaringan Syarat (Neural Networks)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-data-data-preprocessing">Persiapan data (Data Preprocessing)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perancangan-pelatihan-and-pengujian-model"><a id=""></a>3. Perancangan, Pelatihan and Pengujian Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membagi-data">Membagi Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membangun-model">Membangun model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-training-the-model">Fitting (training) the model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation"><a id="model_evaluation"></a>4. Model evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menerapkan-model-ml-yang-terlatih-untuk-membuat-prediksi"><a id="inference"></a> 5. Menerapkan model ML yang terlatih untuk membuat prediksi</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <hr><section class="tex2jax_ignore mathjax_ignore" id="alur-kerja-pembelajaran-mesin">
+<h1>Alur Kerja Pembelajaran Mesin<a class="headerlink" href="#alur-kerja-pembelajaran-mesin" title="Link to this heading">#</a></h1>
+<hr><hr><section id="pengantar">
+<h2>Pengantar<a class="headerlink" href="#pengantar" title="Link to this heading">#</a></h2>
+<p align="justify"> Bagian ini memberikan  gambaran umum tentang langkah-langkah  alur kerja Machine Learning. Sebelum memulai pada implementasi sain data bumi, kita perlu mengenal secara  umum tentang prinsip-prinsip Pembelajaran Mesin, istilah umum yang sering digunakan dan alur kerja Pembelajaran Mesin
+<p>Alur kerja Machine Learning dapat dibagi menjadi lima langkah utama:</p></p>
+<figure class="align-center">
+<img alt="content/img/ml_workflow.png" src="content/img/ml_workflow.png" />
+</figure>
+<p>Selanjutnya, kami akan menjelaskan kepada Anda secara rinci masing-masing dari lima langkah alur kerja. Jika diperlukan, kami mengkaitkan dengan contoh  khusus sesuai dengan langkah tersebut</p>
+<hr></section>
+<section id="garis-besar-pembahasan">
+<h2>Garis besar pembahasan<a class="headerlink" href="#garis-besar-pembahasan" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>1 - <a class="reference internal" href="#understand"><span class="xref myst">Memahami masalah pembelajaran mesin anda</span></a></p></li>
+<li><p>2 - <a class="reference internal" href="#data_preparation"><span class="xref myst">Persiapan data </span></a></p></li>
+<li><p>3 - <a class="reference internal" href="#model_training"><span class="xref myst">Membangun model , training dan testing the model</span></a></p></li>
+<li><p>4 - <a class="reference internal" href="#model_evaluation"><span class="xref myst">Evaluasi Model</span></a></p></li>
+<li><p>5 - <a class="reference internal" href="#inference"><span class="xref myst">Inference</span></a></p></li>
+</ul>
+<hr><br></section>
+<section id="memahami-masalah-pembelajaran-mesin-anda">
+<h2><a id='understand'></a>1. Memahami masalah pembelajaran mesin anda<a class="headerlink" href="#memahami-masalah-pembelajaran-mesin-anda" title="Link to this heading">#</a></h2>
+<p>Tahap awal dalam  setiap proyek Machine Learning adalah memahami masalah yang ingin kita pecahkan. Dengan mamahami masalah secara jelas maka kita dapat menentukan model apa yang akan digunakan untuk memecahkannya. Pemahaman yang baik tentang masalah  adalah kunci keberhasilan proyek yang kita kerjakan. Model ML yang diimpleentasikan adalah sebuah algoritma yang keakuratan terhadapa prediksi atau klasifikasinya  bergantung pada pemahaman tentang masalah tersebut</p>
+<section id="perbedaan-mendasar-kecerdasan-buatan-pembelajaran-mesing-dan-deep-learning">
+<h3>Perbedaan mendasar Kecerdasan Buatan, Pembelajaran Mesing dan Deep Learning<a class="headerlink" href="#perbedaan-mendasar-kecerdasan-buatan-pembelajaran-mesing-dan-deep-learning" title="Link to this heading">#</a></h3>
+<p>Sebelum kita mendalami lebih dalam  Pembelajaran Mesin, ada baiknya jika kita lebih memahami perbedaan antara <code class="docutils literal notranslate"><span class="pre">Kecerdasan</span> <span class="pre">Buatan</span></code>, <code class="docutils literal notranslate"><span class="pre">Pembelajaran</span> <span class="pre">Mesin</span></code>, dan <code class="docutils literal notranslate"><span class="pre">Deep</span> <span class="pre">Learning</span></code></p>
+<br>
+* **Kecerdasan Buatan**: adalah ilmu yang mempelajari cara membangun program dan mesin cerdas yang dapat memecahkan masalah secara kreatif.
+<ul class="simple">
+<li><p><strong>Pembelajaran Mesin</strong>: adalah bagian dari Kecerdasan Buatan yang menjadikan sistem mampua untuk belajar dan memperbaiki dari pengalamannya, tanpa diprogram secara eksplisit. ML menggunakan berbagai algoritma yang membantu memecahkan masalah.</p></li>
+<li><p><strong>Deep Learning</strong>: adalah bagia dari Pembelajaran Mesin dengan Neural Networks sebagai dasar pondasinya algoritma. Perbedaan antara jaringan saraf tunggal dan algoritma Deep Learning adalah jumlah lapisan atau kedalaman simpul. Suatu algoritma harus memiliki setidaknya tiga lapisan node untuk diklasifikasikan sebagai algoritma Deep Learning</p></li>
+</ul>
+<p>Subsequently, we will show you the different categories of Machine Learning and for each category we will list popular ML algorithms.</p>
+</section>
+<section id="kategori-pembelajaran-mesin">
+<h3>Kategori Pembelajaran Mesin<a class="headerlink" href="#kategori-pembelajaran-mesin" title="Link to this heading">#</a></h3>
+<p>Pembelajaran Mesin secara kasar dapat dibagi menjadi empat pendekatan dasar: Pembelajaran yang terawasi (Supervised Learning), Pembelajaran Tak Terawasi (Unsupervised Learning), Pembelajaran Penguatan (Reinforcement Learning), dan Pembelajaran Mendalam (Deep Learning) / Jaringan Syaraf Tiruan`. Kategori-kategorinya cukup tumpang tindih dan tidak jelas, dan metode tertentu terkadang sulit ditempatkan dalam satu kategori.</p>
+<section id="pembelajaran-terawasi-supervised-learning">
+<h4>Pembelajaran Terawasi(Supervised Learning)<a class="headerlink" href="#pembelajaran-terawasi-supervised-learning" title="Link to this heading">#</a></h4>
+<p>Dalam pembelajaran yang diawasi, algoritma atau model anda  belajar dari data yang ‘diberi label’. Berdasarkan data yang ‘diberi label’, algoritma/model akan menentukan label dari data uji yang digunakan. Tujuan dari pembelajaran yang terawasi adalah untuk memprediksi hasil dari data baru dengan belajar dari data yang sudah berlabel. Algoritme pembelajaran yang terawasi dapat diklasifikasikan dalam dua kategori:</p>
+<ul class="simple">
+<li><p><strong>Klasisifkasi(Classification)</strong>: Anda memiliki masalah klasifikasi jika variabel outputnya adalah kategorikal. Misalka outputnya diklasifikasikan  menjadi kelas A atau kelas B.Contoh algoritma atau metode klasifikasi adalah</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">K-Nearest</span> <span class="pre">Neighbor</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Naive</span> <span class="pre">Bayes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Decision</span> <span class="pre">Trees</span> <span class="pre">/</span> <span class="pre">Random</span> <span class="pre">Forest</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Support</span> <span class="pre">Vector</span> <span class="pre">Machine</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Logistic</span> <span class="pre">Regression</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>Regresi (Regression)</strong>: Regresi adalah adalah jenis lain dari metode pembelajaran terbimbing yang menggunakan algoritma untuk memahami hubungan antara variabel terikat dan bebas. Model regresi sering digunakan untuk memprediksi nilai numerik berdasarkan  data yang berbeda. Algoritma regresi yang populer adalah</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Linear</span> <span class="pre">regression</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Logistic</span> <span class="pre">regression</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Polynomial</span> <span class="pre">regression</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="pembelajaran-tak-terawasi-unsupervised-learning">
+<h4>Pembelajaran Tak terawasi (Unsupervised Learning)<a class="headerlink" href="#pembelajaran-tak-terawasi-unsupervised-learning" title="Link to this heading">#</a></h4>
+<p>Dalam pembelajaran tanpa pengawasan, algoritme Anda belajar dari data yang tidak berlabel dan tidak diklasifikasikan, dan algoritma beroperasi pada data tersebut tanpa pelatihan sebelumnya. Algoritma ini berusaha menemukan pola tersembunyi dari data tanpa memerlukan campur tangan kita. Tujuan pembelajaran tak terawasi adalah untuk mendapatkan diskripsi dari data baru dalam jumlah besar. Pembelajaran tak terawasi dapat dibagi menjadi 2 bagian</p>
+<ul class="simple">
+<li><p><strong>Pengelompokan (Clustering)</strong>: adalah teknik data mining untuk mengelompokkan data yang tidak berlabel berdasarkan persamaan atau perbedaannya.</p></li>
+<li><p><strong>Keterkaitan (Association)</strong>: adalah jenis lain dari metode pembelajaran tanpa pengawasan yang menggunakan aturan berbeda untuk menemukan hubungan antar variabel dalam kumpulan data tertentu.</p></li>
+</ul>
+<p>Algoritma pembelajaran tak terawasi secara umum adalah:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Gaussian</span> <span class="pre">mixtures</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">K-Means</span> <span class="pre">Clustering</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Boosting</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Hierarchical</span> <span class="pre">Clustering</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">K-Means</span> <span class="pre">Clustering</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Spectral</span> <span class="pre">Clustering</span></code></p></li>
+</ul>
+</section>
+<section id="reinforcement-learning">
+<h4>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Link to this heading">#</a></h4>
+<p>Reinforcement Learning biasanya digunakan dalam situasi di mana agen AI, mis. mobil yang bisa mengemudi sendiri, harus beroperasi di lingkungan di mana umpan balik tentang pilihan baik atau buruk tersedia dengan beberapa penundaan.</p>
+<br></section>
+<section id="deep-learning-jaringan-syarat-neural-networks">
+<h4>Deep Learning / Jaringan Syarat (Neural Networks)<a class="headerlink" href="#deep-learning-jaringan-syarat-neural-networks" title="Link to this heading">#</a></h4>
+<p>Deep Learning / Neural Networks is a subset of Machine Learning and the main difference to other Machine Learning algorithms is in how much data the algorithm uses to learn. Neural Networks replicate the structure and function of the human brain. Neural networks consist of artificial neurons, also known as nodes, which are stacked next to each other in three layers: <code class="docutils literal notranslate"><span class="pre">input</span> <span class="pre">layer</span></code>, <code class="docutils literal notranslate"><span class="pre">hidden</span> <span class="pre">layer(s)</span></code> and <code class="docutils literal notranslate"><span class="pre">output</span> <span class="pre">layer</span></code>.</p>
+<p>Neural networks can leverage labeled datasets (supervised learning) but can also work with unstructured, raw data (unsupervised learning). The <em>deep</em> in Deep Learning refers to the depth of layers in a neural network. A neural network that consists of more than three layers (including input and output layers) can be considered a deep learning algorithm.
+P
+embelajaran Mendalam (Deep Learning) /Jaringan Syaraf Tiruan adalah bagian dari Pembelajaran Mesin. Perbedaan utama dengan algoritme Pembelajaran Mesin terletak pada jumlah data yang digunakan  dan algoritme untuk mempelajari data tersebut. Jaringan Neural meniru struktur dan fungsi otak manusia. Jaringan saraf terdiri dari neuron buatan, juga dikenal sebagai node, yang ditumpuk  dalam tiga lapisan: <code class="docutils literal notranslate"><span class="pre">lapisan</span> <span class="pre">masukan</span> <span class="pre">(input</span> <span class="pre">layer)</span></code>, <code class="docutils literal notranslate"><span class="pre">lapisan</span> <span class="pre">tersembunyi</span> <span class="pre">(hidden</span> <span class="pre">layer)</span></code>, dan <code class="docutils literal notranslate"><span class="pre">lapisan</span> <span class="pre">keluaran</span> <span class="pre">(output</span> <span class="pre">layer)</span></code>. Jaringan saraf dapat memanfaatkan kumpulan data berlabel (pembelajaran yang diawasi) tetapi juga dapat bekerja dengan data mentah yang tidak terstruktur (pembelajaran tak terawasi). Pembelajaran Mendalam mengacu pada kedalaman lapisan dalam jaringan saraf. Jaringan saraf yang terdiri dari lebih dari tiga lapisan (termasuk lapisan masukan dan keluaran) dapat dianggap sebagai algoritma pembelajaran mendalam.</p>
+</section>
+<section id="id1">
+<h4><a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<p>Algoritma dalam  Deep Learning yaitu:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Convolutional</span> <span class="pre">Neural</span> <span class="pre">Networks</span> <span class="pre">(CNNs)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Recurrent</span> <span class="pre">Neural</span> <span class="pre">Networks</span> <span class="pre">(RNNs)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Multilayer</span> <span class="pre">Perceptrons</span> <span class="pre">(MLPs)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Self</span> <span class="pre">Organizing</span> <span class="pre">Maps</span> <span class="pre">(SOMs)</span></code></p></li>
+</ul>
+<br><br></section>
+</section>
+</section>
+<section id="persiapan-data-data-preprocessing">
+<h2>Persiapan data (Data Preprocessing)<a class="headerlink" href="#persiapan-data-data-preprocessing" title="Link to this heading">#</a></h2>
+<p>Persiapan data, termasuk pembersihan dan pra-pemrosesan, seringkali merupakan aspek yang paling banyak memakan waktu. Data adalah faktor mendasar dalam pembelajaran mesin yang dapat memengaruhi performa model, kestabilan data, kehandalan dan skalabilitas sistem ML Anda. Sehingga hasil model Anda bergantung pada keakuratan data masukan. Data mentah tidak dapat digunakan  secara langsung secara umum pada algoritma Pembelajaran Mesin. Oleh karena itu dilakukan pemrosesan awal data</p>
+<p>Tahapan praproses data khususnya untuk <strong>pengamatan bumi</strong> adalah:</p>
+<ul class="simple">
+<li><p><strong>Pelabelan Data (Data labelling)</strong>: ini seringkali merupakan proses manual yang sangat memakan waktu dan diperlukan sekali dalam algoritma pembelajaran yang diawasi. Anda memilih titik data atau gambar secara manual dan memberinya label (atau kelas). Algoritme Pembelajaran Mesin menggunakan informasi berlabel untuk memprediksi label data yang tidak diketahui.</p></li>
+<li><p><strong>One-hot encoding dari  label</strong>: adalah cara umum untuk melakukan pra-pemrosesan fitur kategorikal untuk Pembelajaran Mesin. Label direpresentasikan sebagai nomor kelas, mis. 0 hingga 2. Dalam proses pengkodean one-hot, nomor kelas dikonversi ke representasi biner untuk menghindari algoritma mengasumsikan segala jenis hierarki intrinsik atau urutan nomor..</p></li>
+<li><p><strong>Geo-referencing dan subsetting</strong>: tergantung pada input data yang Anda miliki, langkah ini mungkin diperlukan agar citra satelit dapat memasukkannya ke dalam grid umum.</p></li>
+<li><p><strong>Resampling</strong>: langkah ini diperlukan jika data masukan Anda memiliki resolusi spasial atau temporal yang berbeda. Dalam pengambilan sampel ulang, Anda membawa semua data masukan ke resolusi spasial/temporal yang sama.</p></li>
+<li><p><strong>Rearranging dan  reshaping</strong>: ini adalah langkah yang secara khusus diperlukan dalam Pembelajaran Mesin dengan data Observasi Bumi, karena data tersebut bersifat multidimensi. Dalam operasi ini, Anda membentuk ulang struktur data asli menjadi struktur yang sesuai untuk algoritma pembelajaran Mesin.</p></li>
+<li><p><strong>Normalisasi</strong> adalah langkah pra-pemrosesan umum dalam Pembelajaran Mesin untuk membawa variabel yang diukur dalam satuan berbeda ke skala yang sama. Fungsi normalisasi yang umum adalah mis. <code class="docutils literal notranslate"><span class="pre">minmax</span></code> atau <code class="docutils literal notranslate"><span class="pre">rata-rata_std</span></code>. <code class="docutils literal notranslate"><span class="pre">minmax</span></code> menormalkan data berdasarkan nilai minimum dan maksimum data dan <code class="docutils literal notranslate"><span class="pre">mean_std</span></code> menggunakan <em>mean</em> dan <em>standar deviasi</em> untuk menormalkan data.</p></li>
+<li><p><strong>Reduksi Dimensi</strong>: jika data input Anda besar, Anda dapat menerapkan mis. algoritma pengelompokan untuk mengurangi jumlah data input. Dengan cara ini Anda juga mengurangi redundansi dan kolinearitas
+.</p></li>
+</ul>
+<br></section>
+<section id="perancangan-pelatihan-and-pengujian-model">
+<h2><a id=''></a>3. Perancangan, Pelatihan and Pengujian Model<a class="headerlink" href="#perancangan-pelatihan-and-pengujian-model" title="Link to this heading">#</a></h2>
+<p>ASetelah pra-pemrosesan data, Anda dapat mulai dengan membuat model Machine Learning. Langkah pertama adalah membagi data Anda menjadi data pelatihan, validasi, dan pengujian diikuti dengan membangun model dengan menentukan sekumpulan hyperparameter. Setelah itu, Anda melatih model tersebut</p>
+<section id="membagi-data">
+<h3>Membagi Data<a class="headerlink" href="#membagi-data" title="Link to this heading">#</a></h3>
+<p>Langkah pertama adalah mendefinisikan variabel input (X) dan output (y):</p>
+<ul class="simple">
+<li><p><strong>Variabel Input (X)</strong>: variabel input sering disebut sebagai <code class="docutils literal notranslate"><span class="pre">X</span></code> dan merupakan variabel/parameter yang Anda berikan ke model ML sebagai masukan.</p></li>
+<li><p><strong>Variabel Output(y)</strong>: variabel output sering disebut dengan variabel <code class="docutils literal notranslate"><span class="pre">y</span></code> adalah is variabel atau parameter yang akan diprediksi dengan model Machine Learning.
+<br></p></li>
+</ul>
+<p>Langkah selanjutnya adalah membagi variabel input dan output menjadi dua atau tiga subset: * <strong>Data pelatihan</strong>: data pelatihan digunakan untuk melatih model dan proporsinya selalu lebih besar (misalnya 70% atau 80%) dibandingkan dengan data validasi dan pengujian. * <strong>Data pengujian</strong>: data pengujian adalah bagian dari data *dengan proporsi lebih kecil (misalnya 20%) yang digunakan untuk menilai performa model yang sudah dilatih</p>
+<p>Alternatifnya, Anda dapat membagi kumpulan data pelatihan dan menggunakan proporsi cross validation. * <strong>Data validasi</strong>: data validasi terutama digunakan untuk menghitung kemampuan model pembelajaran mesin selama proses pelatihan, yang dapat digunakan untuk  membantu menyempurnakan hyperparameter.</p>
+<p>Fungsi scikit-learn’s <a href='https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html' target='_blank'>train_test_split</a> adalah fungsi umum yang digunakan untuk membagi data pelatihan , validasi dan pengujian.</p>
+<br>
+</section>
+<section id="membangun-model">
+<h3>Membangun model<a class="headerlink" href="#membangun-model" title="Link to this heading">#</a></h3>
+<p>Langkah selanjutnya adalah membangun model Machine Learning. Proses ini melibatkan penentuan arsitektur model dan sekumpulan <code class="docutils literal notranslate"><span class="pre">hiperparameter</span></code>. Hyperparameter digunakan untuk menyempurnakan keakuratan model Machine Learning Anda.</p>
+<p>Hyperparameter dibagi menjadi <code class="docutils literal notranslate"><span class="pre">model</span> <span class="pre">hyperparameters</span></code> dan <code class="docutils literal notranslate"><span class="pre">algorithm</span> <span class="pre">hyperparameters</span></code>:</p>
+<ul class="simple">
+<li><p><strong>model hyperpararmeters</strong>: yang mempengaruhi  performansi  model, hyperparameter tidak dapat diubah ketika penyesuaian model pada data pelatihan</p></li>
+<li><p><strong>algorithm hyperparameters</strong>: mereka tidak berpengaruh terhadap kinerja model tetapi mempengaruhi kecepatan dan kualitas proses pembelajaran. Contohnya adalah <code class="docutils literal notranslate"><span class="pre">kecepatan</span> <span class="pre">pembelajaran</span></code> atau <code class="docutils literal notranslate"><span class="pre">batch</span> <span class="pre">size</span></code></p></li>
+</ul>
+<br>
+</section>
+<section id="fitting-training-the-model">
+<h3>Fitting (training) the model<a class="headerlink" href="#fitting-training-the-model" title="Link to this heading">#</a></h3>
+<p>The last step is the training process. During the training process, the defined model is <em>fitted</em> to the training data during multiple training cycles (called <code class="docutils literal notranslate"><span class="pre">epochs</span></code>). After each iteration step, the results are validated / tested against the validation or test dataset. This step helps to assess and evaluate the model accuracy during the training process.</p>
+<p>Some algorithms also allow for setting an early stopping hyperparameter. This parameter would stop the training process, if after a given number of epochs / training cycles the model accuracy has not improved.</p>
+<br></section>
+</section>
+<section id="model-evaluation">
+<h2><a id='model_evaluation'></a>4. Model evaluation<a class="headerlink" href="#model-evaluation" title="Link to this heading">#</a></h2>
+<p>Setelah model  dilatih, kita ingin mengetahui performa dan akurasi model. Oleh karena ini, evaluasi model yang dilatih merupakan langkah penting. Selanjutnya, kita akan menyajikan pilihan metrik evaluasi umum untuk Machine Learning.</p>
+<p><strong>Catatan:</strong> Kami tidak memberikan daftar lengkap metrik evaluasi yang memungkinkan, tetapi daftar metrik yang digunakan dalam kursus dapat dilihat pada <a href='https://scikit-learn.org/stable/modules/model_evaluation.html' target='_blank'>dokumentasi metrik dan API penilaian scikit-learn</a> untuk mendapatkan gambaran umum  tentang metrik evaluasi umum untuk berbagai kategori Machine Learning.</p>
+<p><strong>Ukuran evaluasi model secara umum:</strong></p>
+<ul class="simple">
+<li><p><strong>Mean Absolute Error (MAE)</strong>: Mean Absolute Error adalah rata-rata selisih antara nilai asli dan nilai prediksi. MAE menunjukkan seberapa jauh prediksi dibandingkan dengan nilai aktual, tetapi tidak memberikan informasi apa pun tentang gambaran kesalahan. Misalnya, jika model tersebut kurang atau bagus memprediksi.</p></li>
+<li><p><strong>Root Mean Squared Error (RMSE) dan Normalized Root Mean Squared Error (nRMSE)</strong>: RMSE dan nRMSE adalah cara standar untuk mengukur kesalahan suatu model. RMSE sering digunakan untuk mengevaluasi model yang telah dilatih untuk mengetahui kegunaan/akurasinya.</p></li>
+<li><p><strong>Koefisien Korelasi Pearson</strong>: Koefisien Korelasi Pearson adalah ukuran kekuatan hubungan linear antara dua variabel (aktual vs. prediksi).</p></li>
+</ul>
+<br>
+<p><strong>Metrik khusus untuk masalah klasifikasi:</strong></p>
+<ul class="simple">
+<li><p><strong>Skor Akurasi Keseluruhan</strong>: Akurasi adalah rasio jumlah prediksi yang benar terhadap jumlah total sampel data uji.</p></li>
+<li><p><strong>Confusion Matrix</strong>: Confusion Matrix adalah matriks yang menggambarkan kinerja lengkap model. Setiap baris matriks mewakili kelas aktual dan setiap kolom mewakili kelas prediksi - atau sebaliknya. Matriks memungkinkan Anda untuk mengukur akurasi klasifikasi  - seberapa banyak informasi yang telah diklasifikasikan dengan benar dan seberapa banyak informasi yang belum diklasifikasikan dengan benar. Matriks dapat diberikan sebagai tabel atau sebagai keluaran grafis.</p></li>
+<li><p><strong>Recall (Sensitivitas)</strong>: Recall adalah jumlah hasil positif yang benar dibagi dengan jumlah semua sampel yang relevan. Semakin tinggi Recall semakin baik.</p></li>
+<li><p><strong>Presisi (Nilai prediktif positif)</strong>: Presisi adalah jumlah hasil positif yang benar dibagi dengan jumlah hasil positif yang diprediksi oleh pengklasifikasi. Semakin tinggi Presisi semakin baik.</p></li>
+<li><p><strong>Skor F1</strong>: skor F1 membantu mengukur metrik <em>Recall</em> dan <em>Presisi</em> secara bersamaan dan merupakan rata-rata harmonik dari kedua metrik. Skor F1 dapat berada di antara 0 dan 1,0.</p></li>
+<li><p><strong>Spesifisitas (Nilai Negatif Sejati)</strong>: Spesifisitas adalah jumlah hasil negatif yang benar dibagi dengan jumlah semua sampel yang relevan.</p></li>
+</ul>
+<br></section>
+<section id="menerapkan-model-ml-yang-terlatih-untuk-membuat-prediksi">
+<h2><a id='inference'></a> 5. Menerapkan model ML yang terlatih untuk membuat prediksi<a class="headerlink" href="#menerapkan-model-ml-yang-terlatih-untuk-membuat-prediksi" title="Link to this heading">#</a></h2>
+<p><strong>Inference</strong> adalah proses penerapan model Machine Learning yang telah dilatih ke data baru untuk membuat prediksi. Secara logika, inferensi adalah langkah terakhir dari alur kerja Machine Learning, karena inferensi tidak dapat terjadi tanpa langkah-langkah sebelumnya..</p>
+<p><em>referensi : <a class="github reference external" href="https://github.com/wekeo/ai4EM_MOOC/tree/main/2_ai4eo/2C_Understanding_ML_workflows">wekeo/ai4EM_MOOC</a></em></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengantar">Pengantar</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#garis-besar-pembahasan">Garis besar pembahasan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memahami-masalah-pembelajaran-mesin-anda"><a id="understand"></a>1. Memahami masalah pembelajaran mesin anda</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbedaan-mendasar-kecerdasan-buatan-pembelajaran-mesing-dan-deep-learning">Perbedaan mendasar Kecerdasan Buatan, Pembelajaran Mesing dan Deep Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kategori-pembelajaran-mesin">Kategori Pembelajaran Mesin</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelajaran-terawasi-supervised-learning">Pembelajaran Terawasi(Supervised Learning)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelajaran-tak-terawasi-unsupervised-learning">Pembelajaran Tak terawasi (Unsupervised Learning)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reinforcement-learning">Reinforcement Learning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning-jaringan-syarat-neural-networks">Deep Learning / Jaringan Syarat (Neural Networks)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-data-data-preprocessing">Persiapan data (Data Preprocessing)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perancangan-pelatihan-and-pengujian-model"><a id=""></a>3. Perancangan, Pelatihan and Pengujian Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membagi-data">Membagi Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membangun-model">Membangun model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-training-the-model">Fitting (training) the model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation"><a id="model_evaluation"></a>4. Model evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menerapkan-model-ml-yang-terlatih-untuk-membuat-prediksi"><a id="inference"></a> 5. Menerapkan model ML yang terlatih untuk membuat prediksi</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

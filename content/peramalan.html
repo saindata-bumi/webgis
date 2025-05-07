@@ -1,0 +1,593 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Peramalan Deret Berkala (Time Series) &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/peramalan';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Pengantar" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Pengantar
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Peramalan  Deret Berkala (Time Series)</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcontent/peramalan.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/peramalan.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Peramalan  Deret Berkala (Time Series)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Peramalan  Deret Berkala (Time Series)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelarajan-mesin-peramalan">Pembelarajan Mesin Peramalan</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-single-step">Peramalan single step</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-multi-step">Peramalan Multi-step</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursive-multi-step-forecasting">Recursive multi-step forecasting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-direct-multi-step">Peramalan <em>Direct multi-step</em></a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-multi-output">Peramalan Multi Output</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-peramalan-global">Model peramalan global</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-multi-seri-yang-independen">Peramalan Multi-Seri yang Independen</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="peramalan-deret-berkala-time-series">
+<h1>Peramalan  Deret Berkala (Time Series)<a class="headerlink" href="#peramalan-deret-berkala-time-series" title="Link to this heading">#</a></h1>
+<p>Deret waktu adalah dereta data data yang disusun secara berurutan dan diberi jangka waktu atauinterval yang sama atau tidak beraturan. Proses peramalan terdiri dari memprediksi nilai masa yang akan datang, baik dengan memodelkan deret tersebut berdasarkan perilaku masa lalunya (autoregresif) atau dengan memasukkan variabel eksternal(exogen) lainnya.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/forecasting_multi-step_en.gif" /></p>
+<p style="text-align:center;">Data Deret Berkala</p>
+<p>Sumber (<a class="reference external" href="https://skforecast.org/0.13.0/introduction-forecasting/introduction-forecasting">https://skforecast.org/0.13.0/introduction-forecasting/introduction-forecasting</a>)</p>
+</section>
+<section id="pembelarajan-mesin-peramalan">
+<h1>Pembelarajan Mesin Peramalan<a class="headerlink" href="#pembelarajan-mesin-peramalan" title="Link to this heading">#</a></h1>
+<p>Untuk menerapkan model pembelajaran mesin pada  peramalan, deret waktu perlu diubah menjadi matriks di mana setiap nilai dikaitkan dengan window waktu tertentu (dikenal sebagai jeda) yang mendahuluinya. Dalam konteks deret waktu, lag terkait dengan langkah waktu t didefinisikan sebagai nilai deret pada time step sebelumnya. Misalnya, lag 1 menyatakan nilai pada time step <span class="math notranslate nohighlight">\(t-1\)</span>, sedangkan lag <span class="math notranslate nohighlight">\(m\)</span> menyatakan nilai pada time step <span class="math notranslate nohighlight">\(t-m\)</span>.</p>
+<p>Transformasi ini penting bagi model pembelajaran mesin untuk mengungkap ketergantungan dan pola antara nilai masa lalu dan masa depan dalam deret waktu. Dengan menggunakan lag sebagai fitur input, model pembelajaran mesin dapat belajar dari masa lalu dan membuat prediksi nilai yang akan datang. Jumlah lag yang digunakan sebagai fitur input dalam matriks merupakan <strong>hyperparameter</strong> penting yang perlu setting  secara hati-hati untuk mendapatkan kinerja model peramalan terbaik.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/transform_timeseries.gif" /></p>
+<p style="text-align:center;">Gambar Transformasi deret waktu menjadi matriks 5 lag dan vektor dengan nilai deret yang mengikuti setiap baris matriks</p>
+<p>Jenis transformasi ini juga memungkinkan untuk memasukkan variabel tambahan.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/matrix_transformation_with_exog_variable.png" /></p>
+<p style="text-align:center;">Gambar. Transformasi deret waktu termasuk variabel eksogen</p><p>Setelah data disusun ulang ke dalam bentuk matrik (tabel), model regresi dapat dilatih untuk memprediksi nilai (step) berikutnya dari rangkaian tersebut. Selama pelatihan model, setiap baris dianggap sebagai sample data terpisah, di mana nilai pada lag 1, 2, … p dianggap sebagai prediktor untuk kuantitas target deret  waktu pada langkah waktu p+1.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/diagram-trainig-forecaster.png" /></p>
+<p>Gambaar. Diagram of training a machine learning model with time series data.</p>
+</section>
+<section id="peramalan-single-step">
+<h1>Peramalan single step<a class="headerlink" href="#peramalan-single-step" title="Link to this heading">#</a></h1>
+<p>Peramalan single step digunakan ketika tujuannya  untuk meramalkan hanya satu nilai berikutnya dari deret data  tersebut.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/diagram-single-step-forecasting.png" /></p>
+</section>
+<section id="peramalan-multi-step">
+<h1>Peramalan Multi-step<a class="headerlink" href="#peramalan-multi-step" title="Link to this heading">#</a></h1>
+<p>Saat bekerja dengan deret waktu, jarang untuk memprediksi hanya satu nilai berikutnya dalam deret <span class="math notranslate nohighlight">\((t+1)\)</span>. Sebaliknya, tujuan yang paling umum adalah untuk memprediksi seluruh interval masa depan <span class="math notranslate nohighlight">\((t+1, \dots t+n)\)</span> atau titik waktu yang jauh <span class="math notranslate nohighlight">\((t+n)\)</span>. Beberapa strategi memungkinkan pembuatan jenis prediksi ini.</p>
+<section id="recursive-multi-step-forecasting">
+<h2>Recursive multi-step forecasting<a class="headerlink" href="#recursive-multi-step-forecasting" title="Link to this heading">#</a></h2>
+<p>Karena nilai <span class="math notranslate nohighlight">\(t(n-1)\)</span> diperlukan untuk memprediksi <span class="math notranslate nohighlight">\(t(n)\)</span>, dan <span class="math notranslate nohighlight">\(t(n-1)\)</span> tidak diketahui, proses rekursif diterapkan di mana, setiap prediksi baru, didasarkan pada prediksi sebelumnya. Proses ini dikenal sebagai peramalan rekursif atau peramalan multi-langkah rekursif dan dapat dengan mudah dibuat dengan kelas ForecasterAutoreg dan ForecasterAutoregCustom.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/diagram-recursive-mutistep-forecasting.png" /></p>
+<p>Gambar. Diagram  recursive multi-step forecasting</p>
+</section>
+<section id="peramalan-direct-multi-step">
+<h2>Peramalan <em>Direct multi-step</em><a class="headerlink" href="#peramalan-direct-multi-step" title="Link to this heading">#</a></h2>
+<p>Peramalan Direct multi-step yaitu melakukan pelatihan model yang berbeda untuk setiap step dari horizon prakiraan. Misalnya, untuk memprediksi 5 nilai yang akan datang  dari deret waktu, 5 model yang berbeda dilatih, satu untuk setiap langkah. Hasilnya, prediksi tersebut bersifat independen satu sama lain. Seluruh proses ini diotomatisasi dalam kelas ForecasterAutoregDirect.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/diagram-direct-multi-step-forecasting.png" /></p>
+<p>Gambar Diagram  direct multi-step forecasting.</p>
+</section>
+</section>
+<section id="peramalan-multi-output">
+<h1>Peramalan Multi Output<a class="headerlink" href="#peramalan-multi-output" title="Link to this heading">#</a></h1>
+<p>Beberapa model pembelajaran mesin, seperti Long Short Time Memory(LSTM), dapat memprediksi beberapa nilai time series secara bersamaan.</p>
+</section>
+<section id="model-peramalan-global">
+<h1>Model peramalan global<a class="headerlink" href="#model-peramalan-global" title="Link to this heading">#</a></h1>
+<p>Peramalan deret waktu univariat memodelkan deret waktu tunggal sebagai kombinasi linier atau nonlinier dari lag-lagnya, dengan menggunakan nilai-nilai masa lalu deret tersebut untuk memprediksi nilai yang akan datang. Peramalan global memodelkan model prediktif yang mempertimbangkan semua deret waktu secara bersamaan. Model ini  menangkap pola inti yang mengatur deret tersebut, dengan demikian mengurangi potensi gangguan yang mungkin ditimbulkan oleh setiap deret. Pendekatan ini efisien secara komputasi, dan dapat menghasilkan generalisasi yang lebih kuat di seluruh deret waktu. Ada dua strategi berbeda untuk peramalan global.</p>
+<section id="peramalan-multi-seri-yang-independen">
+<h2>Peramalan Multi-Seri yang Independen<a class="headerlink" href="#peramalan-multi-seri-yang-independen" title="Link to this heading">#</a></h2>
+<p>Satu model tunggal dilatih untuk  deret waktu tertentu, tetapi setiap deret waktu tetap independen dari yang lain, yang berarti bahwa nilai masa lalu dari satu deret tidak digunakan sebagai prediktor deret lainnya. Namun, memodelkannya bersama-sama berguna karena deret tersebut dapat mengikuti pola intrinsik yang sama mengenai nilai masa lalu dan masa depan mereka. Misalnya, penjualan produk A dan B di toko yang sama mungkin tidak terkait, tetapi mereka mengikuti dinamika yang sama, yaitu dinamika toko.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/forecaster_multi_series_train_matrix_diagram.png" /></p>
+<p>Gambar. Transformasi dua deret waktu dan variabel eksogen menjadi matriks yang diperlukan untuk melatih model pembelajaran mesin dalam konteks multi-seri.</p>
+<p>Untuk memprediksi n step berikutnya, strategi peramalan multi-step rekursif diterapkan</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/forecaster_multi_series_prediction_diagram.png" /></p>
+<p>###Peramalan Multi-Seri dependent (multivariate time series)</p>
+<p>Semua data deret berkala  dimodelkan bersama dalam satu model, dengan mempertimbangkan bahwa setiap deret berkala bergantung tidak hanya pada nilai masa lalunya tetapi juga pada nilai masa lalu dari seri lainnya. Peramal diharapkan tidak hanya mempelajari informasi dari setiap seri secara terpisah tetapi juga menghubungkannya. Contohnya adalah pengukuran yang dilakukan oleh semua sensor (aliran, suhu, tekanan…) yang dipasang pada mesin industri seperti kompresor.</p>
+<p><img alt="Alt text" src="https://skforecast.org/0.13.0/img/forecaster_multivariate_train_matrix_diagram.png" /></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Pengantar</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Peramalan  Deret Berkala (Time Series)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelarajan-mesin-peramalan">Pembelarajan Mesin Peramalan</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-single-step">Peramalan single step</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-multi-step">Peramalan Multi-step</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursive-multi-step-forecasting">Recursive multi-step forecasting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-direct-multi-step">Peramalan <em>Direct multi-step</em></a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-multi-output">Peramalan Multi Output</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-peramalan-global">Model peramalan global</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#peramalan-multi-seri-yang-independen">Peramalan Multi-Seri yang Independen</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

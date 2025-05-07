@@ -1,0 +1,89 @@
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.11/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/opt/conda/lib/python3.11/site-packages/nbclient/client.py", line 1314, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/opt/conda/lib/python3.11/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/conda/lib/python3.11/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# multivariate multi-step encoder-decoder lstm example
+from numpy import array
+from numpy import hstack
+from keras.models import Sequential
+from keras.layers import LSTM
+from keras.layers import Dense
+from keras.layers import RepeatVector
+from keras.layers import TimeDistributed
+
+# split a multivariate sequence into samples
+def split_sequences(sequences, n_steps_in, n_steps_out):
+	X, y = list(), list()
+	for i in range(len(sequences)):
+		# find the end of this pattern
+		end_ix = i + n_steps_in
+		out_end_ix = end_ix + n_steps_out
+		# check if we are beyond the dataset
+		if out_end_ix > len(sequences):
+			break
+		# gather input and output parts of the pattern
+		seq_x, seq_y = sequences[i:end_ix, :], sequences[end_ix:out_end_ix, :]
+		X.append(seq_x)
+		y.append(seq_y)
+	return array(X), array(y)
+
+# define input sequence
+in_seq1 = array([10, 20, 30, 40, 50, 60, 70, 80, 90])
+in_seq2 = array([15, 25, 35, 45, 55, 65, 75, 85, 95])
+out_seq = array([in_seq1[i]+in_seq2[i] for i in range(len(in_seq1))])
+# convert to [rows, columns] structure
+in_seq1 = in_seq1.reshape((len(in_seq1), 1))
+in_seq2 = in_seq2.reshape((len(in_seq2), 1))
+out_seq = out_seq.reshape((len(out_seq), 1))
+# horizontally stack columns
+dataset = hstack((in_seq1, in_seq2, out_seq))
+# choose a number of time steps
+n_steps_in, n_steps_out = 3, 2
+# covert into input/output
+X, y = split_sequences(dataset, n_steps_in, n_steps_out)
+# the dataset knows the number of features, e.g. 2
+n_features = X.shape[2]
+# define model
+model = Sequential()
+model.add(LSTM(200, activation='relu', input_shape=(n_steps_in, n_features)))
+model.add(RepeatVector(n_steps_out))
+model.add(LSTM(200, activation='relu', return_sequences=True))
+model.add(TimeDistributed(Dense(n_features)))
+model.compile(optimizer='adam', loss='mse')
+# fit model
+model.fit(X, y, epochs=300, verbose=0)
+# demonstrate prediction
+x_input = array([[60, 65, 125], [70, 75, 145], [80, 85, 165]])
+x_input = x_input.reshape((1, n_steps_in, n_features))
+yhat = model.predict(x_input, verbose=0)
+print(yhat)
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+Cell [0;32mIn[1], line 4[0m
+[1;32m      2[0m [38;5;28;01mfrom[39;00m [38;5;21;01mnumpy[39;00m [38;5;28;01mimport[39;00m array
+[1;32m      3[0m [38;5;28;01mfrom[39;00m [38;5;21;01mnumpy[39;00m [38;5;28;01mimport[39;00m hstack
+[0;32m----> 4[0m [38;5;28;01mfrom[39;00m [38;5;21;01mkeras[39;00m[38;5;21;01m.[39;00m[38;5;21;01mmodels[39;00m [38;5;28;01mimport[39;00m Sequential
+[1;32m      5[0m [38;5;28;01mfrom[39;00m [38;5;21;01mkeras[39;00m[38;5;21;01m.[39;00m[38;5;21;01mlayers[39;00m [38;5;28;01mimport[39;00m LSTM
+[1;32m      6[0m [38;5;28;01mfrom[39;00m [38;5;21;01mkeras[39;00m[38;5;21;01m.[39;00m[38;5;21;01mlayers[39;00m [38;5;28;01mimport[39;00m Dense
+
+[0;31mModuleNotFoundError[0m: No module named 'keras'
+

@@ -1,0 +1,1290 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Peramalan Direct multi-step &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/direct-multi-step-forecasting';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Pengantar
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="peramalan.html">Peramalan  Deret Berkala (Time Series)</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcontent/direct-multi-step-forecasting.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/direct-multi-step-forecasting.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Peramalan Direct multi-step</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Peramalan Direct multi-step</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#libraries">Libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-dan-melatih-model">Membuat dan melatih model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediksi">Prediksi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitur-penting">Fitur  Penting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengektrak-matrik-training">Mengektrak matrik training</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengekstrak-matriks-prediksi">Mengekstrak matriks prediksi</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-multi-output-xgboost-regressor">Persiapan Multi Output XGBoost Regressor</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="peramalan-direct-multi-step">
+<h1>Peramalan Direct multi-step<a class="headerlink" href="#peramalan-direct-multi-step" title="Link to this heading">#</a></h1>
+<p>Strategi ini, yang umumnya dikenal sebagai peramalan Direct multi-step, secara komputasi lebih mahal daripada peramalan rekursif karena memerlukan pelatihan beberapa model. Namun, dalam beberapa skenario, strategi ini menghasilkan hasil yang lebih baik. Jenis model ini dapat diperoleh dengan kelas <code class="docutils literal notranslate"><span class="pre">ForecasterAutoregDirect</span></code> dan juga dapat menyertakan satu atau beberapa variabel eksogen.</p>
+<p>Pperamalan Direct multi-step adalah strategi peramalan deret waktu di mana model terpisah dilatih untuk memprediksi setiap langkah dalam  peramalan. Hal ini berbeda dengan peramalan multi-langkah rekursif, di mana satu model digunakan untuk membuat prediksi untuk semua langkah waktu mendatang dengan menggunakan outputnya sendiri secara rekursif sebagai input.</p>
+<p>Peramalan multi-langkah langsung dapat lebih mahal secara komputasi daripada peramalan rekursif karena memerlukan pelatihan beberapa model. Namun, peramalan ini sering kali dapat mencapai akurasi yang lebih baik dalam skenario tertentu, terutama ketika ada pola dan ketergantungan yang kompleks dalam data yang sulit ditangkap dengan satu model.</p>
+<p>Pendekatan ini dapat dilakukan menggunakan kelas <code class="docutils literal notranslate"><span class="pre">ForecasterAutoregDirect</span></code>, yang juga dapat menggabungkan satu atau beberapa variabel eksogen untuk meningkatkan akurasi prakiraan</p>
+<p style="text-align: center">
+<img src="img/diagram-direct-multi-step-forecasting.png" style="width: 700px">
+<br>
+<font size="2.5"> <i>Diagram peramalan direct multi-step </i></font>
+</p>
+<p>Untuk melatih <code class="docutils literal notranslate"><span class="pre">ForecasterAutoregDirect</span></code> beberapa matrik  training dibuat untuk setiap model.</p>
+<p style="text-align: center">
+<img src="img/diagram_skforecast_multioutput.png" style="width: 700px">
+<br>
+<font size="2.5"> <i>Transformasi dari deret waktu untuk melatih model peramalan direct multi-step.</i></font>
+</p><section id="libraries">
+<h2>Libraries<a class="headerlink" href="#libraries" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">skforecast</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Libraries</span>
+<span class="c1"># ==============================================================================</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">skforecast.ForecasterAutoregDirect</span> <span class="kn">import</span> <span class="n">ForecasterAutoregDirect</span>
+<span class="kn">from</span> <span class="nn">skforecast.datasets</span> <span class="kn">import</span> <span class="n">fetch_dataset</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">skforecast.ForecasterAutoregDirect</span> <span class="kn">import</span> <span class="n">ForecasterAutoregDirect</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">skforecast.datasets</span> <span class="kn">import</span> <span class="n">fetch_dataset</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;skforecast.ForecasterAutoregDirect&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data">
+<h2>Data<a class="headerlink" href="#data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download data</span>
+<span class="c1"># ==============================================================================</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">fetch_dataset</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;h2o&quot;</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kwargs_read_csv</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;names&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;datetime&quot;</span><span class="p">],</span> <span class="s2">&quot;header&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># Data preprocessing</span>
+<span class="c1"># ==============================================================================</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">asfreq</span><span class="p">(</span><span class="s1">&#39;MS&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+
+<span class="c1"># Split train-test</span>
+<span class="c1"># ==============================================================================</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="mi">36</span>
+<span class="n">data_train</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="n">steps</span><span class="p">]</span>
+<span class="n">data_test</span>  <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="n">steps</span><span class="p">:]</span>
+
+<span class="c1"># Plot</span>
+<span class="c1"># ==============================================================================</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">data_train</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">)</span>
+<span class="n">data_test</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>h2o
+---
+Monthly expenditure ($AUD) on corticosteroid drugs that the Australian health
+system had between 1991 and 2008.
+Hyndman R (2023). fpp3: Data for Forecasting: Principles and Practice(3rd
+Edition). http://pkg.robjhyndman.com/fpp3package/,https://github.com/robjhyndman
+/fpp3package, http://OTexts.com/fpp3.
+Shape of the dataset: (204, 2)
+</pre></div>
+</div>
+<img alt="../_images/7281c409f2f44ff12e1c7e31858d78361b5c4af8171a5890f43dae8c350d5941.png" src="../_images/7281c409f2f44ff12e1c7e31858d78361b5c4af8171a5890f43dae8c350d5941.png" />
+</div>
+</div>
+</section>
+<section id="membuat-dan-melatih-model">
+<h2>Membuat dan melatih model<a class="headerlink" href="#membuat-dan-melatih-model" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create and fit forecaster</span>
+<span class="c1"># ==============================================================================</span>
+<span class="n">forecaster</span> <span class="o">=</span> <span class="n">ForecasterAutoregDirect</span><span class="p">(</span>
+                 <span class="n">regressor</span>     <span class="o">=</span> <span class="n">Ridge</span><span class="p">(),</span>
+                 <span class="n">steps</span>         <span class="o">=</span> <span class="mi">36</span><span class="p">,</span>
+                 <span class="n">lags</span>          <span class="o">=</span> <span class="mi">15</span><span class="p">,</span>
+                 <span class="n">transformer_y</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">n_jobs</span>        <span class="o">=</span> <span class="s1">&#39;auto&#39;</span>
+             <span class="p">)</span>
+
+<span class="n">forecaster</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">data_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="prediksi">
+<h2>Prediksi<a class="headerlink" href="#prediksi" title="Link to this heading">#</a></h2>
+<p>Saat memprediksi, nilai <code class="docutils literal notranslate"><span class="pre">step</span></code> harus kurang dari atau sama dengan nilai step yang ditetapkan saat menginisialisasi peramalan. Dimulai dari 1.</p>
+<ul class="simple">
+<li><p>Jika <code class="docutils literal notranslate"><span class="pre">int</span></code>, hanya step dalam rentang 1 hingga int yang diprediksi.</p></li>
+<li><p>Jika <code class="docutils literal notranslate"><span class="pre">list</span></code> dari <code class="docutils literal notranslate"><span class="pre">int</span></code>, hanya langkah yang terdapat dalam daftar yang diprediksi.</p></li>
+<li><p>Jika <code class="docutils literal notranslate"><span class="pre">None</span></code>, sebanyak langkah yang diprediksi seperti yang ditetapkan saat inisialisasi.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Predict</span>
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># Predict only a subset of steps</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">forecaster</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2005-07-01    0.952051
+2005-11-01    1.179922
+Name: pred, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Predict all steps defined in the initialization.</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">forecaster</span><span class="o">.</span><span class="n">predict</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">predictions</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2005-07-01    0.952051
+2005-08-01    1.004145
+2005-09-01    1.114590
+Name: pred, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot predictions</span>
+<span class="c1"># ==============================================================================</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">data_train</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">)</span>
+<span class="n">data_test</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="n">predictions</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;predictions&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6cce4dff55b6b6a6d21be4bd361a90fc8896464f4e3a156fe941c1fd14902ef0.png" src="../_images/6cce4dff55b6b6a6d21be4bd361a90fc8896464f4e3a156fe941c1fd14902ef0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Prediction error</span>
+<span class="c1"># ==============================================================================</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">forecaster</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="mi">36</span><span class="p">)</span>
+
+<span class="n">error_mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span>
+                <span class="n">y_true</span> <span class="o">=</span> <span class="n">data_test</span><span class="p">,</span>
+                <span class="n">y_pred</span> <span class="o">=</span> <span class="n">predictions</span>
+            <span class="p">)</span>
+            
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test error (mse): </span><span class="si">{</span><span class="n">error_mse</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test error (mse): 0.008419597278831965
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="fitur-penting">
+<h2>Fitur  Penting<a class="headerlink" href="#fitur-penting" title="Link to this heading">#</a></h2>
+<p>Karena <code class="docutils literal notranslate"><span class="pre">ForecasterAutoregDirect</span></code> cocok dengan satu model per step, maka perlu untuk menentukan dari model mana fitur penting yang diambil.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">forecaster</span><span class="o">.</span><span class="n">get_feature_importances</span><span class="p">(</span><span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>feature</th>
+      <th>importance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>11</th>
+      <td>lag_12</td>
+      <td>0.551652</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>lag_11</td>
+      <td>0.154030</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>lag_1</td>
+      <td>0.139299</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>lag_13</td>
+      <td>0.057513</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>lag_2</td>
+      <td>0.051089</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>lag_3</td>
+      <td>0.044192</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>lag_10</td>
+      <td>0.020511</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>lag_9</td>
+      <td>0.011918</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>lag_8</td>
+      <td>-0.012591</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>lag_6</td>
+      <td>-0.013233</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>lag_5</td>
+      <td>-0.017935</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>lag_4</td>
+      <td>-0.019868</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>lag_7</td>
+      <td>-0.021063</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>lag_15</td>
+      <td>-0.035237</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>lag_14</td>
+      <td>-0.071071</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="mengektrak-matrik-training">
+<h2>Mengektrak matrik training<a class="headerlink" href="#mengektrak-matrik-training" title="Link to this heading">#</a></h2>
+<p>Dua tahap yang diperlukan untuk mengekstrak matriks pelatihan matrik. Yang pertama untuk membuat seluruh matriks pelatihan dan yang kedua untuk membuat subset data yang diperlukan untuk setiap model (step).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the whole train matrix</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">forecaster</span><span class="o">.</span><span class="n">create_train_X_y</span><span class="p">(</span><span class="n">data_train</span><span class="p">)</span>
+
+<span class="c1"># Extract X and y to train the model for step 1</span>
+<span class="n">X_1</span><span class="p">,</span> <span class="n">y_1</span> <span class="o">=</span> <span class="n">forecaster</span><span class="o">.</span><span class="n">filter_train_X_y_for_step</span><span class="p">(</span>
+               <span class="n">step</span>          <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+               <span class="n">X_train</span>       <span class="o">=</span> <span class="n">X</span><span class="p">,</span>
+               <span class="n">y_train</span>       <span class="o">=</span> <span class="n">y</span><span class="p">,</span>
+               <span class="n">remove_suffix</span> <span class="o">=</span> <span class="kc">False</span>
+           <span class="p">)</span>
+
+<span class="n">X_1</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>lag_1</th>
+      <th>lag_2</th>
+      <th>lag_3</th>
+      <th>lag_4</th>
+      <th>lag_5</th>
+      <th>lag_6</th>
+      <th>lag_7</th>
+      <th>lag_8</th>
+      <th>lag_9</th>
+      <th>lag_10</th>
+      <th>lag_11</th>
+      <th>lag_12</th>
+      <th>lag_13</th>
+      <th>lag_14</th>
+      <th>lag_15</th>
+    </tr>
+    <tr>
+      <th>datetime</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1992-12-01</th>
+      <td>0.534761</td>
+      <td>0.475463</td>
+      <td>0.483389</td>
+      <td>0.410534</td>
+      <td>0.361801</td>
+      <td>0.379808</td>
+      <td>0.351348</td>
+      <td>0.336220</td>
+      <td>0.660119</td>
+      <td>0.602652</td>
+      <td>0.502369</td>
+      <td>0.492543</td>
+      <td>0.432159</td>
+      <td>0.400906</td>
+      <td>0.429795</td>
+    </tr>
+    <tr>
+      <th>1993-01-01</th>
+      <td>0.568606</td>
+      <td>0.534761</td>
+      <td>0.475463</td>
+      <td>0.483389</td>
+      <td>0.410534</td>
+      <td>0.361801</td>
+      <td>0.379808</td>
+      <td>0.351348</td>
+      <td>0.336220</td>
+      <td>0.660119</td>
+      <td>0.602652</td>
+      <td>0.502369</td>
+      <td>0.492543</td>
+      <td>0.432159</td>
+      <td>0.400906</td>
+    </tr>
+    <tr>
+      <th>1993-02-01</th>
+      <td>0.595223</td>
+      <td>0.568606</td>
+      <td>0.534761</td>
+      <td>0.475463</td>
+      <td>0.483389</td>
+      <td>0.410534</td>
+      <td>0.361801</td>
+      <td>0.379808</td>
+      <td>0.351348</td>
+      <td>0.336220</td>
+      <td>0.660119</td>
+      <td>0.602652</td>
+      <td>0.502369</td>
+      <td>0.492543</td>
+      <td>0.432159</td>
+    </tr>
+    <tr>
+      <th>1993-03-01</th>
+      <td>0.771258</td>
+      <td>0.595223</td>
+      <td>0.568606</td>
+      <td>0.534761</td>
+      <td>0.475463</td>
+      <td>0.483389</td>
+      <td>0.410534</td>
+      <td>0.361801</td>
+      <td>0.379808</td>
+      <td>0.351348</td>
+      <td>0.336220</td>
+      <td>0.660119</td>
+      <td>0.602652</td>
+      <td>0.502369</td>
+      <td>0.492543</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_1</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(118,)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_1</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>datetime
+1992-12-01    0.771258
+1993-01-01    0.751503
+1993-02-01    0.387554
+1993-03-01    0.427283
+1993-04-01    0.413890
+1993-05-01    0.428859
+1993-06-01    0.470126
+1993-07-01    0.509210
+1993-08-01    0.558443
+1993-09-01    0.601514
+1993-10-01    0.632947
+1993-11-01    0.699605
+1993-12-01    0.963081
+1994-01-01    0.819325
+1994-02-01    0.437670
+1994-03-01    0.506121
+1994-04-01    0.470491
+1994-05-01    0.510696
+1994-06-01    0.540514
+1994-07-01    0.558119
+1994-08-01    0.672852
+1994-09-01    0.685897
+1994-10-01    0.689692
+1994-11-01    0.741304
+1994-12-01    0.813308
+1995-01-01    0.803113
+1995-02-01    0.475258
+1995-03-01    0.552572
+1995-04-01    0.527108
+1995-05-01    0.561250
+1995-06-01    0.588978
+1995-07-01    0.623134
+1995-08-01    0.740837
+1995-09-01    0.725372
+1995-10-01    0.815803
+1995-11-01    0.814009
+1995-12-01    0.926653
+1996-01-01    0.937276
+1996-02-01    0.528762
+1996-03-01    0.559340
+Freq: MS, Name: y_step_3, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mengekstrak-matriks-prediksi">
+<h2>Mengekstrak matriks prediksi<a class="headerlink" href="#mengekstrak-matriks-prediksi" title="Link to this heading">#</a></h2>
+<p>Skforecast menyediakan metode <code class="docutils literal notranslate"><span class="pre">create_predict_X</span></code> untuk menghasilkan matriks yang digunakan peramalan untuk membuat prediksi. Metode ini dapat digunakan untuk mendapatkan wawasan tentang manipulasi data spesifik yang terjadi selama proses prediksi.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create input matrix for predict method</span>
+<span class="c1"># ==============================================================================</span>
+<span class="n">X_predict</span> <span class="o">=</span> <span class="n">forecaster</span><span class="o">.</span><span class="n">create_predict_X</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">X_predict</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>lag_1</th>
+      <th>lag_2</th>
+      <th>lag_3</th>
+      <th>lag_4</th>
+      <th>lag_5</th>
+      <th>lag_6</th>
+      <th>lag_7</th>
+      <th>lag_8</th>
+      <th>lag_9</th>
+      <th>lag_10</th>
+      <th>lag_11</th>
+      <th>lag_12</th>
+      <th>lag_13</th>
+      <th>lag_14</th>
+      <th>lag_15</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2005-07-01</th>
+      <td>0.842263</td>
+      <td>0.695248</td>
+      <td>0.670505</td>
+      <td>0.65259</td>
+      <td>0.597639</td>
+      <td>1.17069</td>
+      <td>1.257238</td>
+      <td>1.216037</td>
+      <td>1.181011</td>
+      <td>1.134432</td>
+      <td>0.994864</td>
+      <td>1.001593</td>
+      <td>0.856803</td>
+      <td>0.795129</td>
+      <td>0.739986</td>
+    </tr>
+    <tr>
+      <th>2005-08-01</th>
+      <td>0.842263</td>
+      <td>0.695248</td>
+      <td>0.670505</td>
+      <td>0.65259</td>
+      <td>0.597639</td>
+      <td>1.17069</td>
+      <td>1.257238</td>
+      <td>1.216037</td>
+      <td>1.181011</td>
+      <td>1.134432</td>
+      <td>0.994864</td>
+      <td>1.001593</td>
+      <td>0.856803</td>
+      <td>0.795129</td>
+      <td>0.739986</td>
+    </tr>
+    <tr>
+      <th>2005-09-01</th>
+      <td>0.842263</td>
+      <td>0.695248</td>
+      <td>0.670505</td>
+      <td>0.65259</td>
+      <td>0.597639</td>
+      <td>1.17069</td>
+      <td>1.257238</td>
+      <td>1.216037</td>
+      <td>1.181011</td>
+      <td>1.134432</td>
+      <td>0.994864</td>
+      <td>1.001593</td>
+      <td>0.856803</td>
+      <td>0.795129</td>
+      <td>0.739986</td>
+    </tr>
+    <tr>
+      <th>2005-10-01</th>
+      <td>0.842263</td>
+      <td>0.695248</td>
+      <td>0.670505</td>
+      <td>0.65259</td>
+      <td>0.597639</td>
+      <td>1.17069</td>
+      <td>1.257238</td>
+      <td>1.216037</td>
+      <td>1.181011</td>
+      <td>1.134432</td>
+      <td>0.994864</td>
+      <td>1.001593</td>
+      <td>0.856803</td>
+      <td>0.795129</td>
+      <td>0.739986</td>
+    </tr>
+    <tr>
+      <th>2005-11-01</th>
+      <td>0.842263</td>
+      <td>0.695248</td>
+      <td>0.670505</td>
+      <td>0.65259</td>
+      <td>0.597639</td>
+      <td>1.17069</td>
+      <td>1.257238</td>
+      <td>1.216037</td>
+      <td>1.181011</td>
+      <td>1.134432</td>
+      <td>0.994864</td>
+      <td>1.001593</td>
+      <td>0.856803</td>
+      <td>0.795129</td>
+      <td>0.739986</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="persiapan-multi-output-xgboost-regressor">
+<h1>Persiapan Multi Output XGBoost Regressor<a class="headerlink" href="#persiapan-multi-output-xgboost-regressor" title="Link to this heading">#</a></h1>
+<p><a class="github reference external" href="https://github.com/KasperGroesLudvigsen/xgboost_time_series/blob/main/train_test_xgboost.ipynb">KasperGroesLudvigsen/xgboost_time_series</a></p>
+<p><a class="reference external" href="https://www.forecastclub.blog/2024/08/6-methods-for-multi-step-forecasting.html">https://www.forecastclub.blog/2024/08/6-methods-for-multi-step-forecasting.html</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">xgboost</span> <span class="kn">import</span> <span class="n">XGBRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.multioutput</span> <span class="kn">import</span> <span class="n">MultiOutputRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Generate a synthetic univariate time series dataset</span>
+<span class="n">series</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">200</span><span class="p">))</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.1</span>
+
+<span class="c1"># Prepare data for supervised learning</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>numpy.ndarray
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_dataset</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_steps_in</span><span class="p">,</span> <span class="n">n_steps_out</span><span class="p">):</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="n">n_steps_in</span> <span class="o">-</span> <span class="n">n_steps_out</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">n_steps_in</span><span class="p">])</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">n_steps_in</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">n_steps_in</span> <span class="o">+</span> <span class="n">n_steps_out</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="n">n_steps_in</span><span class="p">,</span> <span class="n">n_steps_out</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_dataset</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;series&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">n_steps_in</span><span class="p">,</span> <span class="n">n_steps_out</span><span class="p">)</span>
+
+<span class="c1"># Chronological split of data into train and test sets</span>
+<span class="n">split_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="n">split_index</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">split_index</span><span class="p">:]</span>
+<span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:</span><span class="n">split_index</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">split_index</span><span class="p">:]</span>
+
+<span class="c1"># Initialize an XGBRegressor model wrapped in a MultiOutputRegressor</span>
+<span class="n">base_model</span> <span class="o">=</span> <span class="n">XGBRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">MultiOutputRegressor</span><span class="p">(</span><span class="n">base_model</span><span class="p">)</span>
+
+<span class="c1"># Fit the model on the training data</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Make multi-step predictions on the test set</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Evaluate the model&#39;s performance</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean Squared Error: </span><span class="si">{</span><span class="n">mse</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Visualize the actual vs. predicted values for the test set</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Actual&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predicted&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="n">line</span> <span class="mi">9</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">n_steps_in</span><span class="p">,</span> <span class="n">n_steps_out</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span>
+<span class="ne">----&gt; </span><span class="mi">9</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_dataset</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;series&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">n_steps_in</span><span class="p">,</span> <span class="n">n_steps_out</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="c1"># Chronological split of data into train and test sets</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">split_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;df&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Peramalan Direct multi-step</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#libraries">Libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-dan-melatih-model">Membuat dan melatih model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediksi">Prediksi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitur-penting">Fitur  Penting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengektrak-matrik-training">Mengektrak matrik training</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengekstrak-matriks-prediksi">Mengekstrak matriks prediksi</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-multi-output-xgboost-regressor">Persiapan Multi Output XGBoost Regressor</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
