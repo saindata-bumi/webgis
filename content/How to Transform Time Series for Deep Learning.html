@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -411,10 +411,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pmdarima
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading pmdarima-2.0.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_28_x86_64.whl.metadata (7.8 kB)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pmdarima in /opt/conda/lib/python3.11/site-packages (2.0.4)
 Requirement already satisfied: joblib&gt;=0.11 in /opt/conda/lib/python3.11/site-packages (from pmdarima) (1.4.2)
 Requirement already satisfied: Cython!=0.29.18,!=0.29.31,&gt;=0.29 in /opt/conda/lib/python3.11/site-packages (from pmdarima) (3.0.11)
 Requirement already satisfied: numpy&gt;=1.21.2 in /opt/conda/lib/python3.11/site-packages (from pmdarima) (1.26.4)
@@ -423,31 +420,16 @@ Requirement already satisfied: scikit-learn&gt;=0.22 in /opt/conda/lib/python3.1
 Requirement already satisfied: scipy&gt;=1.3.2 in /opt/conda/lib/python3.11/site-packages (from pmdarima) (1.14.1)
 Requirement already satisfied: statsmodels&gt;=0.13.2 in /opt/conda/lib/python3.11/site-packages (from pmdarima) (0.14.2)
 Requirement already satisfied: urllib3 in /opt/conda/lib/python3.11/site-packages (from pmdarima) (2.2.2)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: setuptools!=50.0.0,&gt;=38.6.0 in /opt/conda/lib/python3.11/site-packages (from pmdarima) (72.2.0)
+Requirement already satisfied: setuptools!=50.0.0,&gt;=38.6.0 in /opt/conda/lib/python3.11/site-packages (from pmdarima) (72.2.0)
 Requirement already satisfied: packaging&gt;=17.1 in /opt/conda/lib/python3.11/site-packages (from pmdarima) (24.1)
 Requirement already satisfied: python-dateutil&gt;=2.8.2 in /opt/conda/lib/python3.11/site-packages (from pandas&gt;=0.19-&gt;pmdarima) (2.9.0)
 Requirement already satisfied: pytz&gt;=2020.1 in /opt/conda/lib/python3.11/site-packages (from pandas&gt;=0.19-&gt;pmdarima) (2024.1)
 Requirement already satisfied: tzdata&gt;=2022.7 in /opt/conda/lib/python3.11/site-packages (from pandas&gt;=0.19-&gt;pmdarima) (2024.1)
-Requirement already satisfied: threadpoolctl&gt;=3.1.0 in /opt/conda/lib/python3.11/site-packages (from scikit-learn&gt;=0.22-&gt;pmdarima) (3.5.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: threadpoolctl&gt;=3.1.0 in /opt/conda/lib/python3.11/site-packages (from scikit-learn&gt;=0.22-&gt;pmdarima) (3.5.0)
 Requirement already satisfied: patsy&gt;=0.5.6 in /opt/conda/lib/python3.11/site-packages (from statsmodels&gt;=0.13.2-&gt;pmdarima) (0.5.6)
 Requirement already satisfied: six in /opt/conda/lib/python3.11/site-packages (from patsy&gt;=0.5.6-&gt;statsmodels&gt;=0.13.2-&gt;pmdarima) (1.16.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading pmdarima-2.0.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_28_x86_64.whl (2.2 MB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/2.2 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━ <span class=" -Color -Color-Green">2.1/2.2 MB</span> <span class=" -Color -Color-Red">36.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">2.2/2.2 MB</span> <span class=" -Color -Color-Red">12.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25h
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: pmdarima
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed pmdarima-2.0.4
 </pre></div>
 </div>
 </div>
@@ -544,7 +526,7 @@ Aug 1749         29.3         -1.5         11.3        -28.5
 Sep 1749         -1.5         11.3        -28.5          9.6
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Absolute Error: 13.531598164676513
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Absolute Error: 13.537939934267992
 </pre></div>
 </div>
 </div>
@@ -617,7 +599,7 @@ Sep 1749         -1.5         11.3        -28.5          9.6
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5609/3392992573.py:4: UserWarning: Could not infer format, so each element will be parsed individually, falling back to `dateutil`. To ensure parsing is consistent and as-expected, please specify a format.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_10278/3392992573.py:4: UserWarning: Could not infer format, so each element will be parsed individually, falling back to `dateutil`. To ensure parsing is consistent and as-expected, please specify a format.
   data = pd.read_csv(&#39;https://raw.githubusercontent.com/vcerqueira/blog/refs/heads/main/data/wine_sales.csv&#39;, parse_dates=[&#39;date&#39;])
 </pre></div>
 </div>
